@@ -46,12 +46,12 @@ const signIn = async (req, res) => {
         const newU = await User.findByIdAndUpdate(user._id, { refreshToken },{new:true});
         res.header("x-access-token", accessToken);
         res.header("x-refresh-token", refreshToken);
-        res.status(200).json({ message: "success", user: currentUser });
+        res.send({ message: "success", user: currentUser });
       } else{
-        res.status(401).json({ message: "invalid email or password " });
+        res.send({ message: "invalid email or password" });
       }
     }else{
-      res.status(404).json({ message: "user not found" });
+      res.send({ message: "invalid email or password" });
     }
   } catch (error) {
     res.status(500).json({ ...error });
