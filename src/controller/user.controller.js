@@ -11,11 +11,11 @@ const signUp = async (req, res) => {
   const user = new User(req.body);
 
   try {
-    await user.save();
+    const newUser =await user.save();
     // const token = await user.generateAuthToken();
-    res.status(201).send({ user });
+    res.status(201).send({ newUser, success: true });
   } catch (e) {
-    res.status(400).send(e);
+    res.status(400).send({ e, success: false });
   }
 };
 
