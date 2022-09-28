@@ -1,4 +1,5 @@
 const Food = require("../models/food");
+const mongoose = require('mongoose')
 
 // get all food
 const getFoods = async (req, res) => {
@@ -18,11 +19,11 @@ const foodsByCategory = async (req, res) => {
   const Sugar = await Food.find({ category: "Sugar" });
 
   data = {
-    "Fruits and Vegetables": Vegetables_Fruits,
-    "Starchy food": StarchyFood,
-    "Proteins": Proteins,
-    "Dairy and Fats": Dairy_Fat,
-    "Sugar": Sugar,
+    Vegetables_Fruits: Vegetables_Fruits,
+    StarchyFood: StarchyFood,
+    Proteins: Proteins,
+    Dairy_Fat: Dairy_Fat,
+    Sugar: Sugar,
   };
 
   res.status(200).json(data);
