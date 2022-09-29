@@ -1,9 +1,11 @@
 const { Router } = require("express");
 const { getInputs } = require("../controller/dietPlan.controller");
+const auth = require("../middleware/auth");
+
 
 const router = Router();
 
-router.post("/quiz", getInputs);
+router.post("/quiz", auth, getInputs);
 
 
 
