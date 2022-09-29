@@ -35,6 +35,11 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: false,
     },
+    role: {
+      type: String,
+      trim: true,
+      required: true,
+    },
     // tokens: [
     //   {
     //     token: {
@@ -44,6 +49,7 @@ const userSchema = new mongoose.Schema(
     //   },
     // ],
   },
+
   { timestamps: true }
 );
 

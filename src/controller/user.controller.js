@@ -34,6 +34,7 @@ const signIn = async (req, res) => {
           id: user._id,
           name: user.name,
           email: user.email,
+          role: user.role,
         };
         const accessToken = jwt.sign(currentUser, ACCESS_TOKEN_SECRET_KEY, {
           expiresIn: JWT_AT_ET,
