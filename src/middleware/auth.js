@@ -9,18 +9,18 @@ const auth = async (req, res, next) => {
   try {
     let refreshTokenHeader = req.headers["x-refresh-token"];
     let accessTokenHeader = req.headers["x-access-token"];
-    if (refreshTokenHeader === undefined && accessTokenHeader === undefined)
-    return res.status(404).json({ message: "auth token not found" });
-    else {
+    if (refreshTokenHeader == undefined && accessTokenHeader == undefined) {
+      return res.status(404).json({ message: "auth token not found" });
+    } else {
       let refreshToken = refreshTokenHeader && refreshTokenHeader.split(" ")[1]; //TODO:check whether bearer is there to split
       let accessToken = accessTokenHeader && accessTokenHeader.split(" ")[1];
-      
+
       if (accessToken) {
         const atStatus = accessTokenVerify(
           accessToken,
           ACCESS_TOKEN_SECRET_KEY
-          );
-          console.log(atStatus);
+        );
+        console.log(atStatus);
         if (atStatus.status === "success") {
           res.header("x-access-token", atStatus.newToken);
           req.user = atStatus.message;
@@ -82,18 +82,18 @@ const refreshTokenVerify = async (token, key, atKey) => {
       const value = jwt.verify(token, key);
       console.log(user);
       if (value.id === user.id) {
-       
-          const user = {
-            id: value.id,
-            username: value.email,
-          };
-          const newRT = jwt.sign(user, atKey, { expiresIn: JWT_AT_ET });
-          return { status: "success", message: value, newToken: newRT };
-      
+        const user = {
+          id: value.id,
+          username: value.email,
+        };
+        const newRT = jwt.sign(user, atKey, { expiresIn: JWT_AT_ET });
+        return { status: "success", message: value, newToken: newRT };
       } else {
+        
         return { status: "error", message: "Not valid token" };
       }
     } else {
+      console.log("s")
       return { status: "error", message: "Not valid token" };
     }
   } catch (error) {
