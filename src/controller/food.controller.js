@@ -3,9 +3,13 @@ const mongoose = require('mongoose')
 
 // get all food
 const getFoods = async (req, res) => {
-  const foods = await Food.find({});
+  try {
+    const foods = await Food.find({});
 
-  res.status(200).json(foods);
+    res.status(200).json(foods);
+  } catch (error) {
+    res.status(400).send(error);
+  }
 };
 
 //get all food by category
@@ -59,7 +63,7 @@ const addfood = async (req, res) => {
       carbs,
       image,
     });
-    console.log(food);
+    // console.log(food);
     res.status(200).json(food);
   } catch (error) {
     res.status(400).json({ error: error.message });

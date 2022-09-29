@@ -1,16 +1,17 @@
 const sharp = require("sharp");
 
 const addImage = async (req, res) => {
-  const { category, courseId } = req.body;
-  const _id = req.params.id;
+ 
   
   try {
-    //   console.log(req.file);
+      // console.log(req.file);
       const buffData = await sharp(req.file.buffer)
       .resize({ width: 300, height: 300 })
-      .toFormat("jpeg", { mozjpeg: true })
       .toBuffer();
-    res.send(buffData);
+
+      console.log(buffData);
+      
+    res.send(req.file.buffer);
   } catch (error) {
     res.status(400).send();
   }

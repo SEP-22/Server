@@ -1,5 +1,6 @@
 const { Router } = require("express");
 const { getFoods, addfood, editFood, deleteFood, foodsByCategory, } = require("../controller/food.controller");
+const auth = require("../middleware/auth");
 
 const router = Router();
 
