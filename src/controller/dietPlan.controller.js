@@ -3,9 +3,19 @@ const mongoose = require("mongoose");
 
 //save inputs from user
 const getInputs = async (req, res) => {
-    console.log("hell");
-  const { user_Id, dob, gender, activity, intention, height, weight } =
-    req.body;
+  console.log("hell");
+  const {
+    user_Id,
+    dob,
+    gender,
+    activity,
+    intention,
+    height,
+    weight,
+    diabetics,
+    cholesterol,
+    bloodpressure,
+  } = req.body;
 
   try {
     const dietPlan = await DietPlan.create({
@@ -16,6 +26,9 @@ const getInputs = async (req, res) => {
       intention,
       height,
       weight,
+      diabetics,
+      cholesterol,
+      bloodpressure,
     });
     res.status(200).json(dietPlan);
   } catch (error) {

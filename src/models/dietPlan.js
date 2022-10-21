@@ -49,6 +49,18 @@ const deitPlanSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    diabetics: {
+      type: Boolean,
+      required: true,
+    },
+    cholesterol: {
+      type: Boolean,
+      required: true,
+    },
+    bloodpressure: {
+      type: Boolean,
+      required: true,
+    },
     // active: {
     //   type: Boolean,
     // },
