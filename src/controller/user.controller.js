@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const User = require("../models/user");
+const mongoose = require("mongoose");
 
 const ACCESS_TOKEN_SECRET_KEY = process.env.ACCESS_TOKEN_SECRET_KEY;
 const REFRESH_TOKEN_SECRET_KEY = process.env.REFRESH_TOKEN_SECRET_KEY;
@@ -11,7 +12,7 @@ const signUp = async (req, res) => {
   const user = new User(req.body);
 
   try {
-    const newUser =await user.save();
+    const newUser = await user.save();
     // const token = await user.generateAuthToken();
     res.status(201).send({ newUser, success: true });
   } catch (e) {
@@ -44,14 +45,18 @@ const signIn = async (req, res) => {
           expiresIn: JWT_RT_ET,
         });
         console.log(refreshToken);
-        const newU = await User.findByIdAndUpdate(user._id, { refreshToken },{new:true});
+        const newU = await User.findByIdAndUpdate(
+          user._id,
+          { refreshToken },
+          { new: true }
+        );
         res.header("x-access-token", accessToken);
         res.header("x-refresh-token", refreshToken);
         res.send({ message: "success", user: currentUser });
-      } else{
+      } else {
         res.send({ message: "invalid email or password" });
       }
-    }else{
+    } else {
       res.send({ message: "invalid email or password" });
     }
   } catch (error) {
@@ -72,6 +77,63 @@ const signOut = async (req, res) => {
   }
 };
 
+//save the prefered foods selected by the users - array of food _ids
+const setPreferedFoods = async (req, res) => {
+  const _id = req.body.user_Id;
+  if (!mongoose.Types.ObjectId.isValid(_id)) {
+    return res.status(400).json({ error: "No such user" });
+  }
+
+  const user = await User.findByIdAndUpdate(
+    { _id },
+    { preferedFoods: req.body.foods },
+    { new: true }
+  );
+  if (!user) {
+    return res.status(400).json({ error: "Failed to update prefered foods" });
+  }
+  res.status(200).json(user);
+};
+
+//check whether user has an active diet plan - if yes returns true and Active Plan _id - if no returns false
+const haveActiveDietPlan = async (req, res) => {
+  const _id = req.body.user_Id;
+  if (!mongoose.Types.ObjectId.isValid(_id)) {
+    return res.status(400).json({ error: "No such user" });
+  }
+
+  const user = await User.findById(_id);
+
+  if (!user) {
+    return res.status(400).json({ error: "User not found" });
+  }
+  if (!user.activePlan_Id) {
+    data = { active: false };
+  } else {
+    data = { active: true, activePlan_Id: user.activePlan_Id };
+  }
+  res.status(200).json(data);
+};
+
+//update active plan _id
+const updateActiveDietPlan = async (req, res) => {
+  const _id = req.body.user_Id;
+  if (!mongoose.Types.ObjectId.isValid(_id)) {
+    return res.status(400).json({ error: "No such user" });
+  }
+
+  const user = await User.findByIdAndUpdate(
+    { _id },
+    { activePlan_Id: req.body.activePlan_Id },
+    { new: true }
+  );
+
+  if (!user) {
+    return res.status(400).json({ error: "Failed to update active plan" });
+  }
+  res.status(200).json(user);
+};
+
 //////////////////////// ING ////////////////////////
 
 const users = [
@@ -83,13 +145,13 @@ const users = [
   },
 ];
 
-const getUsers = async (req,res)=>{
+const getUsers = async (req, res) => {
   try {
-    res.send(users)
+    res.send(users);
   } catch (error) {
-    res.send("error")
+    res.send("error");
   }
-}
+};
 
 //////////////////////// TESTING ////////////////////////
 
@@ -98,4 +160,7 @@ module.exports = {
   signIn,
   signOut,
   getUsers,
+  setPreferedFoods,
+  haveActiveDietPlan,
+  updateActiveDietPlan,
 };

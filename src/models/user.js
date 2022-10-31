@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const validator = require("validator");
+const { ObjectId } = require("bson");
 
 const userSchema = new mongoose.Schema(
   {
@@ -48,6 +49,17 @@ const userSchema = new mongoose.Schema(
     //     },
     //   },
     // ],
+    activePlan_Id: {
+      type: ObjectId,
+      required: false,
+      trim: true,
+    },
+    preferedFoods : [{
+       type : ObjectId, 
+       required: false,   
+       trim: true,    
+      }
+    ]
   },
 
   { timestamps: true }

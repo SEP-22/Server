@@ -33,6 +33,49 @@ const foodsByCategory = async (req, res) => {
   res.status(200).json(data);
 };
 
+
+//get food good for highbloodpressure
+const foodForHighBloodPressure = async (req, res) => {
+  const HighBloodPressure = await Food.find({
+    bloodpressure: true,
+  });
+
+  data = {
+    HighBloodPressure: HighBloodPressure,
+  };
+
+  res.status(200).json(data);
+};
+
+
+//get food good for diabetics
+const foodForDiabetics = async (req, res) => {
+  const Diabetics = await Food.find({
+    diabetics: true,
+  });
+
+  data = {
+    Diabetics: Diabetics,
+  };
+
+  res.status(200).json(data);
+};
+
+
+//get food good for cholesterol
+const foodForCholesterol = async (req, res) => {
+  const Cholesterol = await Food.find({
+    cholesterol: true,
+  });
+
+  data = {
+    Cholesterol: Cholesterol,
+  };
+
+  res.status(200).json(data);
+};
+
+
 // add new food
 const addfood = async (req, res) => {
   const {
@@ -115,4 +158,7 @@ module.exports = {
   editFood,
   deleteFood,
   foodsByCategory,
+  foodForCholesterol,
+  foodForDiabetics,
+  foodForHighBloodPressure,
 };
