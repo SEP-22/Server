@@ -77,6 +77,20 @@ const signOut = async (req, res) => {
   }
 };
 
+//get prefered foods
+const getPreferedFoods = async (req, res) => {
+  const _id = req.body.user_Id;
+  if (!mongoose.Types.ObjectId.isValid(_id)) {
+    return res.status(400).json({ error: "No such user" });
+  }
+
+  const user = await User.findById(_id);
+  if (!user) {
+    return res.status(400).json({ error: "Failed to find prefered foods" });
+  }
+  res.status(200).json({preferedFoods: user.preferedFoods});
+};
+
 //save the prefered foods selected by the users - array of food _ids
 const setPreferedFoods = async (req, res) => {
   const _id = req.body.user_Id;
@@ -163,4 +177,5 @@ module.exports = {
   setPreferedFoods,
   haveActiveDietPlan,
   updateActiveDietPlan,
+  getPreferedFoods,
 };

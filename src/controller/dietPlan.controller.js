@@ -3,7 +3,6 @@ const mongoose = require("mongoose");
 
 //save inputs from user
 const getInputs = async (req, res) => {
-  console.log("hell");
   const {
     user_Id,
     dob,
