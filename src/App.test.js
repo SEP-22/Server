@@ -7,18 +7,12 @@ describe("EatSmart Server", () => {
       .post("/user/signUp")
       .send({
         name: "kivydecilu@mailinator.com",
-        email: "jehlpoee@mailinator.com",
+        email: "jeee@mailinator.com",
         phone: "+1 (164) 737-4739",
         password: "Pa$$w0rd!",
         role:"user"
       })
       .expect(201);
-  });
-
-  it("getFood", () => {
-    return request(app)
-      .get("/food/allfoods")
-      .expect(200);
   });
 
 });
