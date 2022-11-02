@@ -14,5 +14,4 @@ router.post("/preferedfoods", setPreferedFoods);
 router.post("/activeplan", haveActiveDietPlan);
 router.post("/updateactiveplan", updateActiveDietPlan);
 
-
 module.exports.userRouter = router;
