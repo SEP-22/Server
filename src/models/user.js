@@ -35,6 +35,16 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: false,
     },
+    role: {
+      type: String,
+      trim: true,
+      required: true,
+    },
+    activeDietPlan: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "DietPlan",
+      required:false
+    },
     // tokens: [
     //   {
     //     token: {
@@ -44,6 +54,7 @@ const userSchema = new mongoose.Schema(
     //   },
     // ],
   },
+
   { timestamps: true }
 );
 

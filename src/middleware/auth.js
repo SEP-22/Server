@@ -12,7 +12,7 @@ const auth = async (req, res, next) => {
     if (refreshTokenHeader == undefined && accessTokenHeader == undefined) {
       return res.status(404).json({ message: "auth token not found" });
     } else {
-      let refreshToken = refreshTokenHeader && refreshTokenHeader.split(" ")[1]; //TODO:check whether bearer is there to split
+      let refreshToken = refreshTokenHeader && refreshTokenHeader.split(" ")[1];
       let accessToken = accessTokenHeader && accessTokenHeader.split(" ")[1];
 
       if (accessToken) {
@@ -20,7 +20,6 @@ const auth = async (req, res, next) => {
           accessToken,
           ACCESS_TOKEN_SECRET_KEY
         );
-        console.log(atStatus);
         if (atStatus.status === "success") {
           res.header("x-access-token", atStatus.newToken);
           req.user = atStatus.message;
@@ -80,7 +79,7 @@ const refreshTokenVerify = async (token, key, atKey) => {
     const user = await User.findOne({ refreshToken: token });
     if (user) {
       const value = jwt.verify(token, key);
-      console.log(user);
+
       if (value.id === user.id) {
         const user = {
           id: value.id,
@@ -89,11 +88,9 @@ const refreshTokenVerify = async (token, key, atKey) => {
         const newRT = jwt.sign(user, atKey, { expiresIn: JWT_AT_ET });
         return { status: "success", message: value, newToken: newRT };
       } else {
-        
         return { status: "error", message: "Not valid token" };
       }
     } else {
-      console.log("s")
       return { status: "error", message: "Not valid token" };
     }
   } catch (error) {

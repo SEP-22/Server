@@ -23,6 +23,22 @@ const getInputs = async (req, res) => {
   }
 };
 
+const getDietPlanById = async (req, res) => {
+  const _id = req.params.id;
+
+  try {
+    const dietPlan = await DietPlan.findById(_id);
+
+    if (!dietPlan) {
+      res.status(404).send({ success: false });
+    }
+    res.status(200).send({ dietPlan, success: true });
+  } catch (error) {
+    res.status(400).send({ success: false });
+  }
+};
+
 module.exports = {
   getInputs,
+  getDietPlanById,
 };
