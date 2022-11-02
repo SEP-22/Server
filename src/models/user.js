@@ -41,6 +41,11 @@ const userSchema = new mongoose.Schema(
       trim: true,
       required: true,
     },
+    activeDietPlan: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "DietPlan",
+      required:false
+    },
     // tokens: [
     //   {
     //     token: {
