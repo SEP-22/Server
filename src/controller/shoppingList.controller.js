@@ -25,13 +25,38 @@ const test = [
   ];
   
 const getLists = async (req,res)=>{
-try {
+try { 
     res.send(test)
 } catch (error) {
     res.send("error")
 }
 }
+
+//create new shopping list
+const createShoppingList = async (req,res) => {
+  const{userId,dietPlanId,foodList} = req.body
+
+  try{
+    const shoppingList = await ShoppingList.create({userId,dietPlanId,foodList})
+    res.status(200).json(shoppingList)
+  }catch(error){
+    res.status(400).json({error:error.message})
+  }
+}
+//get shopping list by id
+const getShoppingList = async (req,res) => {
+  //const{id} = req.params
+  const id = "63613940a8722b99ececed77"
+  if(!mongoose.Types.ObjectId.isValid(id)){
+    return res.status(404).json({error: 'No such shopping list'})
+  }
+  const shoppingList = await ShoppingList.findById(id)
   
+  if(!shoppingList){
+    return res.status(404).json({error:'No such shopping list'})
+  }
+  res.status(200).json(shoppingList)
+}
   //////////////////////// TESTING ////////////////////////
 // get all food
 const getListById = async (req, res) => {
@@ -44,6 +69,6 @@ const getListById = async (req, res) => {
 
 module.exports = {
     //getShoppingList,
-    getLists,
-    gettestsl,
+    createShoppingList,
+    getShoppingList
 };
