@@ -12,7 +12,7 @@ const auth = async (req, res, next) => {
     if (refreshTokenHeader == undefined && accessTokenHeader == undefined) {
       return res.status(404).json({ message: "auth token not found" });
     } else {
-      let refreshToken = refreshTokenHeader && refreshTokenHeader.split(" ")[1]; //TODO:check whether bearer is there to split
+      let refreshToken = refreshTokenHeader && refreshTokenHeader.split(" ")[1];
       let accessToken = accessTokenHeader && accessTokenHeader.split(" ")[1];
 
       if (accessToken) {

@@ -15,6 +15,7 @@ const signUp = async (req, res) => {
     // const token = await user.generateAuthToken();
     res.status(201).send({ newUser, success: true });
   } catch (e) {
+    console.log(e);
     res.status(400).send({ e, success: false });
   }
 };
@@ -91,6 +92,16 @@ const getUsers = async (req,res)=>{
   }
 }
 
+const getUserByID = async (req, res) => {
+  try {
+    const _id = req.params.id;
+    const user = await User.findById(_id).populate("activeDietPlan");
+    res.send(user)
+  } catch (error) {
+    res.send("error");
+  }
+};
+
 //////////////////////// TESTING ////////////////////////
 
 module.exports = {
@@ -98,4 +109,5 @@ module.exports = {
   signIn,
   signOut,
   getUsers,
+  getUserByID,
 };
