@@ -1,6 +1,5 @@
 const { ObjectId } = require("bson");
 const mongoose = require("mongoose");
-const { boolean } = require("webidl-conversions");
 
 const deitPlanSchema = new mongoose.Schema(
   {
