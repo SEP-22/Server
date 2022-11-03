@@ -148,13 +148,24 @@ const updateActiveDietPlan = async (req, res) => {
   }
   res.status(200).json(user);
 };
+
 //update userprofile details
 const editProfile = async (req, res) => {
-  const { id } = req.params;
-  if(!mongoose.Types.ObjectId.isValid(id)) {
+  const _id = req.body.userId;
+  console.log(_id);
+  if(!mongoose.Types.ObjectId.isValid(_id)) {
     return res.status(404).json({error: "No such user"})
   }
-}
+  const user = await User.findByIdAndUpdate(
+    { _id},
+    {name:req.body.name},
+    {new:true}
+  );
+  if(!user){
+    return res.status(400).json({error: "Failed to update profile details"});
+  }
+  res.status(200).json(user);
+};
 
 //////////////////////// ING ////////////////////////
 
@@ -193,7 +204,7 @@ const getASingleUser = async(req,res) => {
   }catch{
     res.status(404).json({error: 'No such user exists'})
   }
-}
+};
 
 //////////////////////// TESTING ////////////////////////
 
@@ -208,4 +219,5 @@ module.exports = {
   getPreferedFoods,
   getUserByID,
   getASingleUser,
+  editProfile,
 };
