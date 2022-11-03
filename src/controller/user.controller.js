@@ -150,7 +150,7 @@ const updateActiveDietPlan = async (req, res) => {
 };
 
 //update userprofile details
-const editProfile = async (req, res) => {
+const editName = async (req, res) => {
   const _id = req.body.userId;
   console.log(_id);
   if(!mongoose.Types.ObjectId.isValid(_id)) {
@@ -159,6 +159,23 @@ const editProfile = async (req, res) => {
   const user = await User.findByIdAndUpdate(
     { _id},
     {name:req.body.name},
+    {new:true}
+  );
+  if(!user){
+    return res.status(400).json({error: "Failed to update profile details"});
+  }
+  res.status(200).json(user);
+};
+
+const editPhone = async (req, res) => {
+  const _id = req.body.userId;
+  console.log(_id);
+  if(!mongoose.Types.ObjectId.isValid(_id)) {
+    return res.status(404).json({error: "No such user"})
+  }
+  const user = await User.findByIdAndUpdate(
+    { _id},
+    {phone:req.body.phone},
     {new:true}
   );
   if(!user){
@@ -219,5 +236,6 @@ module.exports = {
   getPreferedFoods,
   getUserByID,
   getASingleUser,
-  editProfile,
+  editName,
+  editPhone,
 };
