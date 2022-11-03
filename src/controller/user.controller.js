@@ -178,6 +178,16 @@ const getUserByID = async (req, res) => {
   }
 };
 
+const getASingleUser = async(req,res) => {
+  try{
+    const _id = req.params.id;
+    const user = await User.findById(_id,{name: true, email:true, password: true, phone: true})
+    res.status(200).json(user)
+  }catch{
+    res.status(404).json({error: 'No such user exists'})
+  }
+}
+
 //////////////////////// TESTING ////////////////////////
 
 module.exports = {
@@ -190,4 +200,5 @@ module.exports = {
   updateActiveDietPlan,
   getPreferedFoods,
   getUserByID,
+  getASingleUser,
 };
