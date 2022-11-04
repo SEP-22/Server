@@ -215,7 +215,24 @@ const editEmail = async (req, res) => {
     }
   }
 };
-
+const editPassword = async(req,res) =>{
+  const _id = req.body.userId;
+  const _password = await bcrypt.hash(req.body.password, 8);
+ // _password = await bcrypt.hash(_password, 8);
+  console.log(_id);
+  if(!mongoose.Types.ObjectId.isValid(_id)) {
+    return res.status(404).json({error: "No such user"})
+  }
+  const user = await User.findByIdAndUpdate(
+    { _id},
+    {password:_password},
+    {new:true}
+  );
+  if(!user){
+    return res.status(400).json({error: "Failed to update the password"});
+  }
+  res.status(200).json(user);
+}
 //////////////////////// ING ////////////////////////
 
 const users = [
@@ -271,4 +288,5 @@ module.exports = {
   editName,
   editPhone,
   editEmail,
+  editPassword,
 };
