@@ -6,13 +6,15 @@ const shoppingListSchema = new mongoose.Schema(
         userId: {
             type: ObjectId,
             required: true,
+            ref: "User"
         },
         dietPlanId: {
             type: ObjectId,
             required: true,
+            ref: "DietPlan"
         },
         foodList: [{
-            foodId: ObjectId,
+            foodId: {type: ObjectId, ref: 'Food'},
             amount: Number,
         }],
     },
