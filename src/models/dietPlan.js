@@ -60,12 +60,10 @@ const deitPlanSchema = new mongoose.Schema(
       type: Boolean,
       required: true,
     },
-    // active: {
-    //   type: Boolean,
-    // },
-    // dietIDs : {
-    //   type: ObjectId
-    // },
+    dietIDs : [{
+      type: ObjectId,
+      required: false,
+    }],
   },
   { timestamps: true }
 );
