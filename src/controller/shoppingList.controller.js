@@ -46,15 +46,15 @@ const createShoppingList = async (req,res) => {
 //get shopping list by id
 const getShoppingList = async (req,res) => {
   //const{id} = req.params
-  const id = "6365714fcb67c463e99c8813"
+  const id = "63665977f62887348b27717d"
   if(!mongoose.Types.ObjectId.isValid(id)){
     return res.status(404).json({error: 'No such shopping list'})
   }
-  const shoppingList = await ShoppingList.findById(id);
+  const shoppingList = await ShoppingList.findById(id).populate("foodList.foodId");
   const foodList = shoppingList.foodList;
   
   if(!shoppingList){
-    return res.status(404).json({error:'No such shopping list'})
+    return res.status(404).json({error:'No such shopping list'}) 
   }
   res.status(200).json(foodList)
 }
