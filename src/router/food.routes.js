@@ -8,6 +8,7 @@ const {
   foodForCholesterol,
   foodForDiabetics,
   foodForHighBloodPressure,
+  getFoodById,
 } = require("../controller/food.controller");
 const auth = require("../middleware/auth");
 
@@ -21,5 +22,6 @@ router.get("/foodbycategory", auth, foodsByCategory);
 router.get("/foodforbloodpressure",auth,foodForHighBloodPressure)
 router.get("/foodfordiabetics", auth,foodForDiabetics)
 router.get("/foodforcholesterol",auth,  foodForCholesterol)
+router.get("/foodById/:id",getFoodById);
 
 module.exports.foodRouter = router;
