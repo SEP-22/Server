@@ -83,6 +83,8 @@ const generateDietPlan = async (req, res) => {
         f.bloodpressure.toString(),
         f.cholesterol.toString(),
         f.category,
+        f.image,
+        f.name,
       ].join(",")
     );
   }
@@ -90,7 +92,7 @@ const generateDietPlan = async (req, res) => {
   let std_out;
   PythonShell.run(
     "algo.py",
-    { args: ["63526d0b8dceb61e22b1da5e", dietplan, fd.join("-")] },
+    { args: ["63526d0b8dceb61e22b1da5e", dietplan, fd.join("~")] },
     function (err, results) {
       if (err) {
         console.log(err);

@@ -161,7 +161,7 @@ def getBreakfastPlan():
             f = random.choice(foods[x])
         v = b * foodpyramid[x]
         c = round(v / f['cal_per_gram'], -1)
-        br.append([f['_id'], c, round(v)])
+        br.append([f['_id'], str(c) + ' cal', str(round(v)) + ' g', f['image'], f['name']])
 
     dietPlan['breakfast'] = br + getFoodforMedicalConditions(b)
 
@@ -176,7 +176,7 @@ def getLunchPlan():
             f = random.choice(foods[x])
         v = b * foodpyramid[x]
         c = round(v / f['cal_per_gram'], -1)
-        ln.append([f['_id'], c, round(v)])
+        ln.append([f['_id'], str(c) + ' cal', str(round(v)) + ' g', f['image'], f['name']])
 
     dietPlan['lunch'] = ln + getFoodforMedicalConditions(b)
 
@@ -191,7 +191,7 @@ def getDinnerPlan():
             f = random.choice(foods[x])
         v = b * foodpyramid[x]
         c = round(v / f['cal_per_gram'], -1)
-        dn.append([f['_id'], c, round(v)])
+        dn.append([f['_id'], str(c) + ' cal', str(round(v)) + ' g', f['image'], f['name']])
 
     dietPlan['dinner'] = dn + getFoodforMedicalConditions(b)
 
@@ -205,7 +205,7 @@ def getFoodforMedicalConditions(b):
             f = random.choice(medfoods)
             v = b * (foodpyramid['Dairy and Fats'] + foodpyramid['Sugar'])
             c = round(v / f['cal_per_gram'], -1)
-            return [[f['_id'], c, round(v)]]
+            return [[f['_id'], str(c) + ' cal', str(round(v)) + ' g', f['image'], f['name']]]
 
     if Id == 2:
         medfoods = list(filter(
@@ -215,7 +215,7 @@ def getFoodforMedicalConditions(b):
             f = random.choice(medfoods)
             v = b * foodpyramid['Sugar']
             c = round(v / f['cal_per_gram'], -1)
-            return [[f['_id'], c, round(v)]]
+            return [[f['_id'], str(c) + ' cal', str(round(v)) + ' g', f['image'], f['name']]]
 
     if Id == 3:
         medfoods = list(filter(
@@ -228,7 +228,7 @@ def getFoodforMedicalConditions(b):
             c1 = round(v1 / f1['cal_per_gram'], -1)
             v2 = b * foodpyramid['Proteins']
             c2 = round(v2 / f2['cal_per_gram'], -1)
-            return [[f1['_id'], c1, round(v1)], [f2['_id'], c2, round(v2)]]
+            return [[f1['_id'], str(c1) + ' cal', str(round(v1)) + ' g', f1['image'], f1['name']], [f2['_id'], str(c2) + ' cal', str(round(v2)) + ' g', f2['image'], f2['name']]]
     if Id == 4:
         medfoods = list(filter(
             lambda x: x['bloodpressure'] == data['bloodpressure'] and x['diabetics'] == data['diabetics'] and x[
@@ -240,7 +240,7 @@ def getFoodforMedicalConditions(b):
             c1 = round(v1 / f1['cal_per_gram'], -1)
             v2 = b * foodpyramid['Proteins']
             c2 = round(v2 / f2['cal_per_gram'], -1)
-            return [[f1['_id'], c1, round(v1)], [f2['_id'], c2, round(v2)]]
+            return [[f1['_id'], str(c1) + ' cal', str(round(v1)) + ' g', f1['image'], f1['name']], [f2['_id'], str(c2) + ' cal', str(round(v2)) + ' g', f2['image'], f2['name']]]
     return []
 
 
@@ -286,26 +286,26 @@ meals = {
 
 dietPlan_Id = sys.argv[1]
 raw_data = sys.argv[2].split(',')
-raw_foods = sys.argv[3].split('-')
+raw_foods = sys.argv[3].split('~')
 
 data = {'dob':  datetime.strptime(
     raw_data[0][:10], '%Y-%m-%d').date(), 'gender': raw_data[1], 'activity': raw_data[2], 'intention': raw_data[3], 'height': float(raw_data[4]), 'weight': float(raw_data[5]), 'diabetics': True if raw_data[6] == 'true' else False, 'bloodpressure': True if raw_data[7] == 'true' else False, 'cholesterol': True if raw_data[8] == 'true' else False}
 calories = calculateCalory()
 foods = getFoods([{'_id': i[0], 'cal_per_gram':float(i[1]), 'diabetics':True if i[2] == 'true' else False, 'bloodpressure':True if i[3] == 'true' else False,
-          'cholesterol':True if i[4] == 'true' else False, 'category':i[5], } for i in [j.split(',') for j in raw_foods]])
+          'cholesterol':True if i[4] == 'true' else False, 'category':i[5], 'image':i[6], 'name':i[7]} for i in [j.split(',') for j in raw_foods]])
 foodpyramid, Id = selectFoodPyramid()
 
-dietPlan = {'dietPlan_Id': dietPlan_Id ,
+dietPlan = {'dietPlan_Id': dietPlan_Id , 'id': 0, 
             'breakfast': [], 'lunch': [], 'dinner': []}
 
 diet = []
-for i in range(5):
+for i in range(7):
     shuffleFoods()
     divideFoods()
     getBreakfastPlan()
     getLunchPlan()
     getDinnerPlan()
-
+    dietPlan['id'] = i
     diet.append(dietPlan)
     print(dietPlan)
 
