@@ -1,17 +1,20 @@
 const mongoose = require("mongoose");
+const { ObjectId } = require("bson");
 
 const shoppingListSchema = new mongoose.Schema(
     {
         userId: {
-            type: Number,
+            type: ObjectId,
             required: true,
+            ref: "User"
         },
         dietPlanId: {
-            type: Number,
+            type: ObjectId,
             required: true,
+            ref: "DietPlan"
         },
         foodList: [{
-            foodId: Number,
+            foodId: {type: ObjectId, ref: 'Food'},
             amount: Number,
         }],
     },

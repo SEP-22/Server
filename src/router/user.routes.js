@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { signUp, signIn,signOut, getUsers, setPreferedFoods,haveActiveDietPlan,updateActiveDietPlan,getPreferedFoods,getUserByID, } = require("../controller/user.controller");
+const { signUp, signIn,signOut, getUsers, setPreferedFoods,haveActiveDietPlan,updateActiveDietPlan,getPreferedFoods,getUserByID, getASingleUser,editName,editPhone,editEmail,editPassword,} = require("../controller/user.controller");
 const auth = require("../middleware/auth");
 
 
@@ -14,5 +14,10 @@ router.post("/preferedfoods", setPreferedFoods);
 router.post("/activeplan", haveActiveDietPlan);
 router.post("/updateactiveplan", updateActiveDietPlan);
 router.get("/single/:id", getUserByID);
+router.get("/profileDetails/:id", getASingleUser);
+router.post("/editName", editName);
+router.post("/editPhone",editPhone);
+router.post("/editEmail",editEmail);
+router.post("/editPassword",editPassword);
 
 module.exports.userRouter = router;

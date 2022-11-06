@@ -1,6 +1,5 @@
 const { ObjectId } = require("bson");
 const mongoose = require("mongoose");
-const { boolean } = require("webidl-conversions");
 
 const deitPlanSchema = new mongoose.Schema(
   {
@@ -61,12 +60,10 @@ const deitPlanSchema = new mongoose.Schema(
       type: Boolean,
       required: true,
     },
-    // active: {
-    //   type: Boolean,
-    // },
-    // dietIDs : {
-    //   type: ObjectId
-    // },
+    dietIDs : [{
+      type: ObjectId,
+      required: false,
+    }],
   },
   { timestamps: true }
 );

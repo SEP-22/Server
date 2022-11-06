@@ -152,6 +152,19 @@ const deleteFood = async (req, res) => {
   res.status(200).json(food);
 };
 
+const getFoodById = async (req,res) => {
+  const  _id  = req.params.id;
+  
+  if(!mongoose.Types.ObjectId.isValid(_id)) {
+    return res.status(404).json({error: "Food does not exist!"});
+  }
+  const food = await Food.findById(_id);
+  if (!food) {
+    return res.status(404).json({error: "Food does not exist!"});
+  }
+  return res.status(200).json(food);
+}
+
 module.exports = {
   getFoods,
   addfood,
@@ -161,4 +174,5 @@ module.exports = {
   foodForCholesterol,
   foodForDiabetics,
   foodForHighBloodPressure,
+  getFoodById,
 };

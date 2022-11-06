@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const User = require("../models/user");
 const mongoose = require("mongoose");
+const validator = require("validator");
 
 const ACCESS_TOKEN_SECRET_KEY = process.env.ACCESS_TOKEN_SECRET_KEY;
 const REFRESH_TOKEN_SECRET_KEY = process.env.REFRESH_TOKEN_SECRET_KEY;
@@ -149,6 +150,89 @@ const updateActiveDietPlan = async (req, res) => {
   res.status(200).json(user);
 };
 
+//update userprofile details
+const editName = async (req, res) => {
+  const _id = req.body.userId;
+  console.log(_id);
+  if(!mongoose.Types.ObjectId.isValid(_id)) {
+    return res.status(404).json({error: "No such user"})
+  }
+  const user = await User.findByIdAndUpdate(
+    { _id},
+    {name:req.body.name},
+    {new:true}
+  );
+  if(!user){
+    return res.status(400).json({error: "Failed to update profile details"});
+  }
+  res.status(200).json(user);
+};
+
+const editPhone = async (req, res) => {
+  const _id = req.body.userId;
+  console.log(_id);
+  if(!mongoose.Types.ObjectId.isValid(_id)) {
+    return res.status(404).json({error: "No such user"})
+  }
+  const user = await User.findByIdAndUpdate(
+    { _id},
+    {phone:req.body.phone},
+    {new:true}
+  );
+  if(!user){
+    return res.status(400).json({error: "Failed to update profile details"});
+  }
+  res.status(200).json(user);
+};
+
+const editEmail = async (req, res) => {
+  const _id = req.body.userId;
+  const _email = req.body.email;
+  console.log(_id);
+  if(!mongoose.Types.ObjectId.isValid(_id)) {
+    return res.status(404).json({error: "No such user"})
+  }
+  if (!validator.isEmail(req.body.email)) {
+    //throw new Error("Invalid email!");
+    return res.status(400).json({error: "Invalid Email"})
+  }else{
+    const existingUser = await User.findOne({ email:_email });
+    console.log(existingUser);
+
+    if (!existingUser) {
+      const user = await User.findByIdAndUpdate(
+        { _id},
+        {email:_email},
+        {new:true}
+      );
+      if(!user){
+        //TODO notify if email address already exist
+        return res.status(400).json({error: "Failed to update profile details"});
+      }
+      res.status(200).json(user);
+    }else{
+      return res.send("User already exists");
+    }
+  }
+};
+const editPassword = async(req,res) =>{
+  const _id = req.body.userId;
+  const _password = await bcrypt.hash(req.body.password, 8);
+ // _password = await bcrypt.hash(_password, 8);
+  console.log(_id);
+  if(!mongoose.Types.ObjectId.isValid(_id)) {
+    return res.status(404).json({error: "No such user"})
+  }
+  const user = await User.findByIdAndUpdate(
+    { _id},
+    {password:_password},
+    {new:true}
+  );
+  if(!user){
+    return res.status(400).json({error: "Failed to update the password"});
+  }
+  res.status(200).json(user);
+}
 //////////////////////// ING ////////////////////////
 
 const users = [
@@ -178,6 +262,16 @@ const getUserByID = async (req, res) => {
   }
 };
 
+const getASingleUser = async(req,res) => {
+  try{
+    const _id = req.params.id;
+    const user = await User.findById(_id,{name: true, email:true, password: true, phone: true})
+    res.status(200).json(user)
+  }catch{
+    res.status(404).json({error: 'No such user exists'})
+  }
+};
+
 //////////////////////// TESTING ////////////////////////
 
 module.exports = {
@@ -190,4 +284,9 @@ module.exports = {
   updateActiveDietPlan,
   getPreferedFoods,
   getUserByID,
+  getASingleUser,
+  editName,
+  editPhone,
+  editEmail,
+  editPassword,
 };
