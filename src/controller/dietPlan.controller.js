@@ -72,7 +72,6 @@ const generateDietPlan = async (req, res) => {
     dp.bloodpressure.toString(),
     dp.cholesterol.toString(),
   ].join(",");
-  console.log(dietplan);
   let fd = [];
   for (let i in foods) {
     f = foods[i];
@@ -89,8 +88,6 @@ const generateDietPlan = async (req, res) => {
       ].join(",")
     );
   }
-  console.log(fd);
-  let std_out;
   PythonShell.run(
     "algo.py",
     { args: ["63526d0b8dceb61e22b1da5e", dietplan, fd.join("~")] },
@@ -106,16 +103,6 @@ const generateDietPlan = async (req, res) => {
     }
   );
 
-  console.log(std_out);
-  // let test
-  // var spawn = require('child_process').spawn;
-  // const process = spawn('python', ['algo.py', text]);process.stdout.on('data', (data) => {
-  //   test = data.toString();
-  // });process.stderr.on('data', (data) => {
-  //   console.log('err results: %j', data.toString('utf8'))
-  // });process.stdout.on('end', function(){
-  //   console.log('Test Data', test);
-  // });
 };
 
 module.exports = {

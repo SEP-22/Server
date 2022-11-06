@@ -15,14 +15,6 @@ const mongoose = require('mongoose')
 // }
 //////////////////////// TESTING ////////////////////////
 
-const test = [
-    {
-      name: "jimmy",
-    },
-    {
-      name: "gimhan",
-    },
-  ];
   
 const getLists = async (req,res)=>{
 try { 
