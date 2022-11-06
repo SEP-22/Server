@@ -17,7 +17,7 @@ const router = Router();
 router.post("/newFood", auth, addfood);
 router.patch("/editFood/:id", auth, editFood);
 router.delete("/deleteFood/:id", auth, deleteFood);
-router.get("/allfoods",auth, getFoods);
+router.get("/allfoods", getFoods);
 router.get("/foodbycategory", auth, foodsByCategory);
 router.get("/foodforbloodpressure",auth,foodForHighBloodPressure)
 router.get("/foodfordiabetics", auth,foodForDiabetics)
