@@ -18,10 +18,10 @@ router.post("/newFood", auth, addfood);
 router.patch("/editFood/:id", auth, editFood);
 router.delete("/deleteFood/:id", auth, deleteFood);
 router.get("/allfoods", getFoods);
-router.get("/foodbycategory", auth, foodsByCategory);
-router.get("/foodforbloodpressure",auth,foodForHighBloodPressure)
-router.get("/foodfordiabetics", auth,foodForDiabetics)
-router.get("/foodforcholesterol",auth,  foodForCholesterol)
+router.get("/foodbycategory", foodsByCategory);
+router.get("/foodforbloodpressure",foodForHighBloodPressure)
+router.get("/foodfordiabetics", foodForDiabetics)
+router.get("/foodforcholesterol", foodForCholesterol)
 router.get("/foodById/:id",getFoodById);
 
 module.exports.foodRouter = router;
