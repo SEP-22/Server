@@ -54,11 +54,6 @@ const userSchema = new mongoose.Schema(
     //     },
     //   },
     // ],
-    activePlan_Id: {
-      type: ObjectId,
-      required: false,
-      trim: true,
-    },
     preferedFoods : [{
        type : ObjectId, 
        required: false,   

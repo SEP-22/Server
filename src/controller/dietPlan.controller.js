@@ -59,6 +59,7 @@ const generateDietPlan = async (req, res) => {
   console.log(_id);
 
   const dp = await DietPlan.findById("63526d0b8dceb61e22b1da5e");
+  //prefered foods update
   const foods = await Food.find({});
   let dietplan = [
     dp.dob.toISOString(),

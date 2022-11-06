@@ -123,10 +123,10 @@ const haveActiveDietPlan = async (req, res) => {
   if (!user) {
     return res.status(400).json({ error: "User not found" });
   }
-  if (!user.activePlan_Id) {
+  if (!user.activeDietPlan) {
     data = { active: false };
   } else {
-    data = { active: true, activePlan_Id: user.activePlan_Id };
+    data = { active: true, activePlan_Id: user.activeDietPlan };
   }
   res.status(200).json(data);
 };
@@ -140,7 +140,7 @@ const updateActiveDietPlan = async (req, res) => {
 
   const user = await User.findByIdAndUpdate(
     { _id },
-    { activePlan_Id: req.body.activePlan_Id },
+    { activeDietPlan: req.body.activePlan_Id },
     { new: true }
   );
 
