@@ -1,5 +1,6 @@
 const Diet = require("../models/diet");
 const mongoose = require("mongoose");
+const { count } = require("../models/diet");
 
 //save dietplans
 const saveDietPlans = async (req, res) => {
@@ -25,5 +26,23 @@ const saveDietPlans = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
-
-module.exports = { saveDietPlans };
+const getDietPlans = async (req, res) => {
+  // console.log("roar");
+  // res.status(200).json({msg:"working"});
+  const id = "63526d0b8dceb61e22b1da5e"
+  if(!mongoose.Types.ObjectId.isValid(id)){
+    return res.status(404).json({error: 'No such diet plan'})
+  }
+  const dietPlan = await Diet.find({dietPlan_Id:id});
+  
+  if(!dietPlan){
+    return res.status(404).json({error:'No such diet plan'}) 
+  }
+  //sending only first 3 -- change this later
+  const reply = dietPlan.slice(0,3);
+  res.status(200).json(reply)
+}  
+module.exports = { 
+  saveDietPlans,
+  getDietPlans 
+};
