@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">29.62% </span>
+                <span class="strong">66.66% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>8/27</span>
+                <span class='fraction'>18/27</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>2/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>2/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">29.62% </span>
+                <span class="strong">66.66% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>8/27</span>
+                <span class='fraction'>18/27</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -157,11 +157,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -169,17 +169,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -222,30 +222,30 @@ const getLists = <span class="fstat-no" title="function not covered" >as</span>y
 }
 &nbsp;
 //create new shopping list
-const createShoppingList = <span class="fstat-no" title="function not covered" >as</span>ync (req,res) =&gt; {
-  const{userId,dietPlanId,foodList} = <span class="cstat-no" title="statement not covered" >req.body</span>
+const createShoppingList = async (req,res) =&gt; {
+  const{userId,dietPlanId,foodList} = req.body
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  try{</span>
-    const shoppingList = <span class="cstat-no" title="statement not covered" >await ShoppingList.create({userId,dietPlanId,foodList})</span>
-<span class="cstat-no" title="statement not covered" >    res.status(200).json(shoppingList)</span>
+  try{
+    const shoppingList = await ShoppingList.create({userId,dietPlanId,foodList})
+    res.status(200).json(shoppingList)
   }catch(error){
 <span class="cstat-no" title="statement not covered" >    res.status(400).json({error:error.message})</span>
   }
 }
 //get shopping list by id
-const getShoppingList = <span class="fstat-no" title="function not covered" >as</span>ync (req,res) =&gt; {
+const getShoppingList = async (req,res) =&gt; {
   //const{id} = req.params
-  const id = <span class="cstat-no" title="statement not covered" >"63665977f62887348b27717d"</span>
-<span class="cstat-no" title="statement not covered" >  if(!mongoose.Types.ObjectId.isValid(id)){</span>
+  const id = "63665977f62887348b27717d"
+  <span class="missing-if-branch" title="if path not taken" >I</span>if(!mongoose.Types.ObjectId.isValid(id)){
 <span class="cstat-no" title="statement not covered" >    return res.status(404).json({error: 'No such shopping list'})</span>
   }
-  const shoppingList = <span class="cstat-no" title="statement not covered" >await ShoppingList.findById(id).populate("foodList.foodId");</span>
-  const foodList = <span class="cstat-no" title="statement not covered" >shoppingList.foodList;</span>
+  const shoppingList = await ShoppingList.findById(id).populate("foodList.foodId");
+  const foodList = shoppingList.foodList;
   
-<span class="cstat-no" title="statement not covered" >  if(!shoppingList){</span>
+  <span class="missing-if-branch" title="if path not taken" >I</span>if(!shoppingList){
 <span class="cstat-no" title="statement not covered" >    return res.status(404).json({error:'No such shopping list'}) </span>
   }
-<span class="cstat-no" title="statement not covered" >  res.status(200).json(foodList)</span>
+  res.status(200).json(foodList)
 }
   //////////////////////// TESTING ////////////////////////
 // get all food
@@ -268,7 +268,7 @@ module.exports = {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-11-06T15:46:18.466Z
+                at 2022-11-06T16:30:38.581Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

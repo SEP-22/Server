@@ -68,6 +68,46 @@ describe("EatSmart Server", () => {
 });
 
 describe("EatSmart Server", () => {
+  it("AddNewFood", () => {
+    return request(app)
+      .post("/food/newFood")
+      .send({
+        name: "Carrots",
+        cal_per_gram: 0.0035,
+        diabetics: false,
+        cholesterol: false,
+        bloodpressure: true,
+        category: "Fruits and Vegetables",
+        protein: 0,
+        fat: 0,
+        fiber: 6,
+        carbs: 1,
+        image: "/src/assets/images/foods/apple.jpg"
+})
+      .expect(200);
+  });
+});
+
+describe("EatSmart Server", () => {
+  it("EditFood", () => {
+    return request(app)
+      .patch("/food/editFood/6367e0901a9c7ed65930c81f")
+      .send({
+        fat: 10,
+})
+      .expect(200);
+  });
+});
+
+describe("EatSmart Server", () => {
+  it("DeleteFood", () => {
+    return request(app)
+      .delete("/food/deleteFood/6367e0cefda7350721c9e969")
+      .expect(200);
+  });
+});
+
+describe("EatSmart Server", () => {
   it("CheckActiveDietPlan", () => {
     return request(app)
       .post("/user/activeplan")
@@ -137,6 +177,55 @@ describe("EatSmart Server", () => {
 });
 
 describe("EatSmart Server", () => {
+  it("EditUserName", () => {
+    return request(app)
+      .post("/user/editName")
+      .send({
+          userId: "6335d3657e7aaea82d5e3650",
+          name: "Admin123"
+      })
+      .expect(200);
+  });
+});
+
+describe("EatSmart Server", () => {
+  it("EditPhoneNumber", () => {
+    return request(app)
+      .post("/user/editName")
+      .send({
+        userId: "6335d3657e7aaea82d5e3650",
+        phone: "0712223332"
+    })
+      .expect(200);
+  });
+});
+
+describe("EatSmart Server", () => {
+  it("EditEmailNumber", () => {
+    return request(app)
+      .post("/user/editEmail")
+      .send({
+        userId: "6335d3657e7aaea82d5e3650",
+        email: "gihello12@gmail.com"
+    })
+      .expect(200);
+  });
+});
+
+describe("EatSmart Server", () => {
+  it("EditPasswordNumber", () => {
+    return request(app)
+      .post("/user/editPassword")
+      .send({
+        userId: "6335d3657e7aaea82d5e3650",
+        password: "gihellffodcom"
+    })
+      .expect(200);
+  });
+});
+
+
+describe("EatSmart Server", () => {
   it("GetDietPlanbyID", () => {
     return request(app).get("/dietPlan/63526d0b8dceb61e22b1da5e").expect(200);
   });
@@ -157,6 +246,17 @@ describe("EatSmart Server", () => {
         diabetics: 1,
         cholesterol: 1,
         bloodpressure: 1,
+      })
+      .expect(200);
+  });
+});
+
+describe("EatSmart Server", () => {
+  it("GenerateDietPlan", () => {
+    return request(app)
+      .post("/dietPlan/generatedietplan")
+      .send({
+        dietPlan_Id: "63526d0b8dceb61e22b1da5e",
       })
       .expect(200);
   });
@@ -257,6 +357,47 @@ describe("EatSmart Server", () => {
           },
         ],
       })
+      .expect(200);
+  });
+});
+
+describe("EatSmart Server", () => {
+  it("CreateShoppingList", () => {
+    return request(app)
+      .post("/shoppingList/createsl")
+      .send({
+        userId: "6335d3657e7aaea82d5e3650",
+        dietPlanId: "63526d0b8dceb61e22b1da5e",
+        foodList: [
+            {
+                "foodId": "63358224b5a5faef42bbc199",
+                "amount": 500
+            },
+            {
+                "foodId": "633587c1b5a5faef42bbc306",
+                "amount": 200
+            },
+            {
+                "foodId": "63358976b5a5faef42bbc330",
+                "amount": 2000
+            },
+            {
+                "foodId": "633594ebb5a5faef42bbc34c",
+                "amount": 500
+            },
+            {
+                "foodId": "633583a2b5a5faef42bbc1c1",
+                "amount": 100}]
+    })
+      .expect(200);
+  });
+});
+
+
+describe("EatSmart Server", () => {
+  it("GetShoppingList", () => {
+    return request(app)
+      .get("/shoppingList/getShoppingList")
       .expect(200);
   });
 });

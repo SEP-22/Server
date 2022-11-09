@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1667749578512" clover="3.2.0">
-  <project timestamp="1667749578512" name="All files">
-    <metrics statements="468" coveredstatements="284" conditionals="94" coveredconditionals="19" methods="42" coveredmethods="21" elements="604" coveredelements="324" complexity="0" loc="468" ncloc="468" packages="6" files="23" classes="23"/>
+<coverage generated="1667752238644" clover="3.2.0">
+  <project timestamp="1667752238644" name="All files">
+    <metrics statements="444" coveredstatements="317" conditionals="94" coveredconditionals="32" methods="41" coveredmethods="31" elements="579" coveredelements="380" complexity="0" loc="444" ncloc="444" packages="6" files="19" classes="19"/>
     <package name="src">
       <metrics statements="22" coveredstatements="15" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="0"/>
       <file name="app.js" path="D:\UOM\Semester 5\2 - CS3202 - Software Engineering Project\Project\Server\src\app.js">
@@ -34,7 +34,7 @@
       </file>
     </package>
     <package name="src.controller">
-      <metrics statements="282" coveredstatements="154" conditionals="68" coveredconditionals="16" methods="35" coveredmethods="18"/>
+      <metrics statements="274" coveredstatements="198" conditionals="68" coveredconditionals="29" methods="34" coveredmethods="28"/>
       <file name="diet.controller.js" path="D:\UOM\Semester 5\2 - CS3202 - Software Engineering Project\Project\Server\src\controller\diet.controller.js">
         <metrics statements="14" coveredstatements="13" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
         <line num="1" count="1" type="stmt"/>
@@ -53,7 +53,7 @@
         <line num="29" count="1" type="stmt"/>
       </file>
       <file name="dietPlan.controller.js" path="D:\UOM\Semester 5\2 - CS3202 - Software Engineering Project\Project\Server\src\controller\dietPlan.controller.js">
-        <metrics statements="34" coveredstatements="18" conditionals="4" coveredconditionals="1" methods="4" coveredmethods="2"/>
+        <metrics statements="34" coveredstatements="30" conditionals="4" coveredconditionals="2" methods="4" coveredmethods="4"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -74,23 +74,23 @@
         <line num="50" count="1" type="stmt"/>
         <line num="52" count="0" type="stmt"/>
         <line num="56" count="1" type="stmt"/>
-        <line num="57" count="0" type="stmt"/>
-        <line num="59" count="0" type="stmt"/>
-        <line num="61" count="0" type="stmt"/>
-        <line num="63" count="0" type="stmt"/>
-        <line num="64" count="0" type="stmt"/>
-        <line num="75" count="0" type="stmt"/>
-        <line num="76" count="0" type="stmt"/>
-        <line num="77" count="0" type="stmt"/>
-        <line num="78" count="0" type="stmt"/>
-        <line num="91" count="0" type="stmt"/>
-        <line num="95" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="57" count="1" type="stmt"/>
+        <line num="59" count="1" type="stmt"/>
+        <line num="61" count="1" type="stmt"/>
+        <line num="63" count="1" type="stmt"/>
+        <line num="64" count="1" type="stmt"/>
+        <line num="75" count="1" type="stmt"/>
+        <line num="76" count="1" type="stmt"/>
+        <line num="77" count="32" type="stmt"/>
+        <line num="78" count="32" type="stmt"/>
+        <line num="91" count="1" type="stmt"/>
+        <line num="95" count="1" type="cond" truecount="1" falsecount="1"/>
         <line num="96" count="0" type="stmt"/>
-        <line num="98" count="0" type="stmt"/>
+        <line num="98" count="1" type="stmt"/>
         <line num="108" count="1" type="stmt"/>
       </file>
       <file name="food.controller.js" path="D:\UOM\Semester 5\2 - CS3202 - Software Engineering Project\Project\Server\src\controller\food.controller.js">
-        <metrics statements="58" coveredstatements="36" conditionals="12" coveredconditionals="2" methods="9" coveredmethods="6"/>
+        <metrics statements="58" coveredstatements="50" conditionals="12" coveredconditionals="6" methods="9" coveredmethods="9"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="5" count="1" type="stmt"/>
@@ -119,27 +119,27 @@
         <line num="71" count="1" type="stmt"/>
         <line num="75" count="1" type="stmt"/>
         <line num="80" count="1" type="stmt"/>
-        <line num="93" count="0" type="stmt"/>
-        <line num="95" count="0" type="stmt"/>
-        <line num="96" count="0" type="stmt"/>
-        <line num="110" count="0" type="stmt"/>
+        <line num="93" count="1" type="stmt"/>
+        <line num="95" count="1" type="stmt"/>
+        <line num="96" count="1" type="stmt"/>
+        <line num="110" count="1" type="stmt"/>
         <line num="112" count="0" type="stmt"/>
         <line num="117" count="1" type="stmt"/>
-        <line num="118" count="0" type="stmt"/>
-        <line num="120" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="118" count="1" type="stmt"/>
+        <line num="120" count="1" type="cond" truecount="1" falsecount="1"/>
         <line num="121" count="0" type="stmt"/>
-        <line num="124" count="0" type="stmt"/>
-        <line num="131" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="124" count="1" type="stmt"/>
+        <line num="131" count="1" type="cond" truecount="1" falsecount="1"/>
         <line num="132" count="0" type="stmt"/>
-        <line num="135" count="0" type="stmt"/>
+        <line num="135" count="1" type="stmt"/>
         <line num="139" count="1" type="stmt"/>
-        <line num="140" count="0" type="stmt"/>
-        <line num="142" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="140" count="1" type="stmt"/>
+        <line num="142" count="1" type="cond" truecount="1" falsecount="1"/>
         <line num="143" count="0" type="stmt"/>
-        <line num="146" count="0" type="stmt"/>
-        <line num="148" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="146" count="1" type="stmt"/>
+        <line num="148" count="1" type="cond" truecount="1" falsecount="1"/>
         <line num="149" count="0" type="stmt"/>
-        <line num="152" count="0" type="stmt"/>
+        <line num="152" count="1" type="stmt"/>
         <line num="155" count="1" type="stmt"/>
         <line num="156" count="1" type="stmt"/>
         <line num="158" count="1" type="cond" truecount="1" falsecount="1"/>
@@ -150,19 +150,8 @@
         <line num="165" count="1" type="stmt"/>
         <line num="168" count="1" type="stmt"/>
       </file>
-      <file name="image.controller.js" path="D:\UOM\Semester 5\2 - CS3202 - Software Engineering Project\Project\Server\src\controller\image.controller.js">
-        <metrics statements="8" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="3" count="1" type="stmt"/>
-        <line num="6" count="0" type="stmt"/>
-        <line num="8" count="0" type="stmt"/>
-        <line num="12" count="0" type="stmt"/>
-        <line num="14" count="0" type="stmt"/>
-        <line num="16" count="0" type="stmt"/>
-        <line num="20" count="1" type="stmt"/>
-      </file>
       <file name="shoppingList.controller.js" path="D:\UOM\Semester 5\2 - CS3202 - Software Engineering Project\Project\Server\src\controller\shoppingList.controller.js">
-        <metrics statements="27" coveredstatements="8" conditionals="4" coveredconditionals="0" methods="4" coveredmethods="0"/>
+        <metrics statements="27" coveredstatements="18" conditionals="4" coveredconditionals="2" methods="4" coveredmethods="2"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -171,20 +160,20 @@
         <line num="21" count="0" type="stmt"/>
         <line num="23" count="0" type="stmt"/>
         <line num="28" count="1" type="stmt"/>
-        <line num="29" count="0" type="stmt"/>
-        <line num="31" count="0" type="stmt"/>
-        <line num="32" count="0" type="stmt"/>
-        <line num="33" count="0" type="stmt"/>
+        <line num="29" count="1" type="stmt"/>
+        <line num="31" count="1" type="stmt"/>
+        <line num="32" count="1" type="stmt"/>
+        <line num="33" count="1" type="stmt"/>
         <line num="35" count="0" type="stmt"/>
         <line num="39" count="1" type="stmt"/>
-        <line num="41" count="0" type="stmt"/>
-        <line num="42" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="41" count="1" type="stmt"/>
+        <line num="42" count="1" type="cond" truecount="1" falsecount="1"/>
         <line num="43" count="0" type="stmt"/>
-        <line num="45" count="0" type="stmt"/>
-        <line num="46" count="0" type="stmt"/>
-        <line num="48" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="45" count="1" type="stmt"/>
+        <line num="46" count="1" type="stmt"/>
+        <line num="48" count="1" type="cond" truecount="1" falsecount="1"/>
         <line num="49" count="0" type="stmt"/>
-        <line num="51" count="0" type="stmt"/>
+        <line num="51" count="1" type="stmt"/>
         <line num="55" count="1" type="stmt"/>
         <line num="56" count="0" type="stmt"/>
         <line num="57" count="0" type="stmt"/>
@@ -192,7 +181,7 @@
         <line num="63" count="1" type="stmt"/>
       </file>
       <file name="user.controller.js" path="D:\UOM\Semester 5\2 - CS3202 - Software Engineering Project\Project\Server\src\controller\user.controller.js">
-        <metrics statements="141" coveredstatements="76" conditionals="48" coveredconditionals="13" methods="15" coveredmethods="8"/>
+        <metrics statements="141" coveredstatements="87" conditionals="48" coveredconditionals="19" methods="15" coveredmethods="11"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -206,28 +195,28 @@
         <line num="13" count="1" type="stmt"/>
         <line num="15" count="1" type="stmt"/>
         <line num="16" count="1" type="stmt"/>
-        <line num="18" count="0" type="stmt"/>
-        <line num="20" count="1" type="stmt"/>
-        <line num="21" count="1" type="stmt"/>
+        <line num="18" count="1" type="stmt"/>
+        <line num="20" count="0" type="stmt"/>
+        <line num="21" count="0" type="stmt"/>
         <line num="25" count="1" type="stmt"/>
         <line num="26" count="1" type="stmt"/>
         <line num="27" count="1" type="stmt"/>
         <line num="29" count="1" type="stmt"/>
         <line num="30" count="1" type="stmt"/>
         <line num="32" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="33" count="1" type="stmt"/>
-        <line num="35" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="36" count="1" type="stmt"/>
-        <line num="42" count="1" type="stmt"/>
-        <line num="45" count="1" type="stmt"/>
-        <line num="46" count="1" type="stmt"/>
-        <line num="49" count="1" type="stmt"/>
-        <line num="50" count="1" type="stmt"/>
-        <line num="55" count="1" type="stmt"/>
-        <line num="56" count="1" type="stmt"/>
-        <line num="57" count="1" type="stmt"/>
+        <line num="33" count="0" type="stmt"/>
+        <line num="35" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="36" count="0" type="stmt"/>
+        <line num="42" count="0" type="stmt"/>
+        <line num="45" count="0" type="stmt"/>
+        <line num="46" count="0" type="stmt"/>
+        <line num="49" count="0" type="stmt"/>
+        <line num="50" count="0" type="stmt"/>
+        <line num="55" count="0" type="stmt"/>
+        <line num="56" count="0" type="stmt"/>
+        <line num="57" count="0" type="stmt"/>
         <line num="59" count="0" type="stmt"/>
-        <line num="62" count="0" type="stmt"/>
+        <line num="62" count="1" type="stmt"/>
         <line num="65" count="0" type="stmt"/>
         <line num="69" count="1" type="stmt"/>
         <line num="70" count="0" type="stmt"/>
@@ -273,14 +262,14 @@
         <line num="148" count="0" type="stmt"/>
         <line num="150" count="1" type="stmt"/>
         <line num="154" count="1" type="stmt"/>
-        <line num="155" count="0" type="stmt"/>
-        <line num="156" count="0" type="stmt"/>
-        <line num="157" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="155" count="2" type="stmt"/>
+        <line num="156" count="2" type="stmt"/>
+        <line num="157" count="2" type="cond" truecount="1" falsecount="1"/>
         <line num="158" count="0" type="stmt"/>
-        <line num="160" count="0" type="stmt"/>
-        <line num="165" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="160" count="2" type="stmt"/>
+        <line num="165" count="2" type="cond" truecount="1" falsecount="1"/>
         <line num="166" count="0" type="stmt"/>
-        <line num="168" count="0" type="stmt"/>
+        <line num="168" count="2" type="stmt"/>
         <line num="171" count="1" type="stmt"/>
         <line num="172" count="0" type="stmt"/>
         <line num="173" count="0" type="stmt"/>
@@ -291,31 +280,31 @@
         <line num="183" count="0" type="stmt"/>
         <line num="185" count="0" type="stmt"/>
         <line num="188" count="1" type="stmt"/>
-        <line num="189" count="0" type="stmt"/>
-        <line num="190" count="0" type="stmt"/>
-        <line num="191" count="0" type="stmt"/>
-        <line num="192" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="189" count="1" type="stmt"/>
+        <line num="190" count="1" type="stmt"/>
+        <line num="191" count="1" type="stmt"/>
+        <line num="192" count="1" type="cond" truecount="1" falsecount="1"/>
         <line num="193" count="0" type="stmt"/>
-        <line num="195" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="195" count="1" type="cond" truecount="1" falsecount="1"/>
         <line num="197" count="0" type="stmt"/>
-        <line num="199" count="0" type="stmt"/>
-        <line num="200" count="0" type="stmt"/>
-        <line num="202" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="199" count="1" type="stmt"/>
+        <line num="200" count="1" type="stmt"/>
+        <line num="202" count="1" type="cond" truecount="1" falsecount="1"/>
         <line num="203" count="0" type="stmt"/>
         <line num="208" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="210" count="0" type="stmt"/>
         <line num="212" count="0" type="stmt"/>
-        <line num="214" count="0" type="stmt"/>
+        <line num="214" count="1" type="stmt"/>
         <line num="218" count="1" type="stmt"/>
-        <line num="219" count="0" type="stmt"/>
-        <line num="220" count="0" type="stmt"/>
-        <line num="222" count="0" type="stmt"/>
-        <line num="223" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="219" count="1" type="stmt"/>
+        <line num="220" count="1" type="stmt"/>
+        <line num="222" count="1" type="stmt"/>
+        <line num="223" count="1" type="cond" truecount="1" falsecount="1"/>
         <line num="224" count="0" type="stmt"/>
-        <line num="226" count="0" type="stmt"/>
-        <line num="231" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="226" count="1" type="stmt"/>
+        <line num="231" count="1" type="cond" truecount="1" falsecount="1"/>
         <line num="232" count="0" type="stmt"/>
-        <line num="234" count="0" type="stmt"/>
+        <line num="234" count="1" type="stmt"/>
         <line num="238" count="1" type="stmt"/>
         <line num="247" count="1" type="stmt"/>
         <line num="248" count="0" type="stmt"/>
@@ -348,7 +337,7 @@
       </file>
     </package>
     <package name="src.middleware">
-      <metrics statements="55" coveredstatements="12" conditionals="20" coveredconditionals="0" methods="3" coveredmethods="0"/>
+      <metrics statements="52" coveredstatements="9" conditionals="20" coveredconditionals="0" methods="3" coveredmethods="0"/>
       <file name="auth.js" path="D:\UOM\Semester 5\2 - CS3202 - Software Engineering Project\Project\Server\src\middleware\auth.js">
         <metrics statements="52" coveredstatements="9" conditionals="20" coveredconditionals="0" methods="3" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
@@ -404,15 +393,9 @@
         <line num="97" count="0" type="stmt"/>
         <line num="101" count="1" type="stmt"/>
       </file>
-      <file name="fileUpload.js" path="D:\UOM\Semester 5\2 - CS3202 - Software Engineering Project\Project\Server\src\middleware\fileUpload.js">
-        <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="3" count="1" type="stmt"/>
-        <line num="10" count="1" type="stmt"/>
-      </file>
     </package>
     <package name="src.models">
-      <metrics statements="35" coveredstatements="29" conditionals="4" coveredconditionals="2" methods="2" coveredmethods="2"/>
+      <metrics statements="30" coveredstatements="29" conditionals="4" coveredconditionals="2" methods="2" coveredmethods="2"/>
       <file name="diet.js" path="D:\UOM\Semester 5\2 - CS3202 - Software Engineering Project\Project\Server\src\models\diet.js">
         <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
@@ -432,14 +415,6 @@
         <line num="1" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
         <line num="62" count="1" type="stmt"/>
-      </file>
-      <file name="reminders.js" path="D:\UOM\Semester 5\2 - CS3202 - Software Engineering Project\Project\Server\src\models\reminders.js">
-        <metrics statements="5" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="0" type="stmt"/>
-        <line num="2" count="0" type="stmt"/>
-        <line num="3" count="0" type="stmt"/>
-        <line num="5" count="0" type="stmt"/>
-        <line num="28" count="0" type="stmt"/>
       </file>
       <file name="shoppingList.js" path="D:\UOM\Semester 5\2 - CS3202 - Software Engineering Project\Project\Server\src\models\shoppingList.js">
         <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
@@ -468,19 +443,17 @@
       </file>
     </package>
     <package name="src.router">
-      <metrics statements="69" coveredstatements="69" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <metrics statements="61" coveredstatements="61" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="_index.routes.js" path="D:\UOM\Semester 5\2 - CS3202 - Software Engineering Project\Project\Server\src\router\_index.routes.js">
-        <metrics statements="13" coveredstatements="13" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <metrics statements="11" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
-        <line num="4" count="1" type="stmt"/>
         <line num="5" count="1" type="stmt"/>
         <line num="6" count="1" type="stmt"/>
         <line num="9" count="1" type="stmt"/>
         <line num="11" count="1" type="stmt"/>
         <line num="12" count="1" type="stmt"/>
-        <line num="13" count="1" type="stmt"/>
         <line num="14" count="1" type="stmt"/>
         <line num="15" count="1" type="stmt"/>
         <line num="17" count="1" type="stmt"/>
@@ -514,15 +487,6 @@
         <line num="24" count="1" type="stmt"/>
         <line num="25" count="1" type="stmt"/>
         <line num="27" count="1" type="stmt"/>
-      </file>
-      <file name="image.routes.js" path="D:\UOM\Semester 5\2 - CS3202 - Software Engineering Project\Project\Server\src\router\image.routes.js">
-        <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="2" count="1" type="stmt"/>
-        <line num="3" count="1" type="stmt"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="6" count="1" type="stmt"/>
-        <line num="8" count="1" type="stmt"/>
       </file>
       <file name="shoppingList.routes.js" path="D:\UOM\Semester 5\2 - CS3202 - Software Engineering Project\Project\Server\src\router\shoppingList.routes.js">
         <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
