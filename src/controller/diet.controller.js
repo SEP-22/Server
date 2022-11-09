@@ -1,5 +1,6 @@
 const Diet = require("../models/diet");
 const mongoose = require("mongoose");
+const { count } = require("../models/diet");
 
 //save dietplans
 const saveDietPlans = async (req, res) => {
@@ -37,7 +38,9 @@ const getDietPlans = async (req, res) => {
   if(!dietPlan){
     return res.status(404).json({error:'No such diet plan'}) 
   }
-  res.status(200).json(dietPlan)
+  //sending only first 3 -- change this later
+  const reply = dietPlan.slice(0,3);
+  res.status(200).json(reply)
 }  
 module.exports = { 
   saveDietPlans,
