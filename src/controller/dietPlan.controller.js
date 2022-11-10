@@ -114,7 +114,7 @@ const getDietPlanByUserId = async (req, res) => {
     if (!dietPlan) {
       res.status(404).send({ success: false });
     }
-    res.status(200).send({ dietPlan, success: true });
+    res.status(200).send(dietPlan);
   } catch (error) {
     res.status(400).send({ success: false });
   }
