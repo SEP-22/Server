@@ -1,12 +1,11 @@
 const Diet = require("../models/diet");
+const DietPlan = require("../models/dietPlan");
 const mongoose = require("mongoose");
 const { count } = require("../models/diet");
 
 //save dietplans
 const saveDietPlans = async (req, res) => {
   const { plans } = req.body;
-
-  console.log(plans)
 
   arr = [];
   plans.forEach((e) => {
@@ -17,11 +16,30 @@ const saveDietPlans = async (req, res) => {
       dinner: e.dinner,
     });
   });
-  console.log(arr);
+
+  const _id = arr[0].dietPlan_Id
+  console.log(_id)
 
   try {
     const diet = await Diet.insertMany(arr);
-    res.status(200).json(diet);
+    if (diet) {
+      let dietIDs = []
+      for (let index = 0; index < diet.length; index++) {
+        const ele = diet[index];
+        const diet_id = ele._id
+        dietIDs.push(diet_id.toString())
+        
+      }
+
+        const dietPlan = await DietPlan.findByIdAndUpdate(
+          { _id },
+          { dietIDs: dietIDs },
+          { new: true }
+        );
+        console.log(dietPlan)
+        res.status(200).json(dietPlan);
+    }
+    
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
