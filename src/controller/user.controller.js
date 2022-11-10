@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 const User = require("../models/user");
 const mongoose = require("mongoose");
 const validator = require("validator");
+const DietPlan = require("../models/dietPlan");
 
 const ACCESS_TOKEN_SECRET_KEY = process.env.ACCESS_TOKEN_SECRET_KEY;
 const REFRESH_TOKEN_SECRET_KEY = process.env.REFRESH_TOKEN_SECRET_KEY;
@@ -126,7 +127,14 @@ const haveActiveDietPlan = async (req, res) => {
   if (!user.activeDietPlan) {
     data = { active: false };
   } else {
-    data = { active: true, activePlan_Id: user.activeDietPlan };
+    const dp = await DietPlan.findById(user.activeDietPlan)
+    console.log(dp)
+    if (!dp || !dp.dietIDs || dp.dietIDs.length === 0) {
+      data = { active: false };
+    } else {
+      data = { active: true, activePlan_Id: user.activeDietPlan };
+    }
+    
   }
   res.status(200).json(data);
 };
