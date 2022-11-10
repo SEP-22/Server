@@ -3,6 +3,7 @@ const Diet = require("../models/diet");
 const mongoose = require("mongoose");
 const { PythonShell } = require("python-shell");
 const Food = require("../models/food");
+const User = require("../models/user")
 
 //save inputs from user
 const getInputs = async (req, res) => {
@@ -119,10 +120,46 @@ const getDietPlanByUserId = async (req, res) => {
     res.status(400).send({ success: false });
   }
 };
+const getNonActivePlans = async(req,res) => {
+  const _id = req.params.id;
+  //const activePlanId = req.body.activePlanId;
+  try {
+    const user = await User.findById(_id);
+    const activePlanId = user.activeDietPlan;
+    const dietPlan = await DietPlan.find({user_Id:_id ,_id:{$ne:activePlanId}}).populate("dietIDs");
+    if (!dietPlan) {
+      res.status(404).send({ success: false });
+    }else{
+      
+      res.status(200).send(dietPlan);
+    }
+  } catch (error) {
+    res.status(400).send({ success: false });
+  }
+};
+const getActivePlans = async(req,res) => {
+  const _id = req.params.id;
+  //const activePlanId = req.body.activePlanId;
+  try {
+    const user = await User.findById(_id);
+    const activePlanId = user.activeDietPlan;
+    const dietPlan = await DietPlan.find({user_Id:_id ,_id:activePlanId}).populate("dietIDs");
+    if (!dietPlan) {
+      res.status(404).send({ success: false });
+    }else{
+      
+      res.status(200).send(dietPlan);
+    }
+  } catch (error) {
+    res.status(400).send({ success: false });
+  }
+}
 
 module.exports = {
   getInputs,
   getDietPlanById,
   generateDietPlan,
   getDietPlanByUserId,
+  getNonActivePlans,
+  getActivePlans,
 };
