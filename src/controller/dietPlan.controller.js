@@ -58,7 +58,7 @@ const generateDietPlan = async (req, res) => {
 
   console.log(_id);
 
-  const dp = await DietPlan.findById("63526d0b8dceb61e22b1da5e");
+  const dp = await DietPlan.findById(_id);
   //prefered foods update
   const foods = await Food.find({});
   let dietplan = [
@@ -90,7 +90,7 @@ const generateDietPlan = async (req, res) => {
   }
   PythonShell.run(
     "algo.py",
-    { args: ["63526d0b8dceb61e22b1da5e", dietplan, fd.join("~")] },
+    { args: [_id, dietplan, fd.join("~")] },
     function (err, results) {
       if (err) {
         console.log(err);
