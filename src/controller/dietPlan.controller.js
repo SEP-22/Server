@@ -104,9 +104,25 @@ const generateDietPlan = async (req, res) => {
   );
 
 };
+//get user diet plans
+const getDietPlanByUserId = async (req, res) => {
+  const _id = req.params.id;
+
+  try {
+    const dietPlan = await DietPlan.find({user_Id:_id}).populate("dietIDs");
+
+    if (!dietPlan) {
+      res.status(404).send({ success: false });
+    }
+    res.status(200).send(dietPlan);
+  } catch (error) {
+    res.status(400).send({ success: false });
+  }
+};
 
 module.exports = {
   getInputs,
   getDietPlanById,
   generateDietPlan,
+  getDietPlanByUserId,
 };

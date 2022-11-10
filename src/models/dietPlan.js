@@ -63,6 +63,7 @@ const deitPlanSchema = new mongoose.Schema(
     dietIDs : [{
       type: ObjectId,
       required: false,
+      ref:"Diet"
     }],
   },
   { timestamps: true }
