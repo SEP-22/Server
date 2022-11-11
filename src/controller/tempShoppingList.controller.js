@@ -168,8 +168,9 @@ const createAndSaveShoppingList = async(req,res) => {
     }
 };
 const getShoppingListsFromUserId = async(req,res) =>{
-  const userId = req.body.userId;
+  const userId = req.params.id;
   result = [];
+  shopLists = [];
   try{
     const dietPlanIds = await DietPlan.find({user_Id:userId},'_id');
     dietPlanIds.forEach((plan) => {
@@ -177,7 +178,11 @@ const getShoppingListsFromUserId = async(req,res) =>{
     })
     //res.status(200).json(result);
     const shoppingLists = await TempShoppingList.find({dietPlanId:{$in:result}})
-    res.status(200).json(shoppingLists);
+    
+    shoppingLists.forEach((eachList) => {
+      shopLists.push([eachList.dietPlanId,eachList.foodList])
+    })
+    res.status(200).json(shopLists);
   }catch(error){
     res.status(400).json({error:error.message})
   }

@@ -12,6 +12,6 @@ router.post('/createsl',createShoppingList)
 router.get('/getShoppingList',getShoppingList)
 router.post('/createTempSL',createTempShoppingList)
 router.post('/createAndSaveShoppingList',createAndSaveShoppingList)
-router.get('/getShoppingListsFromUserId',getShoppingListsFromUserId)
+router.get('/getShoppingListsFromUserId/:id',getShoppingListsFromUserId)
 
 module.exports.shoppingListRouter = router;
