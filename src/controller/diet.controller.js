@@ -17,29 +17,28 @@ const saveDietPlans = async (req, res) => {
     });
   });
 
-  const _id = arr[0].dietPlan_Id
-  console.log(_id)
+  const _id = arr[0].dietPlan_Id;
+  console.log(_id);
 
   try {
     const diet = await Diet.insertMany(arr);
     if (diet) {
-      let dietIDs = []
+      let dietIDs = [];
       for (let index = 0; index < diet.length; index++) {
-        const ele = diet[index];
-        const diet_id = ele._id
-        dietIDs.push(diet_id.toString())
-        
+        let ele = diet[index];
+        let diet_id = ele._id.toString();
+        console.log(diet_id)
+        dietIDs.push(diet_id);
       }
 
-        const dietPlan = await DietPlan.findByIdAndUpdate(
-          { _id },
-          { dietIDs: dietIDs },
-          { new: true }
-        );
-        console.log(dietPlan)
-        res.status(200).json(dietPlan);
+      const dietPlan = await DietPlan.findByIdAndUpdate(
+        { _id },
+        { dietIDs: dietIDs },
+        { new: true }
+      );
+      console.log(dietPlan);
+      res.status(200).json(dietPlan);
     }
-    
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -47,14 +46,14 @@ const saveDietPlans = async (req, res) => {
 const getDietPlans = async (req, res) => {
   // console.log("roar");
   // res.status(200).json({msg:"working"});
-  const id = "63526d0b8dceb61e22b1da5e"
-  if(!mongoose.Types.ObjectId.isValid(id)){
-    return res.status(404).json({error: 'No such diet plan'})
+  const id = "63526d0b8dceb61e22b1da5e";
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({ error: "No such diet plan" });
   }
-  const dietPlan = await Diet.find({dietPlan_Id:id});
-  
-  if(!dietPlan){
-    return res.status(404).json({error:'No such diet plan'}) 
+  const dietPlan = await Diet.find({ dietPlan_Id: id });
+
+  if (!dietPlan) {
+    return res.status(404).json({ error: "No such diet plan" });
   }
   //sending only first 3 -- change this later
   const reply = dietPlan.slice(0,3);
