@@ -155,93 +155,132 @@ def getBreakfastPlan():
     br = []
     b = calories * meals["breakfast"]
     for x in foodpyramid.keys():
-        if len(foods[x]) == 3:
-            f = random.choice(foods[x][0])
+        if x == "Fruits and Vegetables":
+            if len(foods[x]) == 3:
+                tempfoods = foods[x][0].copy()
+            else:
+                tempfoods = foods[x].copy()
+            f1 = tempfoods.pop(tempfoods.index(random.choice(tempfoods)))
+            f2 = tempfoods.pop(tempfoods.index(random.choice(tempfoods)))
+            v = b * (foodpyramid[x] / 2)
+            c1 = round(v / f1['cal_per_gram'], -1)
+            c2 = round(v / f2['cal_per_gram'], -1)
+            br.append([f1['_id'], str(c1) + ' g', str(round(v)) + ' cal', f1['image'], f1['name']])
+            br.append([f2['_id'], str(c2) + ' g', str(round(v)) + ' cal', f2['image'], f2['name']])
         else:
-            f = random.choice(foods[x])
-        v = b * foodpyramid[x]
-        c = round(v / f['cal_per_gram'], -1)
-        br.append([f['_id'], str(c) + ' cal', str(round(v)) + ' g', f['image'], f['name']])
+            if len(foods[x]) == 3:
+                f = random.choice(foods[x][0])
+            else:
+                f = random.choice(foods[x])
+            v = b * foodpyramid[x]
+            c = round(v / f['cal_per_gram'], -1)
+            br.append([f['_id'], str(c) + ' g', str(round(v)) + ' cal', f['image'], f['name']])
 
-    dietPlan['breakfast'] = br + getFoodforMedicalConditions(b)
+    dietPlan['breakfast'] = br
 
 
 def getLunchPlan():
     ln = []
     b = calories * meals["lunch"]
     for x in foodpyramid.keys():
-        if len(foods[x]) == 3:
-            f = random.choice(foods[x][0])
+        if x == "Fruits and Vegetables":
+            if len(foods[x]) == 3:
+                tempfoods = foods[x][1].copy()
+            else:
+                tempfoods = foods[x].copy()
+            f1 = tempfoods.pop(tempfoods.index(random.choice(tempfoods)))
+            f2 = tempfoods.pop(tempfoods.index(random.choice(tempfoods)))
+            v = b * (foodpyramid[x] / 2)
+            c1 = round(v / f1['cal_per_gram'], -1)
+            c2 = round(v / f2['cal_per_gram'], -1)
+            ln.append([f1['_id'], str(c1) + ' g', str(round(v)) + ' cal', f1['image'], f1['name']])
+            ln.append([f2['_id'], str(c2) + ' g', str(round(v)) + ' cal', f2['image'], f2['name']])
         else:
-            f = random.choice(foods[x])
-        v = b * foodpyramid[x]
-        c = round(v / f['cal_per_gram'], -1)
-        ln.append([f['_id'], str(c) + ' cal', str(round(v)) + ' g', f['image'], f['name']])
+            if len(foods[x]) == 3:
+                f = random.choice(foods[x][1])
+            else:
+                f = random.choice(foods[x])
+            v = b * foodpyramid[x]
+            c = round(v / f['cal_per_gram'], -1)
+            ln.append([f['_id'], str(c) + ' g', str(round(v)) + ' cal', f['image'], f['name']])
 
-    dietPlan['lunch'] = ln + getFoodforMedicalConditions(b)
+    dietPlan['lunch'] = ln
 
 
 def getDinnerPlan():
     dn = []
     b = calories * meals["dinner"]
     for x in foodpyramid.keys():
-        if len(foods[x]) == 3:
-            f = random.choice(foods[x][0])
+        if x == "Fruits and Vegetables":
+            if len(foods[x]) == 3:
+                tempfoods = foods[x][2].copy()
+            else:
+                tempfoods = foods[x].copy()
+            f1 = tempfoods.pop(tempfoods.index(random.choice(tempfoods)))
+            f2 = tempfoods.pop(tempfoods.index(random.choice(tempfoods)))
+            v = b * (foodpyramid[x] / 2)
+            c1 = round(v / f1['cal_per_gram'], -1)
+            c2 = round(v / f2['cal_per_gram'], -1)
+            dn.append([f1['_id'], str(c1) + ' g', str(round(v)) + ' cal', f1['image'], f1['name']])
+            dn.append([f2['_id'], str(c2) + ' g', str(round(v)) + ' cal', f2['image'], f2['name']])
         else:
-            f = random.choice(foods[x])
-        v = b * foodpyramid[x]
-        c = round(v / f['cal_per_gram'], -1)
-        dn.append([f['_id'], str(c) + ' cal', str(round(v)) + ' g', f['image'], f['name']])
-
-    dietPlan['dinner'] = dn + getFoodforMedicalConditions(b)
-
-
-def getFoodforMedicalConditions(b):
-    if Id == 1:
-        medfoods = list(filter(
-            lambda x: x['bloodpressure'] == data['bloodpressure'] and x['diabetics'] == data['diabetics'] and x[
-                'cholesterol'] == data['cholesterol'], foods['Dairy and Fats'] + foods['Sugar']))
-        if len(medfoods) > 0:
-            f = random.choice(medfoods)
-            v = b * (foodpyramid['Dairy and Fats'] + foodpyramid['Sugar'])
+            if len(foods[x]) == 3:
+                f = random.choice(foods[x][2])
+            else:
+                f = random.choice(foods[x])
+            v = b * foodpyramid[x]
             c = round(v / f['cal_per_gram'], -1)
-            return [[f['_id'], str(c) + ' cal', str(round(v)) + ' g', f['image'], f['name']]]
+            dn.append([f['_id'], str(c) + ' g', str(round(v)) + ' cal', f['image'], f['name']])
 
-    if Id == 2:
-        medfoods = list(filter(
-            lambda x: x['bloodpressure'] == data['bloodpressure'] and x['diabetics'] == data['diabetics'] and x[
-                'cholesterol'] == data['cholesterol'], foods['Sugar']))
-        if len(medfoods) > 0:
-            f = random.choice(medfoods)
-            v = b * foodpyramid['Sugar']
-            c = round(v / f['cal_per_gram'], -1)
-            return [[f['_id'], str(c) + ' cal', str(round(v)) + ' g', f['image'], f['name']]]
+    dietPlan['dinner'] = dn
 
-    if Id == 3:
-        medfoods = list(filter(
-            lambda x: x['bloodpressure'] == data['bloodpressure'] and x['diabetics'] == data['diabetics'] and x[
-                'cholesterol'] == data['cholesterol'], foods['Dairy and Fats'] + foods['Proteins']))
-        if len(medfoods) > 1:
-            f1 = medfoods.pop(medfoods.index(random.choice(medfoods)))
-            f2 = medfoods.pop(medfoods.index(random.choice(medfoods)))
-            v1 = b * foodpyramid['Dairy and Fats']
-            c1 = round(v1 / f1['cal_per_gram'], -1)
-            v2 = b * foodpyramid['Proteins']
-            c2 = round(v2 / f2['cal_per_gram'], -1)
-            return [[f1['_id'], str(c1) + ' cal', str(round(v1)) + ' g', f1['image'], f1['name']], [f2['_id'], str(c2) + ' cal', str(round(v2)) + ' g', f2['image'], f2['name']]]
-    if Id == 4:
-        medfoods = list(filter(
-            lambda x: x['bloodpressure'] == data['bloodpressure'] and x['diabetics'] == data['diabetics'] and x[
-                'cholesterol'] == data['cholesterol'], foods['Proteins'] + foods['Dairy and Fats'] + foods['Sugar']))
-        if len(medfoods) > 1:
-            f1 = medfoods.pop(medfoods.index(random.choice(medfoods)))
-            f2 = medfoods.pop(medfoods.index(random.choice(medfoods)))
-            v1 = b * (foodpyramid['Dairy and Fats'] + foodpyramid['Sugar'])
-            c1 = round(v1 / f1['cal_per_gram'], -1)
-            v2 = b * foodpyramid['Proteins']
-            c2 = round(v2 / f2['cal_per_gram'], -1)
-            return [[f1['_id'], str(c1) + ' cal', str(round(v1)) + ' g', f1['image'], f1['name']], [f2['_id'], str(c2) + ' cal', str(round(v2)) + ' g', f2['image'], f2['name']]]
-    return []
+
+# def getFoodforMedicalConditions(b):
+#     if Id == 1:
+#         medfoods = list(filter(
+#             lambda x: x['bloodpressure'] == data['bloodpressure'] and x['diabetics'] == data['diabetics'] and x[
+#                 'cholesterol'] == data['cholesterol'], foods['Dairy and Fats'] + foods['Sugar']))
+#         if len(medfoods) > 0:
+#             f = random.choice(medfoods)
+#             v = b * (foodpyramid['Dairy and Fats'] + foodpyramid['Sugar'])
+#             c = round(v / f['cal_per_gram'], -1)
+#             return [[f['_id'], str(c) + ' cal', str(round(v)) + ' g', f['image'], f['name']]]
+
+#     if Id == 2:
+#         medfoods = list(filter(
+#             lambda x: x['bloodpressure'] == data['bloodpressure'] and x['diabetics'] == data['diabetics'] and x[
+#                 'cholesterol'] == data['cholesterol'], foods['Sugar']))
+#         if len(medfoods) > 0:
+#             f = random.choice(medfoods)
+#             v = b * foodpyramid['Sugar']
+#             c = round(v / f['cal_per_gram'], -1)
+#             return [[f['_id'], str(c) + ' cal', str(round(v)) + ' g', f['image'], f['name']]]
+
+#     if Id == 3:
+#         medfoods = list(filter(
+#             lambda x: x['bloodpressure'] == data['bloodpressure'] and x['diabetics'] == data['diabetics'] and x[
+#                 'cholesterol'] == data['cholesterol'], foods['Dairy and Fats'] + foods['Proteins']))
+#         if len(medfoods) > 1:
+#             f1 = medfoods.pop(medfoods.index(random.choice(medfoods)))
+#             f2 = medfoods.pop(medfoods.index(random.choice(medfoods)))
+#             v1 = b * foodpyramid['Dairy and Fats']
+#             c1 = round(v1 / f1['cal_per_gram'], -1)
+#             v2 = b * foodpyramid['Proteins']
+#             c2 = round(v2 / f2['cal_per_gram'], -1)
+#             return [[f1['_id'], str(c1) + ' cal', str(round(v1)) + ' g', f1['image'], f1['name']], [f2['_id'], str(c2) + ' cal', str(round(v2)) + ' g', f2['image'], f2['name']]]
+#     if Id == 4:
+#         medfoods = list(filter(
+#             lambda x: x['bloodpressure'] == data['bloodpressure'] and x['diabetics'] == data['diabetics'] and x[
+#                 'cholesterol'] == data['cholesterol'], foods['Proteins'] + foods['Dairy and Fats'] + foods['Sugar']))
+#         if len(medfoods) > 1:
+#             f1 = medfoods.pop(medfoods.index(random.choice(medfoods)))
+#             f2 = medfoods.pop(medfoods.index(random.choice(medfoods)))
+#             v1 = b * (foodpyramid['Dairy and Fats'] + foodpyramid['Sugar'])
+#             c1 = round(v1 / f1['cal_per_gram'], -1)
+#             v2 = b * foodpyramid['Proteins']
+#             c2 = round(v2 / f2['cal_per_gram'], -1)
+#             return [[f1['_id'], str(c1) + ' cal', str(round(v1)) + ' g', f1['image'], f1['name']], [f2['_id'], str(c2) + ' cal', str(round(v2)) + ' g', f2['image'], f2['name']]]
+#     return []
 
 
 global db, data, foods, infoods, foodpyramid, meals, dietPlan, Id
@@ -255,9 +294,11 @@ foodpyramid_0 = {
 }
 
 foodpyramid_1 = {
-    "Fruits and Vegetables": 0.35,
+    "Fruits and Vegetables": 0.40,
     "Starchy food": 0.30,
-    "Proteins": 0.20,
+    "Proteins": 0.23,
+    "Dairy and Fats": 0.05,
+    "Sugar": 0.02,
 }
 
 foodpyramid_2 = {
@@ -265,17 +306,23 @@ foodpyramid_2 = {
     "Starchy food": 0.30,
     "Proteins": 0.20,
     "Dairy and Fats": 0.10,
+    "Sugar": 0.02,
 }
 
 foodpyramid_3 = {
-    "Fruits and Vegetables": 0.35,
+    "Fruits and Vegetables": 0.52,
     "Starchy food": 0.30,
+    "Proteins": 0.08,
+    "Dairy and Fats": 0.05,
     "Sugar": 0.05,
 }
 
 foodpyramid_4 = {
-    "Fruits and Vegetables": 0.35,
+    "Fruits and Vegetables": 0.55,
     "Starchy food": 0.30,
+    "Proteins": 0.08,
+    "Dairy and Fats": 0.05,
+    "Sugar": 0.02,
 }
 
 meals = {

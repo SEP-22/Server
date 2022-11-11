@@ -17,7 +17,19 @@ const getAllDietPlans = async (req, res) => {
   };
 
 //get total number of calories from each category - active diet plan
+const getTotalCaloriesbyCategory = async (req, res) => {
+  const _id = req.body.user_Id;
 
+  try {
+    const user = await User.findById(_id);
+    const dietPlan = await DietPlan.findById(user.activeDietPlan);
+    const diets = await Diet.find({_id : dietPlan.dietIDs })
+    
+    res.status(200).json(diets);
+  } catch (error) {
+    res.status(400).send();
+  }
+};
 
 //get total number of different foods in active diet plan
 
@@ -33,4 +45,5 @@ const getAllDietPlans = async (req, res) => {
 
 module.exports = {
     getAllDietPlans,
+    getTotalCaloriesbyCategory
   };
