@@ -56,10 +56,12 @@ const getDietPlanById = async (req, res) => {
 
 const generateDietPlan = async (req, res) => {
   const _id = req.body.dietPlan_Id;
+  // const _id = "636e0e799667497b2a0f4426"
 
   console.log(_id);
 
   const dp = await DietPlan.findById(_id);
+  console.log(dp)
   //prefered foods update
   const foods = await Food.find({});
   let dietplan = [
