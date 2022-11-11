@@ -1,5 +1,6 @@
 const { Router } = require("express");
 const { createShoppingList,getShoppingList} = require("../controller/shoppingList.controller");
+const { createTempShoppingList, createAndSaveShoppingList } = require("../controller/tempShoppingList.controller");
 const auth = require("../middleware/auth");
 
 const router = Router();
@@ -9,5 +10,7 @@ const router = Router();
 //router.get("/testwithfood", gettestsl)
 router.post('/createsl',createShoppingList)
 router.get('/getShoppingList',getShoppingList)
+router.post('/createTempSL',createTempShoppingList)
+router.post('/createAndSaveShoppingList',createAndSaveShoppingList)
 
 module.exports.shoppingListRouter = router;
