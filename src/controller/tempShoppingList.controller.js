@@ -1,4 +1,5 @@
 const TempShoppingList = require("../models/tempShoppingList");
+const DietPlan = require("../models/dietPlan");
 const mongoose = require('mongoose')
 
 const createTempShoppingList = async(req,res) => {
@@ -165,8 +166,24 @@ const createAndSaveShoppingList = async(req,res) => {
     }catch(error){
         res.status(400).json({error:error.message})
     }
-}
+};
+const getShoppingListsFromUserId = async(req,res) =>{
+  const userId = req.body.userId;
+  result = [];
+  try{
+    const dietPlanIds = await DietPlan.find({user_Id:userId},'_id');
+    dietPlanIds.forEach((plan) => {
+      result.push(plan._id);
+    })
+    //res.status(200).json(result);
+    const shoppingLists = await TempShoppingList.find({dietPlanId:{$in:result}})
+    res.status(200).json(shoppingLists);
+  }catch(error){
+    res.status(400).json({error:error.message})
+  }
+};
 module.exports = {
     createTempShoppingList,
-    createAndSaveShoppingList
+    createAndSaveShoppingList,
+    getShoppingListsFromUserId
 }
