@@ -66,3 +66,41 @@ if sys.argv[1] == "0101":
     foods = getFoods()
     sortedFoods = countFood()
     getmaxfoods()
+
+def getmaxPreferedfoods(sortedfds, allfds):
+    c = []
+    mx = sortedfds[0][1]
+    if mx < 1:
+        print('No Maximum Occuring Foods')
+    else:
+        for x in range(len(sortedfds)):
+            if sortedfds[x][1] == mx:
+                c.append(sortedfds[x][0])
+            else:
+                break
+
+        finals = []
+        for f in allfds:
+            if f[0] in c and len(c) > 0:
+                finals.append(f)
+                c.remove(f[0])
+            elif len(c) <= 0:
+                break
+        print(finals)
+
+
+def countPreferedFood(fds):
+    Counts = {}
+    uniquefoods = list(set(fds))
+    for u in uniquefoods:
+        Counts[u] = fds.count(u)
+
+    return sorted(Counts.items(), key=lambda x: x[1], reverse=True)
+
+if sys.argv[1] == "3344":
+    raw_foods = sys.argv[3].split('~')
+    prefferedFoods = [i.strip() for i in sys.argv[2].split(',')]
+
+    All_foods = [[i[0].strip(),  i[1],  i[2]] for i in [j.split(',') for j in raw_foods]]
+    sortedprefferedFoods = countPreferedFood(prefferedFoods)
+    getmaxPreferedfoods(sortedprefferedFoods, All_foods)

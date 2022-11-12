@@ -9,6 +9,7 @@ const {
   getCountofMDPUsers,
   getCountofFoods,
   countFoodsbyCategory,
+  getMostPrefferedFood,
 } = require("../controller/stats.controller");
 const auth = require("../middleware/auth");
 
@@ -23,6 +24,7 @@ router.get("/getcountoffoods", getCountofFoods);
 router.get("/getcountofADPusers", getCountADPUsers);
 router.get("/getcountofMDPusers", getCountofMDPUsers);
 router.get("/countfoodbycateory", countFoodsbyCategory);
+router.get("/mostprefferedfoods", getMostPrefferedFood);
 
 
 module.exports.statsRouter = router;

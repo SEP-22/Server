@@ -76,32 +76,48 @@ const getMaxCountsFoods = async (req, res) => {
 
 const getMostPrefferedFood = async (req, res) => {
 
-  const user = await User.find({ preferedFoods: { $exists: true } });
 
-  const foods = await Food.find({});
+	  const user = await User.find({ preferedFoods: { $exists: true } });
+	  const foods = await Food.find({});
 
-  let fd = [];
-  for (let i in foods) {
-    f = foods[i];
-    fd.push([f._id, f.category].join(","));
-  }
-
-  console.log(fd.join("~"));
-
-  PythonShell.run(
-    "stats.py",
-    { args: ["3344", fd.join("~")] },
-    function (err, results) {
-      if (err) {
-        console.log(err);
-      } else {
-        res.json({
-          status: true,
-          message: results.toString(),
-        });
+    if (user && user.length > 0) {
+      let us = []
+      for (let i = 0; i < user.length; i++) {
+        if (user[i].preferedFoods.length > 0) {
+          us.push(user[i].preferedFoods.join(',')); 
+        }
       }
+
+      let fd = [];
+      for (let i in foods) {
+        f = foods[i];
+        fd.push([f._id, f.name, f.image].join(","));
+      }
+      
+      PythonShell.run(
+        "stats.py",
+        { args: ["3344",us.join(','), fd.join("~")] },
+        function (err, results) {
+          if (err) {
+            console.log(err);
+          } else {
+            res.json({
+              status: true,
+              message: results.toString(),
+            });
+          }
+        }
+      );
+      
+
+      
+    }else if (user.length <= 0){
+      res.status(400).json({status: true, message:'No preffered Foods Selected yet!' })
     }
-  );
+	
+
+
+
 };
 
 const getCountofUsers = async (req, res) => {
@@ -208,4 +224,5 @@ module.exports = {
   getCountofMDPUsers,
   getCountofFoods,
   countFoodsbyCategory,
+  getMostPrefferedFood,
 };
