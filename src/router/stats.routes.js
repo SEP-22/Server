@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const {
   getAllDietPlans,
-  getTotalCaloriesbyCategory,
+  getMaxCountsFoods,
   getCountofUsers,
   getCountofDiets,
   getCountofDietPlans,
@@ -15,7 +15,7 @@ const auth = require("../middleware/auth");
 const router = Router();
 
 router.post("/alldietplans", getAllDietPlans);
-router.post("/totalcalbycategory", getTotalCaloriesbyCategory);
+router.post("/maxcountfoodsinDP", getMaxCountsFoods);
 router.get("/getcountofusers", getCountofUsers);
 router.get("/getcountofdiets", getCountofDiets);
 router.get("/getcountofdietplans", getCountofDietPlans);

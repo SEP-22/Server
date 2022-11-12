@@ -19,79 +19,91 @@ const getAllDietPlans = async (req, res) => {
 };
 
 //get total number of calories from each category - active diet plan
-const getTotalCaloriesbyCategory = async (req, res) => {
+const getMaxCountsFoods = async (req, res) => {
   const _id = req.body.user_Id;
 
-  try {
-    const user = await User.findById(_id);
-    const dietPlan = await DietPlan.findById(user.activeDietPlan);
-    const diets = await Diet.find({ _id: dietPlan.dietIDs });
-    const foods = await Food.find({});
+  const user = await User.findById(_id);
+  const dietPlan = await DietPlan.findById(user.activeDietPlan);
+  const diets = await Diet.find({ _id: dietPlan.dietIDs });
 
-    let dp = [];
-    for (let j in diets) {
-      d = diets[j];
-      br = [];
-      ln = [];
-      dn = [];
-      for (let n = 0; n < d.breakfast.length; n++) {
-        // br.push([(d.breakfast[n][0], d.breakfast[n][1], d.breakfast[n][2])].join(","));
-        br.push(
-          [d.breakfast[n][0], d.breakfast[n][1], d.breakfast[n][2]].join(",")
-        );
-      }
-      for (let n = 0; n < d.lunch.length; n++) {
-        ln.push([d.lunch[n][0], d.lunch[n][1], d.lunch[n][2]].join(","));
-        // console.log([d.lunch[n][0], d.lunch[n][1], d.lunch[n][2]].join(","));
-      }
-      for (let n = 0; n < d.dinner.length; n++) {
-        dn.push([d.dinner[n][0], d.dinner[n][1], d.dinner[n][2]].join(","));
-      }
-      dp.push([br.join("="), ln.join("="), dn.join("=")].join("%"));
+  let dp = [];
+  for (let j in diets) {
+    d = diets[j];
+    br = [];
+    ln = [];
+    dn = [];
+    for (let n = 0; n < d.breakfast.length; n++) {
+      br.push(
+        [d.breakfast[n][0], d.breakfast[n][3], d.breakfast[n][4]].join(",")
+      );
     }
-
-    console.log(dp.join("~"));
-
-    console.log("--------------");
-
-    let fd = [];
-    for (let i in foods) {
-      f = foods[i];
-      fd.push([f._id, f.category].join(","));
+    for (let n = 0; n < d.lunch.length; n++) {
+      ln.push([d.lunch[n][0], d.lunch[n][3], d.lunch[n][4]].join(","));
     }
-
-    console.log(fd.join("~"));
-
-    // PythonShell.run(
-    //   "stats.py",
-    //   { args: [ dp, fd.join("~")] },
-    //   function (err, results) {
-    //     if (err) {
-    //       console.log(err);
-    //     } else {
-    //       res.json({
-    //         status: true,
-    //         message: results.toString(),
-    //       });
-    //     }
-    //   }
-    // );
-
-    res.status(200).json(diets);
-  } catch (error) {
-    res.status(400).send();
+    for (let n = 0; n < d.dinner.length; n++) {
+      dn.push([d.dinner[n][0], d.dinner[n][3], d.dinner[n][4]].join(","));
+    }
+    dp.push([br.join("^"), ln.join("^"), dn.join("^")].join("|"));
   }
+
+  console.log(dp.join("~"));
+
+  console.log("--------------");
+
+  // let fd = [];
+  // for (let i in foods) {
+  //   f = foods[i];
+  //   fd.push([f._id, f.category].join(","));
+  // }
+
+  // console.log(fd.join("~"));
+
+  PythonShell.run(
+    "stats.py",
+    { args: ["0101", dp.join("~")] },
+    function (err, results) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.json({
+          status: true,
+          message: results.toString(),
+        });
+      }
+    }
+  );
 };
 
-//get total number of different foods in active diet plan
+const getMostPrefferedFood = async (req, res) => {
 
-//get number of days from the user created active diet plan
+  const user = await User.find({ preferedFoods: { $exists: true } });
 
-//get total number of calories
+  const foods = await Food.find({});
 
-//get most occuring food items in active diet plan
+  let fd = [];
+  for (let i in foods) {
+    f = foods[i];
+    fd.push([f._id, f.category].join(","));
+  }
 
-//get total number of users
+  console.log(fd.join("~"));
+
+  PythonShell.run(
+    "stats.py",
+    { args: ["3344", fd.join("~")] },
+    function (err, results) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.json({
+          status: true,
+          message: results.toString(),
+        });
+      }
+    }
+  );
+};
+
 const getCountofUsers = async (req, res) => {
   User.countDocuments({ role: "user" }, function (err, count) {
     if (err) {
@@ -135,7 +147,6 @@ const getCountofFoods = async (req, res) => {
     console.log(count);
   });
 };
-
 
 const getCountADPUsers = async (req, res) => {
   User.countDocuments(
@@ -189,7 +200,7 @@ const countFoodsbyCategory = async (req, res) => {
 
 module.exports = {
   getAllDietPlans,
-  getTotalCaloriesbyCategory,
+  getMaxCountsFoods,
   getCountofUsers,
   getCountofDiets,
   getCountofDietPlans,
