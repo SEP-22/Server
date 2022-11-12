@@ -25,7 +25,4 @@ router.get("/getcountofMDPusers", getCountofMDPUsers);
 router.get("/countfoodbycateory", countFoodsbyCategory);
 
 
-
-
-
 module.exports.statsRouter = router;
