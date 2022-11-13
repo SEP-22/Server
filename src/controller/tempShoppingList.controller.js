@@ -172,15 +172,15 @@ const getShoppingListsFromUserId = async(req,res) =>{
   result = [];
   shopLists = [];
   try{
-    const dietPlanIds = await DietPlan.find({user_Id:userId},'_id');
+    const dietPlanIds = await DietPlan.find({user_Id:userId});
     dietPlanIds.forEach((plan) => {
       result.push(plan._id);
     })
     //res.status(200).json(result);
-    const shoppingLists = await TempShoppingList.find({dietPlanId:{$in:result}})
+    const shoppingLists = await TempShoppingList.find({dietPlanId:{$in:result}}).populate("dietPlanId")
     
     shoppingLists.forEach((eachList) => {
-      shopLists.push([eachList.dietPlanId,eachList.foodList])
+      shopLists.push([eachList.dietPlanId._id,eachList.foodList,eachList.dietPlanId.name])
     })
     res.status(200).json(shopLists);
   }catch(error){
