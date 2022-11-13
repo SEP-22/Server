@@ -18,80 +18,101 @@ const getAllDietPlans = async (req, res) => {
   }
 };
 
-//get total number of calories from each category - active diet plan
-const getTotalCaloriesbyCategory = async (req, res) => {
+//get maximum occuring foods in ative diet plan of a user
+const getMaxCountsFoods = async (req, res) => {
   const _id = req.body.user_Id;
 
-  try {
-    const user = await User.findById(_id);
-    const dietPlan = await DietPlan.findById(user.activeDietPlan);
-    const diets = await Diet.find({ _id: dietPlan.dietIDs });
-    const foods = await Food.find({});
+  const user = await User.findById(_id);
+  const dietPlan = await DietPlan.findById(user.activeDietPlan);
+  const diets = await Diet.find({ _id: dietPlan.dietIDs });
 
-    let dp = [];
-    for (let j in diets) {
-      d = diets[j];
-      br = [];
-      ln = [];
-      dn = [];
-      for (let n = 0; n < d.breakfast.length; n++) {
-        // br.push([(d.breakfast[n][0], d.breakfast[n][1], d.breakfast[n][2])].join(","));
-        br.push(
-          [d.breakfast[n][0], d.breakfast[n][1], d.breakfast[n][2]].join(",")
-        );
-      }
-      for (let n = 0; n < d.lunch.length; n++) {
-        ln.push([d.lunch[n][0], d.lunch[n][1], d.lunch[n][2]].join(","));
-        // console.log([d.lunch[n][0], d.lunch[n][1], d.lunch[n][2]].join(","));
-      }
-      for (let n = 0; n < d.dinner.length; n++) {
-        dn.push([d.dinner[n][0], d.dinner[n][1], d.dinner[n][2]].join(","));
-      }
-      dp.push([br.join("="), ln.join("="), dn.join("=")].join("%"));
+  let dp = [];
+  for (let j in diets) {
+    d = diets[j];
+    br = [];
+    ln = [];
+    dn = [];
+    for (let n = 0; n < d.breakfast.length; n++) {
+      br.push(
+        [d.breakfast[n][0], d.breakfast[n][3], d.breakfast[n][4]].join(",")
+      );
     }
-
-    console.log(dp.join("~"));
-
-    console.log("--------------");
-
-    let fd = [];
-    for (let i in foods) {
-      f = foods[i];
-      fd.push([f._id, f.category].join(","));
+    for (let n = 0; n < d.lunch.length; n++) {
+      ln.push([d.lunch[n][0], d.lunch[n][3], d.lunch[n][4]].join(","));
     }
-
-    console.log(fd.join("~"));
-
-    // PythonShell.run(
-    //   "stats.py",
-    //   { args: [ dp, fd.join("~")] },
-    //   function (err, results) {
-    //     if (err) {
-    //       console.log(err);
-    //     } else {
-    //       res.json({
-    //         status: true,
-    //         message: results.toString(),
-    //       });
-    //     }
-    //   }
-    // );
-
-    res.status(200).json(diets);
-  } catch (error) {
-    res.status(400).send();
+    for (let n = 0; n < d.dinner.length; n++) {
+      dn.push([d.dinner[n][0], d.dinner[n][3], d.dinner[n][4]].join(","));
+    }
+    dp.push([br.join("^"), ln.join("^"), dn.join("^")].join("|"));
   }
+
+  PythonShell.run(
+    "stats.py",
+    { args: ["0101", dp.join("~")] },
+    function (err, results) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.json({
+          status: true,
+          message: results.toString(),
+        });
+      }
+    }
+  );
 };
 
-//get total number of different foods in active diet plan
 
-//get number of days from the user created active diet plan
+//get most preffered foods by all users - Admin
+const getMostPrefferedFood = async (req, res) => {
 
-//get total number of calories
+	  const user = await User.find({ preferedFoods: { $exists: true } });
+	  const foods = await Food.find({});
 
-//get most occuring food items in active diet plan
+    if (user && user.length > 0) {
+      let us = []
+      for (let i = 0; i < user.length; i++) {
+        if (user[i].preferedFoods.length > 0) {
+          us.push(user[i].preferedFoods.join(',')); 
+        }
+      }
 
-//get total number of users
+      let fd = [];
+      for (let i in foods) {
+        f = foods[i];
+        fd.push([f._id, f.name, f.image].join(","));
+      }
+      
+      PythonShell.run(
+        "stats.py",
+        { args: ["3344",us.join(','), fd.join("~")] },
+        function (err, results) {
+          if (err) {
+            console.log(err);
+            res.status(400).json(err);
+          } else {
+            res.status(200).json({
+              status: true,
+              message: results.toString(),
+            });
+          }
+        }
+      );
+      
+
+      
+    }else if (user.length <= 0){
+      res.status(200).json({status: true, message:'No preffered Foods Selected yet!' })
+    }else{
+      res.status(200).json({status: true, message:'No users yet!' })
+    }
+	
+
+
+
+};
+
+//get total count of users - Admin
 const getCountofUsers = async (req, res) => {
   User.countDocuments({ role: "user" }, function (err, count) {
     if (err) {
@@ -99,10 +120,11 @@ const getCountofUsers = async (req, res) => {
     } else {
       res.status(200).json({ count: count });
     }
-    console.log(count);
   });
 };
 
+
+//get total number of diets created - Admin
 const getCountofDiets = async (req, res) => {
   Diet.countDocuments({}, function (err, count) {
     if (err) {
@@ -110,10 +132,10 @@ const getCountofDiets = async (req, res) => {
     } else {
       res.status(200).json({ count: count });
     }
-    console.log(count);
   });
 };
 
+//get total number of quizes taken - Admin
 const getCountofDietPlans = async (req, res) => {
   DietPlan.countDocuments({}, function (err, count) {
     if (err) {
@@ -121,10 +143,11 @@ const getCountofDietPlans = async (req, res) => {
     } else {
       res.status(200).json({ count: count });
     }
-    console.log(count);
   });
 };
 
+
+//get total number of foods in the system - Admin
 const getCountofFoods = async (req, res) => {
   Food.countDocuments({}, function (err, count) {
     if (err) {
@@ -132,11 +155,11 @@ const getCountofFoods = async (req, res) => {
     } else {
       res.status(200).json({ count: count });
     }
-    console.log(count);
   });
 };
 
 
+//get total number of users with Active Diet Plan - Admin
 const getCountADPUsers = async (req, res) => {
   User.countDocuments(
     { activeDietPlan: { $exists: true } },
@@ -146,11 +169,12 @@ const getCountADPUsers = async (req, res) => {
       } else {
         res.status(200).json({ count: count });
       }
-      console.log(count);
     }
   );
 };
 
+
+//get total number of users with Multiple Diet Plans - Admin
 const getCountofMDPUsers = async (req, res) => {
   try {
     const data = await DietPlan.aggregate([
@@ -164,12 +188,14 @@ const getCountofMDPUsers = async (req, res) => {
       { $match: { count: { $gt: 1 } } },
     ]);
 
-    res.status(200).json(data);
+    res.status(200).json({count : data.length});
   } catch (err) {
     res.status(400).send(err);
   }
 };
 
+
+//get count of foods by category - Admin
 const countFoodsbyCategory = async (req, res) => {
   try {
     const data = await Food.aggregate([
@@ -189,7 +215,7 @@ const countFoodsbyCategory = async (req, res) => {
 
 module.exports = {
   getAllDietPlans,
-  getTotalCaloriesbyCategory,
+  getMaxCountsFoods,
   getCountofUsers,
   getCountofDiets,
   getCountofDietPlans,
@@ -197,4 +223,5 @@ module.exports = {
   getCountofMDPUsers,
   getCountofFoods,
   countFoodsbyCategory,
+  getMostPrefferedFood,
 };
