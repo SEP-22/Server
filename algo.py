@@ -302,7 +302,7 @@ foodpyramid_1 = {
 }
 
 foodpyramid_2 = {
-    "Fruits and Vegetables": 0.35,
+    "Fruits and Vegetables": 0.38,
     "Starchy food": 0.30,
     "Proteins": 0.20,
     "Dairy and Fats": 0.10,

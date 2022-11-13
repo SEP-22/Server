@@ -88,10 +88,10 @@ const getPreferedFoods = async (req, res) => {
   }
 
   const user = await User.findById(_id);
-  if (!user) {
+  if (!user || user === null) {
     return res.status(400).json({ error: "Failed to find prefered foods" });
   }
-  res.status(200).json({preferedFoods: user.preferedFoods});
+  res.status(200).json({ preferedFoods: user.preferedFoods });
 };
 
 //save the prefered foods selected by the users - array of food _ids
@@ -119,25 +119,31 @@ const haveActiveDietPlan = async (req, res) => {
     return res.status(400).json({ error: "No such user" });
   }
 
-  const user = await User.findById(_id);
+  try {
+    const user = await User.findById(_id);
 
-  if (!user) {
-    return res.status(400).json({ error: "User not found" });
-  }
-  if (!user.activeDietPlan) {
-    data = { active: false };
-  } else {
-    const dp = await DietPlan.findById(user.activeDietPlan)
-    console.log(dp)
-    if (!dp || !dp.dietIDs || dp.dietIDs.length === 0) {
-      data = { active: false };
+    if (!user || user === null) {
+      return res.status(400).json({ error: "User not found" });
     } else {
-      data = { active: true, activePlan_Id: user.activeDietPlan };
+      if (!user.activeDietPlan || user === null) {
+        data = { active: false };
+      } else {
+        console.log(user.activeDietPlan)
+        const dp = await DietPlan.findById(user.activeDietPlan);
+        console.log(dp);
+        if (!dp || !dp.dietIDs || dp.dietIDs.length === 0) {
+          data = { active: false };
+        } else {
+          data = { active: true, activePlan_Id: user.activeDietPlan };
+        }
+      }
+      res.status(200).json(data);
     }
-    
+  } catch (err) {
+    return res.status(400).json(err);
   }
-  res.status(200).json(data);
 };
+
 
 //update active plan _id
 const updateActiveDietPlan = async (req, res) => {
@@ -162,16 +168,16 @@ const updateActiveDietPlan = async (req, res) => {
 const editName = async (req, res) => {
   const _id = req.body.userId;
   console.log(_id);
-  if(!mongoose.Types.ObjectId.isValid(_id)) {
-    return res.status(404).json({error: "No such user"})
+  if (!mongoose.Types.ObjectId.isValid(_id)) {
+    return res.status(404).json({ error: "No such user" });
   }
   const user = await User.findByIdAndUpdate(
-    { _id},
-    {name:req.body.name},
-    {new:true}
+    { _id },
+    { name: req.body.name },
+    { new: true }
   );
-  if(!user){
-    return res.status(400).json({error: "Failed to update profile details"});
+  if (!user) {
+    return res.status(400).json({ error: "Failed to update profile details" });
   }
   res.status(200).json(user);
 };
@@ -179,16 +185,16 @@ const editName = async (req, res) => {
 const editPhone = async (req, res) => {
   const _id = req.body.userId;
   console.log(_id);
-  if(!mongoose.Types.ObjectId.isValid(_id)) {
-    return res.status(404).json({error: "No such user"})
+  if (!mongoose.Types.ObjectId.isValid(_id)) {
+    return res.status(404).json({ error: "No such user" });
   }
   const user = await User.findByIdAndUpdate(
-    { _id},
-    {phone:req.body.phone},
-    {new:true}
+    { _id },
+    { phone: req.body.phone },
+    { new: true }
   );
-  if(!user){
-    return res.status(400).json({error: "Failed to update profile details"});
+  if (!user) {
+    return res.status(400).json({ error: "Failed to update profile details" });
   }
   res.status(200).json(user);
 };
@@ -197,50 +203,52 @@ const editEmail = async (req, res) => {
   const _id = req.body.userId;
   const _email = req.body.email;
   console.log(_id);
-  if(!mongoose.Types.ObjectId.isValid(_id)) {
-    return res.status(404).json({error: "No such user"})
+  if (!mongoose.Types.ObjectId.isValid(_id)) {
+    return res.status(404).json({ error: "No such user" });
   }
   if (!validator.isEmail(req.body.email)) {
     //throw new Error("Invalid email!");
-    return res.status(400).json({error: "Invalid Email"})
-  }else{
-    const existingUser = await User.findOne({ email:_email });
+    return res.status(400).json({ error: "Invalid Email" });
+  } else {
+    const existingUser = await User.findOne({ email: _email });
     console.log(existingUser);
 
     if (!existingUser) {
       const user = await User.findByIdAndUpdate(
-        { _id},
-        {email:_email},
-        {new:true}
+        { _id },
+        { email: _email },
+        { new: true }
       );
-      if(!user){
+      if (!user) {
         //TODO notify if email address already exist
-        return res.status(400).json({error: "Failed to update profile details"});
+        return res
+          .status(400)
+          .json({ error: "Failed to update profile details" });
       }
       res.status(200).json(user);
-    }else{
+    } else {
       return res.send("User already exists");
     }
   }
 };
-const editPassword = async(req,res) =>{
+const editPassword = async (req, res) => {
   const _id = req.body.userId;
   const _password = await bcrypt.hash(req.body.password, 8);
- // _password = await bcrypt.hash(_password, 8);
+  // _password = await bcrypt.hash(_password, 8);
   console.log(_id);
-  if(!mongoose.Types.ObjectId.isValid(_id)) {
-    return res.status(404).json({error: "No such user"})
+  if (!mongoose.Types.ObjectId.isValid(_id)) {
+    return res.status(404).json({ error: "No such user" });
   }
   const user = await User.findByIdAndUpdate(
-    { _id},
-    {password:_password},
-    {new:true}
+    { _id },
+    { password: _password },
+    { new: true }
   );
-  if(!user){
-    return res.status(400).json({error: "Failed to update the password"});
+  if (!user) {
+    return res.status(400).json({ error: "Failed to update the password" });
   }
   res.status(200).json(user);
-}
+};
 //////////////////////// ING ////////////////////////
 
 const users = [
@@ -264,19 +272,24 @@ const getUserByID = async (req, res) => {
   try {
     const _id = req.params.id;
     const user = await User.findById(_id).populate("activeDietPlan");
-    res.send(user)
+    res.send(user);
   } catch (error) {
     res.send("error");
   }
 };
 
-const getASingleUser = async(req,res) => {
-  try{
+const getASingleUser = async (req, res) => {
+  try {
     const _id = req.params.id;
-    const user = await User.findById(_id,{name: true, email:true, password: true, phone: true})
-    res.status(200).json(user)
-  }catch{
-    res.status(404).json({error: 'No such user exists'})
+    const user = await User.findById(_id, {
+      name: true,
+      email: true,
+      password: true,
+      phone: true,
+    });
+    res.status(200).json(user);
+  } catch {
+    res.status(404).json({ error: "No such user exists" });
   }
 };
 

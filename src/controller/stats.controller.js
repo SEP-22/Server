@@ -18,6 +18,98 @@ const getAllDietPlans = async (req, res) => {
   }
 };
 
+//get calory percentage by food category for a user
+const getCaloryPercentagebyCategory = async (req, res) => {
+  const _id = req.body.user_Id;
+
+  try {
+    const user = await User.findById(_id);
+    const dietPlan = await DietPlan.findById(user.activeDietPlan);
+
+    let id = 0;
+    if (dietPlan.bloodpressure || (dietPlan.bloodpressure && dietPlan.diabetics)) {
+      id = 1;
+    } else if (dietPlan.diabetics) {
+      id = 2;
+    } else if (dietPlan.cholesterol) {
+      id = 3;
+    } else if (
+      (dietPlan.bloodpressure && dietPlan.cholesterol) ||
+      (dietPlan.diabetics && dietPlan.cholesterol) ||
+      (dietPlan.bloodpressure && dietPlan.diabetics && dietPlan.cholesterol)
+    ) {
+      id = 4;
+    }
+
+    let temp = [];
+    switch (id) {
+      case 0:
+        temp = [
+          ["Category", "Calory percentage"],
+          ["Fruits and Vegetables", 35],
+          ["Starchy food", 30],
+          ["Proteins", 20],
+          ["Dairy and Fats", 10],
+          ["Sugar", 5],
+        ];
+        break;
+
+      case 1:
+        temp = [
+          ["Category", "Calory percentage"],
+          ["Fruits and Vegetables", 40],
+          ["Starchy food", 30],
+          ["Proteins", 23],
+          ["Dairy and Fats", 5],
+          ["Sugar", 2],
+        ];
+        break;
+
+      case 2:
+        temp = [
+          ["Category", "Calory percentage"],
+          ["Fruits and Vegetables", 38],
+          ["Starchy food", 30],
+          ["Proteins", 20],
+          ["Dairy and Fats", 10],
+          ["Sugar", 2],
+        ];
+        break;
+
+      case 3:
+        temp = [
+          ["Category", "Calory percentage"],
+          ["Fruits and Vegetables", 52],
+          ["Starchy food", 30],
+          ["Proteins", 8],
+          ["Dairy and Fats", 5],
+          ["Sugar", 5],
+        ];
+        break;
+
+      case 4:
+        temp = [
+          ["Category", "Calory percentage"],
+          ["Fruits and Vegetables", 55],
+          ["Starchy food", 30],
+          ["Proteins", 8],
+          ["Dairy and Fats", 5],
+          ["Sugar", 2],
+        ];
+        break;
+
+      default:
+        break;
+    }
+
+
+    res.status(200).json({ message: temp });
+  } catch (error) {
+    res.status(400).send();
+  }
+};
+
+
 //get maximum occuring foods in ative diet plan of a user
 const getMaxCountsFoods = async (req, res) => {
   const _id = req.body.user_Id;
@@ -224,4 +316,5 @@ module.exports = {
   getCountofFoods,
   countFoodsbyCategory,
   getMostPrefferedFood,
+  getCaloryPercentagebyCategory
 };

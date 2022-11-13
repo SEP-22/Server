@@ -10,6 +10,7 @@ const {
   getCountofFoods,
   countFoodsbyCategory,
   getMostPrefferedFood,
+  getCaloryPercentagebyCategory,
 } = require("../controller/stats.controller");
 const auth = require("../middleware/auth");
 
@@ -17,6 +18,7 @@ const router = Router();
 
 router.post("/alldietplans", getAllDietPlans);
 router.post("/maxcountfoodsinDP", getMaxCountsFoods);
+router.post("/calorypercentagebycateory", getCaloryPercentagebyCategory);
 router.get("/getcountofusers", getCountofUsers);
 router.get("/getcountofdiets", getCountofDiets);
 router.get("/getcountofdietplans", getCountofDietPlans);
