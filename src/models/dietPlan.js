@@ -60,6 +60,10 @@ const deitPlanSchema = new mongoose.Schema(
       type: Boolean,
       required: true,
     },
+    name: {
+      type: String,
+      required: true,
+    },
     dietIDs : [{
       type: ObjectId,
       required: false,

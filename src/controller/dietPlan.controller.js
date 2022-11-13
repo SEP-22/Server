@@ -18,6 +18,7 @@ const getInputs = async (req, res) => {
     diabetics,
     cholesterol,
     bloodpressure,
+    name,
   } = req.body;
 
   try {
@@ -32,6 +33,7 @@ const getInputs = async (req, res) => {
       diabetics,
       cholesterol,
       bloodpressure,
+      name,
     });
     res.status(200).json(dietPlan);
   } catch (error) {
