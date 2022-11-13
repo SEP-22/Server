@@ -89,8 +89,9 @@ const getMostPrefferedFood = async (req, res) => {
         function (err, results) {
           if (err) {
             console.log(err);
+            res.status(400).json(err);
           } else {
-            res.json({
+            res.status(200).json({
               status: true,
               message: results.toString(),
             });
@@ -101,7 +102,9 @@ const getMostPrefferedFood = async (req, res) => {
 
       
     }else if (user.length <= 0){
-      res.status(400).json({status: true, message:'No preffered Foods Selected yet!' })
+      res.status(200).json({status: true, message:'No preffered Foods Selected yet!' })
+    }else{
+      res.status(200).json({status: true, message:'No users yet!' })
     }
 	
 
