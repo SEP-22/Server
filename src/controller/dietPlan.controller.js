@@ -234,6 +234,29 @@ const getWeeklyDietPlansNonActive = async(req,res) => {
     res.status(400).send({ success: false });
   }
 };
+const getAllPlanNamesAndStateByUserId = async(req,res)=>{
+  const _id = req.params.id;
+  const map = new Map();
+  try {
+    const user = await User.findById(_id);
+    const activePlanId = user.activeDietPlan;
+    const activePlanDetails = await DietPlan.findById(activePlanId);
+    //console.log(activePlanDetails)
+    if(activePlanDetails){
+      map[activePlanId] = [activePlanDetails.name,true];
+    }
+    const dietPlan = await DietPlan.find({user_Id:_id ,_id:{$ne:activePlanId}});
+    if (dietPlan) {
+      dietPlan.forEach(plan => {
+        map[plan._id] = [plan.name,false];
+     })
+   }
+    res.status(200).json(map);
+  } catch (error) {
+    res.status(400).send({ success: false });
+  }
+
+}
 
 module.exports = {
   getInputs,
@@ -244,4 +267,5 @@ module.exports = {
   getActivePlans,
   getWeeklyDietPlanActive,
   getWeeklyDietPlansNonActive,
+  getAllPlanNamesAndStateByUserId,
 };
