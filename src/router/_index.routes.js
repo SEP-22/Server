@@ -5,7 +5,7 @@ const { foodRouter } = require("./food.routes");
 const { dietPlanRouter } = require("./dietPlan.routes");
 const { shoppingListRouter } = require("./shoppingList.routes")
 const { statsRouter } = require("./stats.routes")
-
+const { reminderRouter } = require("./reminder.routes")
 
 const router = Router();
 
@@ -15,6 +15,7 @@ router.use("/food", foodRouter);
 router.use("/dietPlan", dietPlanRouter)
 router.use("/shoppingList" , shoppingListRouter)
 router.use("/stats" , statsRouter)
+router.use("/reminder" , reminderRouter)
 
 
 module.exports = router;

@@ -4,6 +4,8 @@ const User = require("../models/user");
 const mongoose = require("mongoose");
 const validator = require("validator");
 const DietPlan = require("../models/dietPlan");
+const Reminder = require("../models/reminder");
+
 
 const ACCESS_TOKEN_SECRET_KEY = process.env.ACCESS_TOKEN_SECRET_KEY;
 const REFRESH_TOKEN_SECRET_KEY = process.env.REFRESH_TOKEN_SECRET_KEY;
@@ -15,6 +17,7 @@ const signUp = async (req, res) => {
 
   try {
     const newUser = await user.save();
+    const reminder = await Reminder.create({user_Id: newUser._id});
     // const token = await user.generateAuthToken();
     res.status(201).send({ newUser, success: true });
   } catch (e) {
