@@ -3,7 +3,8 @@ const Diet = require("../models/diet");
 const mongoose = require("mongoose");
 const { PythonShell } = require("python-shell");
 const Food = require("../models/food");
-const User = require("../models/user")
+const User = require("../models/user");
+const TempShoppingList = require("../models/tempShoppingList");
 
 //save inputs from user
 const getInputs = async (req, res) => {
@@ -296,6 +297,36 @@ const getWeeklyDietPlanById = async(req,res) => {
     res.status(400).send({ success: false });
   }
 };
+const deleteDietPlan = async(req,res) => {
+  const _id = req.params.id;
+  try{
+    if (!mongoose.Types.ObjectId.isValid(_id)) {
+      return res.status(400).json({ error: "No such diet plan" });
+    }
+  
+    const dietPlanDet = await DietPlan.findById(_id,{dietIDs:true});
+    //const shoppingList = await TempShoppingList.find({dietPlanId:_id});
+    var dietIdList = dietPlanDet.dietIDs;
+    var length = dietIdList.length; 
+    var count = 0;
+    const deletePlan = await DietPlan.findOneAndDelete({ _id: _id });
+     if(deletePlan){
+       while(count < length){
+         const deleteDiet = await Diet.findByIdAndDelete(dietIdList[count]);
+         console.log(dietIdList[0],"deleted");
+         count += 1;
+       }
+       const slDelete = await TempShoppingList.findOneAndDelete({dietPlanId:_id});
+     }
+    if (!deletePlan) {
+      return res.status(400).json({ error: "No such diet plan" });
+    }
+  
+    res.status(200).json({dietIdList:dietIdList});
+  }catch(error){
+    res.status(400).send({ success: false });
+  }
+};
 
 module.exports = {
   getInputs,
@@ -307,5 +338,6 @@ module.exports = {
   getWeeklyDietPlanActive,
   getWeeklyDietPlansNonActive,
   getAllPlanNamesAndStateByUserId,
-  getWeeklyDietPlanById
+  getWeeklyDietPlanById,
+  deleteDietPlan,
 };
