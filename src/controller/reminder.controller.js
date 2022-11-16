@@ -35,56 +35,70 @@ const updateBreakfast = async (req, res) => {
 
   res.status(200).json(reminder);
 };
+
 const updateLunch = async (req, res) => {
-    const _id = req.body._id;
-    const conditions = {
-      lunchMinute: req.body.lunchMinute,
-      lunchHour: req.body.lunchHour,
-      lunchOn: req.body.lunchOn,
-    };
-  
-    if (!mongoose.Types.ObjectId.isValid(_id)) {
-      return res.status(400).json({ error: "Invalid Reminder ID" });
-    }
-  
-    const reminder = await Reminder.findByIdAndUpdate({ _id }, conditions, {
-      new: true,
-    });
-  
-    if (!reminder) {
-      return res.status(400).json({ error: "No such reminder" });
-    }
-  
-    res.status(200).json(reminder);
+  const _id = req.body._id;
+  const conditions = {
+    lunchMinute: req.body.lunchMinute,
+    lunchHour: req.body.lunchHour,
+    lunchOn: req.body.lunchOn,
   };
 
-  const updateDinner = async (req, res) => {
-    const _id = req.body._id;
-    const conditions = {
-      dinnerMinute: req.body.dinnerMinute,
-      dinnerHour: req.body.dinnerHour,
-      dinnerOn: req.body.dinnerOn,
-    };
-  
-    if (!mongoose.Types.ObjectId.isValid(_id)) {
-      return res.status(400).json({ error: "Invalid Reminder ID" });
-    }
-  
-    const reminder = await Reminder.findByIdAndUpdate({ _id }, conditions, {
-      new: true,
-    });
-  
-    if (!reminder) {
-      return res.status(400).json({ error: "No such reminder" });
-    }
-  
-    res.status(200).json(reminder);
+  if (!mongoose.Types.ObjectId.isValid(_id)) {
+    return res.status(400).json({ error: "Invalid Reminder ID" });
+  }
+
+  const reminder = await Reminder.findByIdAndUpdate({ _id }, conditions, {
+    new: true,
+  });
+
+  if (!reminder) {
+    return res.status(400).json({ error: "No such reminder" });
+  }
+
+  res.status(200).json(reminder);
+};
+
+const updateDinner = async (req, res) => {
+  const _id = req.body._id;
+  const conditions = {
+    dinnerMinute: req.body.dinnerMinute,
+    dinnerHour: req.body.dinnerHour,
+    dinnerOn: req.body.dinnerOn,
   };
-  
+
+  if (!mongoose.Types.ObjectId.isValid(_id)) {
+    return res.status(400).json({ error: "Invalid Reminder ID" });
+  }
+
+  const reminder = await Reminder.findByIdAndUpdate({ _id }, conditions, {
+    new: true,
+  });
+
+  if (!reminder) {
+    return res.status(400).json({ error: "No such reminder" });
+  }
+
+  res.status(200).json(reminder);
+};
+
+const getReminder = async (req, res) => {
+  try {
+    const reminder = await Reminder.find({
+      user_Id: req.body.user_Id,
+    });
+
+    res.status(200).json(reminder);
+  } catch (error) {
+    res.status(400).json(error);
+  }
+};
+
 
 module.exports = {
   newReminder,
   updateBreakfast,
   updateLunch,
-  updateDinner
+  updateDinner,
+  getReminder
 };
