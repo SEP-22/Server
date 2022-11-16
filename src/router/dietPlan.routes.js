@@ -9,6 +9,7 @@ const {
   getWeeklyDietPlanActive,
   getWeeklyDietPlansNonActive,
   getAllPlanNamesAndStateByUserId,
+  getWeeklyDietPlanById,
 } = require("../controller/dietPlan.controller");
 const {saveDietPlans, getDietPlans, saveShoppingList} = require("../controller/diet.controller")
 const auth = require("../middleware/auth");
@@ -27,6 +28,7 @@ router.post("/generateShoppingList",saveShoppingList);
 router.get("/getWeeklyDietPlan/active/:id",getWeeklyDietPlanActive);
 router.get("/getWeeklyDietPlan/nonactive/:id",getWeeklyDietPlansNonActive);
 router.get("/getAllPlanNamesAndStateByUserId/:id",getAllPlanNamesAndStateByUserId);
+router.get("/getWeeklyDietPlanById/:id",getWeeklyDietPlanById);
 
 
 module.exports.dietPlanRouter = router;

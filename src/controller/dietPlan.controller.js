@@ -256,7 +256,46 @@ const getAllPlanNamesAndStateByUserId = async(req,res)=>{
     res.status(400).send({ success: false });
   }
 
-}
+};
+const getWeeklyDietPlanById = async(req,res) => {
+  const _id = req.params.id;
+  //const activePlanId = req.body.activePlanId;
+  try {
+    //const user = await User.findById(_id);
+    //const activePlanId = user.activeDietPlan;
+    const dietPlan = await DietPlan.find({_id:_id}).populate("dietIDs");
+    if (!dietPlan) {
+      res.status(404).send({ success: false });
+    }else{
+      //formatting data
+      const formattedData = [];
+      dietPlan.forEach(element => {
+        var plan = [];
+        var diets = [];
+        var sevenDayArr = [];
+        const dietPlanData = element.dietIDs;
+        plan.push(element._id);
+        plan.push(element.name);
+        
+        dietPlanData.forEach(diet => {
+          diets.push([diet.breakfast,diet.lunch,diet.dinner]);
+        });
+        const quotient = Math.floor(7/dietPlanData.length);
+        const remainder = 7% dietPlanData.length;
+        for (let i = 0; i < quotient; i++) {
+          sevenDayArr = sevenDayArr.concat(diets);
+        }
+        sevenDayArr = sevenDayArr.concat(diets.slice(0,remainder));
+        plan.push(sevenDayArr);
+        formattedData.push(plan);
+      });
+      
+      res.status(200).send(formattedData);
+    }
+  } catch (error) {
+    res.status(400).send({ success: false });
+  }
+};
 
 module.exports = {
   getInputs,
@@ -268,4 +307,5 @@ module.exports = {
   getWeeklyDietPlanActive,
   getWeeklyDietPlansNonActive,
   getAllPlanNamesAndStateByUserId,
+  getWeeklyDietPlanById
 };
