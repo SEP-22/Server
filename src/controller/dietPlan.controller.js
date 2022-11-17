@@ -65,8 +65,13 @@ const generateDietPlan = async (req, res) => {
 
   const dp = await DietPlan.findById(_id);
   console.log(dp);
+  const user = await User.findById(dp.user_Id);
   //prefered foods update
-  const foods = await Food.find({});
+  const foods = await Food.find({_id : user.preferedFoods});
+
+
+
+
   let dietplan = [
     dp.dob.toISOString(),
     dp.gender,
