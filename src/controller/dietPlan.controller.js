@@ -328,6 +328,29 @@ const deleteDietPlan = async(req,res) => {
   }
 };
 
+const updateActiveDietPlan = async (req, res) => {
+  const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ error: "No such diet plan" });
+  }
+
+  const dp = await DietPlan.findOneAndUpdate(
+    { _id: id },
+    {
+      ...req.body,
+    },
+    {new : true}
+  );
+
+  if (!dp) {
+    return res.status(400).json({ error: "No such diet plan" });
+  }
+
+  res.status(200).json(dp);
+};
+
+
 module.exports = {
   getInputs,
   getDietPlanById,
@@ -340,4 +363,5 @@ module.exports = {
   getAllPlanNamesAndStateByUserId,
   getWeeklyDietPlanById,
   deleteDietPlan,
+  updateActiveDietPlan
 };
