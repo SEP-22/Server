@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/models/food.js</title>
+    <title>Code coverage report for src/models/reminder.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/models</a> food.js</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/models</a> reminder.js</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>3/3</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>3/3</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
@@ -125,7 +125,9 @@
 <a name='L60'></a><a href='#L60'>60</a>
 <a name='L61'></a><a href='#L61'>61</a>
 <a name='L62'></a><a href='#L62'>62</a>
-<a name='L63'></a><a href='#L63'>63</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -188,67 +190,68 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const mongoose = require("mongoose");
+const { ObjectId } = require("bson");
 &nbsp;
-const foodSchema = new mongoose.Schema(
+const reminderSchema = new mongoose.Schema(
   {
-    name: {
-      type: String,
+    user_Id: {
+      type: ObjectId,
       required: true,
       trim: true,
     },
-    cal_per_gram: {
+    breakfastHour: {
       type: Number,
       required: true,
+      default: 8,
     },
-    diabetics: {
+    lunchHour: {
+      type: Number,
+      required: true,
+      default: 13,
+    },
+&nbsp;
+    dinnerHour: {
+      type: Number,
+      required: true,
+      default: 20,
+    },
+    breakfastMinute: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
+    lunchMinute: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
+&nbsp;
+    dinnerMinute: {
+      type: Number,
+      required: true,
+      default: 30,
+    },
+&nbsp;
+    breakfastOn: {
       type: Boolean,
       required: true,
+      default: false,
     },
-    cholesterol: {
+    lunchOn: {
       type: Boolean,
       required: true,
+      default: false,
     },
-    bloodpressure: {
+    dinnerOn: {
       type: Boolean,
       required: true,
-    },
-    category: {
-      type: String,
-      enum: [
-        "Fruits and Vegetables",
-        "Starchy food",
-        "Proteins",
-        "Dairy and Fats",
-        "Sugar",
-      ],
-      required: true,
-    },
-    protein: {
-      type: Number,
-      required: true,
-    },
-    fat: {
-      type: Number,
-      required: true,
-    },
-    fiber: {
-      type: Number,
-      required: true,
-    },
-    carbs: {
-      type: Number,
-      required: true,
-    },
-    image: {
-      type: String,
-      required: true,
-      trim: true,
+      default: false,
     },
   },
   { timestamps: true }
 );
 &nbsp;
-module.exports = mongoose.model("Food", foodSchema);
+module.exports = mongoose.model("Reminder", reminderSchema);
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->

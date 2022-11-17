@@ -43,6 +43,7 @@ const saveDietPlans = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
+
 const getDietPlans = async (req, res) => {
   // console.log("roar");
   // res.status(200).json({msg:"working"});
@@ -59,6 +60,7 @@ const getDietPlans = async (req, res) => {
   const reply = dietPlan.slice(0,3);
   res.status(200).json(reply)
 };
+
 const saveShoppingList = async(req,res) => {
   const  plans  = req.body;
   // const plans  = [{dietPlan_Id:1,breakfast:[["bf",1,2],["bf1",1,2]],lunch:[["ln",1,2],["ln1",1,2]],dinner:[["dn",1,2],["dn1",1,2]]},
