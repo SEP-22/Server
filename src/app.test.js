@@ -2,12 +2,12 @@ const request = require("supertest");
 const app = require("./app");
 
 describe("EatSmart Server", () => {
-  it("signUp", () => {
+  it("signIn", () => {
     return request(app)
       .post("/user/signUp")
       .send({
         name: "kivydecilu@mailinator.com",
-        email: "testz1@gmail.com",
+        email: "jeee@mailinator.com",
         phone: "+1 (164) 737-4739",
         password: "Pa$$w0rd!",
         role:"user"
@@ -15,24 +15,4 @@ describe("EatSmart Server", () => {
       .expect(201);
   });
 
-});
-
-describe("EaSmart Server", () => {
-  it("signIn", () => {
-    return request(app)
-      .post("/user/signIn")
-      .send({
-        username: "gimhanravi@gmail.com",
-        password: "12345678",
-      })
-      .expect(200);
-  });
-});
-
-describe("EatSmart Server", () => {
-  it("GetAllFoods", () => {
-    return request(app)
-      .get("/food/allfoods")
-      .expect(200);
-  });
 });
