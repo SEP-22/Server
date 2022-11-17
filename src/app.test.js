@@ -2,7 +2,7 @@ const request = require("supertest");
 const app = require("./app");
 
 describe("EatSmart Server", () => {
-  it("signIn", () => {
+  it("signUp", () => {
     return request(app)
       .post("/user/signUp")
       .send({
