@@ -17,7 +17,7 @@ describe("EatSmart Server", () => {
 
 });
 
-describe("EatSmart Server", () => {
+describe("EaSmart Server", () => {
   it("signIn", () => {
     return request(app)
       .post("/user/signIn")
