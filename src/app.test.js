@@ -7,7 +7,7 @@ describe("EatSmart Server", () => {
       .post("/user/signUp")
       .send({
         name: "kivydecilu@mailinator.com",
-        email: "testz@gmail.com",
+        email: "testz1@gmail.com",
         phone: "+1 (164) 737-4739",
         password: "Pa$$w0rd!",
         role:"user"

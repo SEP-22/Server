@@ -9,7 +9,7 @@ const auth = require("../middleware/auth");
 
 const router = Router();
 
-router.post("/quiz", auth, getInputs);
+router.post("/quiz", getInputs);
 router.get("/:id", getDietPlanById);
 router.post("/generatedietplan", generateDietPlan)
 router.post("/savedietplan", saveDietPlans)

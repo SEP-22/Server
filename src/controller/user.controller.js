@@ -11,7 +11,7 @@ const JWT_RT_ET = process.env.JWT_RT_ET || "24h";
 
 const signUp = async (req, res) => {
   const user = new User(req.body);
-
+  console.log("sing up method");
   try {
     const newUser = await user.save();
     // const token = await user.generateAuthToken();
@@ -52,9 +52,19 @@ const signIn = async (req, res) => {
           { refreshToken },
           { new: true }
         );
+
+        const newCurrentUser = {
+          id: user._id,
+          name: user.name,
+          email: user.email,
+          role: user.role,
+          token:accessToken,
+        };
+
+        console.log(newCurrentUser);
         res.header("x-access-token", accessToken);
         res.header("x-refresh-token", refreshToken);
-        res.send({ message: "success", user: currentUser });
+        res.send({ message: "success", user: newCurrentUser });
       } else {
         res.send({ message: "invalid email or password" });
       }

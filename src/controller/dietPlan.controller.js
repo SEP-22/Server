@@ -58,7 +58,7 @@ const generateDietPlan = async (req, res) => {
 
   console.log(_id);
 
-  const dp = await DietPlan.findById("63526d0b8dceb61e22b1da5e");
+  const dp = await DietPlan.findById("6375de28ed5ec4b4ec97318e");
   const foods = await Food.find({});
   let dietplan = [
     dp.dob.toISOString(),
@@ -71,7 +71,7 @@ const generateDietPlan = async (req, res) => {
     dp.bloodpressure.toString(),
     dp.cholesterol.toString(),
   ].join(",");
-  console.log(dietplan);
+  // console.log(dietplan);
   let fd = [];
   for (let i in foods) {
     f = foods[i];
@@ -88,7 +88,7 @@ const generateDietPlan = async (req, res) => {
       ].join(",")
     );
   }
-  console.log(fd);
+  // console.log(fd);
   let std_out;
   PythonShell.run(
     "algo.py",
