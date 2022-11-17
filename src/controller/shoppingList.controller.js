@@ -15,14 +15,6 @@ const mongoose = require('mongoose')
 // }
 //////////////////////// TESTING ////////////////////////
 
-const test = [
-    {
-      name: "jimmy",
-    },
-    {
-      name: "gimhan",
-    },
-  ];
   
 const getLists = async (req,res)=>{
 try { 
@@ -52,6 +44,7 @@ const getShoppingList = async (req,res) => {
   }
   const shoppingList = await ShoppingList.findById(id).populate("foodList.foodId");
   const foodList = shoppingList.foodList;
+  console.log(shoppingList)
   
   if(!shoppingList){
     return res.status(404).json({error:'No such shopping list'}) 
