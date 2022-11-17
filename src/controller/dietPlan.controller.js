@@ -64,7 +64,7 @@ const generateDietPlan = async (req, res) => {
   console.log(_id);
 
   const dp = await DietPlan.findById(_id);
-  console.log(dp)
+  console.log(dp);
   //prefered foods update
   const foods = await Food.find({});
   let dietplan = [
@@ -108,14 +108,14 @@ const generateDietPlan = async (req, res) => {
       }
     }
   );
-
 };
+
 //get user diet plans
 const getDietPlanByUserId = async (req, res) => {
   const _id = req.params.id;
 
   try {
-    const dietPlan = await DietPlan.find({user_Id:_id}).populate("dietIDs");
+    const dietPlan = await DietPlan.find({ user_Id: _id }).populate("dietIDs");
 
     if (!dietPlan) {
       res.status(404).send({ success: false });
@@ -125,107 +125,120 @@ const getDietPlanByUserId = async (req, res) => {
     res.status(400).send({ success: false });
   }
 };
-const getNonActivePlans = async(req,res) => {
+const getNonActivePlans = async (req, res) => {
   const _id = req.params.id;
   //const activePlanId = req.body.activePlanId;
   try {
     const user = await User.findById(_id);
     const activePlanId = user.activeDietPlan;
-    const dietPlan = await DietPlan.find({user_Id:_id ,_id:{$ne:activePlanId}}).populate("dietIDs");
+    const dietPlan = await DietPlan.find({
+      user_Id: _id,
+      _id: { $ne: activePlanId },
+    }).populate("dietIDs");
     if (!dietPlan) {
       res.status(404).send({ success: false });
-    }else{
-      
+    } else {
       res.status(200).send(dietPlan);
     }
   } catch (error) {
     res.status(400).send({ success: false });
   }
 };
-const getActivePlans = async(req,res) => {
+
+const getActivePlans = async (req, res) => {
   const _id = req.params.id;
   //const activePlanId = req.body.activePlanId;
   try {
     const user = await User.findById(_id);
     const activePlanId = user.activeDietPlan;
-    const dietPlan = await DietPlan.find({user_Id:_id ,_id:activePlanId}).populate("dietIDs");
+    const dietPlan = await DietPlan.find({
+      user_Id: _id,
+      _id: activePlanId,
+    }).populate("dietIDs");
     if (!dietPlan) {
       res.status(404).send({ success: false });
-    }else{
-      
+    } else {
       res.status(200).send(dietPlan);
     }
   } catch (error) {
     res.status(400).send({ success: false });
   }
 };
-const getWeeklyDietPlanActive = async(req,res) => {
+
+const getWeeklyDietPlanActive = async (req, res) => {
   const _id = req.params.id;
   //const activePlanId = req.body.activePlanId;
   try {
     const user = await User.findById(_id);
     const activePlanId = user.activeDietPlan;
-    const dietPlan = await DietPlan.find({user_Id:_id ,_id:activePlanId}).populate("dietIDs");
+    const dietPlan = await DietPlan.find({
+      user_Id: _id,
+      _id: activePlanId,
+    }).populate("dietIDs");
     if (!dietPlan) {
       res.status(404).send({ success: false });
-    }else{
+    } else {
       //formatting data
       const formattedData = [];
-      dietPlan.forEach(element => {
+      dietPlan.forEach((element) => {
         var plan = [];
         var diets = [];
         var sevenDayArr = [];
         const dietPlanData = element.dietIDs;
         plan.push(element._id);
         plan.push(element.name);
-        
-        dietPlanData.forEach(diet => {
-          diets.push([diet.breakfast,diet.lunch,diet.dinner]);
+
+        dietPlanData.forEach((diet) => {
+          diets.push([diet.breakfast, diet.lunch, diet.dinner]);
         });
-        const quotient = Math.floor(7/dietPlanData.length);
-        const remainder = 7% dietPlanData.length;
+        const quotient = Math.floor(7 / dietPlanData.length);
+        const remainder = 7 % dietPlanData.length;
         for (let i = 0; i < quotient; i++) {
           sevenDayArr = sevenDayArr.concat(diets);
         }
-        sevenDayArr = sevenDayArr.concat(diets.slice(0,remainder));
+        sevenDayArr = sevenDayArr.concat(diets.slice(0, remainder));
         plan.push(sevenDayArr);
         formattedData.push(plan);
       });
-      
+
       res.status(200).send(formattedData);
     }
   } catch (error) {
     res.status(400).send({ success: false });
   }
 };
-const getWeeklyDietPlansNonActive = async(req,res) => {
+
+const getWeeklyDietPlansNonActive = async (req, res) => {
   const _id = req.params.id;
   //const activePlanId = req.body.activePlanId;
   try {
     const user = await User.findById(_id);
     const activePlanId = user.activeDietPlan;
-    const dietPlan = await DietPlan.find({user_Id:_id ,_id:{$ne:activePlanId}}).populate("dietIDs");
+    const dietPlan = await DietPlan.find({
+      user_Id: _id,
+      _id: { $ne: activePlanId },
+    }).populate("dietIDs");
     if (!dietPlan) {
       res.status(404).send({ success: false });
-    }else{
+    } else {
       const formattedData = [];
-      dietPlan.forEach(element => {
+      dietPlan.forEach((element) => {
         var plan = [];
         var diets = [];
         var sevenDayArr = [];
         const dietPlanData = element.dietIDs;
         plan.push(element._id);
         plan.push(element.name);
-        
-        dietPlanData.forEach(diet => {
-          diets.push([diet.breakfast,diet.lunch,diet.dinner]);
+
+        dietPlanData.forEach((diet) => {
+          diets.push([diet.breakfast, diet.lunch, diet.dinner]);
         });
-        const quotient = Math.floor(7/dietPlanData.length);
-        const remainder = 7% dietPlanData.length;
+        const quotient = Math.floor(7 / dietPlanData.length);
+        const remainder = 7 % dietPlanData.length;
         for (let i = 0; i < quotient; i++) {
           sevenDayArr = sevenDayArr.concat(diets);
         }
-        sevenDayArr = sevenDayArr.concat(diets.slice(0,remainder));
+        sevenDayArr = sevenDayArr.concat(diets.slice(0, remainder));
         plan.push(sevenDayArr);
         formattedData.push(plan);
       });
@@ -235,7 +248,8 @@ const getWeeklyDietPlansNonActive = async(req,res) => {
     res.status(400).send({ success: false });
   }
 };
-const getAllPlanNamesAndStateByUserId = async(req,res)=>{
+
+const getAllPlanNamesAndStateByUserId = async (req, res) => {
   const _id = req.params.id;
   const map = new Map();
   try {
@@ -243,87 +257,90 @@ const getAllPlanNamesAndStateByUserId = async(req,res)=>{
     const activePlanId = user.activeDietPlan;
     const activePlanDetails = await DietPlan.findById(activePlanId);
     //console.log(activePlanDetails)
-    if(activePlanDetails){
-      map[activePlanId] = [activePlanDetails.name,true];
+    if (activePlanDetails) {
+      map[activePlanId] = [activePlanDetails.name, true];
     }
-    const dietPlan = await DietPlan.find({user_Id:_id ,_id:{$ne:activePlanId}});
+    const dietPlan = await DietPlan.find({
+      user_Id: _id,
+      _id: { $ne: activePlanId },
+    });
     if (dietPlan) {
-      dietPlan.forEach(plan => {
-        map[plan._id] = [plan.name,false];
-     })
-   }
+      dietPlan.forEach((plan) => {
+        map[plan._id] = [plan.name, false];
+      });
+    }
     res.status(200).json(map);
   } catch (error) {
     res.status(400).send({ success: false });
   }
-
 };
-const getWeeklyDietPlanById = async(req,res) => {
+const getWeeklyDietPlanById = async (req, res) => {
   const _id = req.params.id;
   //const activePlanId = req.body.activePlanId;
   try {
     //const user = await User.findById(_id);
     //const activePlanId = user.activeDietPlan;
-    const dietPlan = await DietPlan.find({_id:_id}).populate("dietIDs");
+    const dietPlan = await DietPlan.find({ _id: _id }).populate("dietIDs");
     if (!dietPlan) {
       res.status(404).send({ success: false });
-    }else{
+    } else {
       //formatting data
       const formattedData = [];
-      dietPlan.forEach(element => {
+      dietPlan.forEach((element) => {
         var plan = [];
         var diets = [];
         var sevenDayArr = [];
         const dietPlanData = element.dietIDs;
         plan.push(element._id);
         plan.push(element.name);
-        
-        dietPlanData.forEach(diet => {
-          diets.push([diet.breakfast,diet.lunch,diet.dinner]);
+
+        dietPlanData.forEach((diet) => {
+          diets.push([diet.breakfast, diet.lunch, diet.dinner]);
         });
-        const quotient = Math.floor(7/dietPlanData.length);
-        const remainder = 7% dietPlanData.length;
+        const quotient = Math.floor(7 / dietPlanData.length);
+        const remainder = 7 % dietPlanData.length;
         for (let i = 0; i < quotient; i++) {
           sevenDayArr = sevenDayArr.concat(diets);
         }
-        sevenDayArr = sevenDayArr.concat(diets.slice(0,remainder));
+        sevenDayArr = sevenDayArr.concat(diets.slice(0, remainder));
         plan.push(sevenDayArr);
         formattedData.push(plan);
       });
-      
+
       res.status(200).send(formattedData);
     }
   } catch (error) {
     res.status(400).send({ success: false });
   }
 };
-const deleteDietPlan = async(req,res) => {
+const deleteDietPlan = async (req, res) => {
   const _id = req.params.id;
-  try{
+  try {
     if (!mongoose.Types.ObjectId.isValid(_id)) {
       return res.status(400).json({ error: "No such diet plan" });
     }
-  
-    const dietPlanDet = await DietPlan.findById(_id,{dietIDs:true});
+
+    const dietPlanDet = await DietPlan.findById(_id, { dietIDs: true });
     //const shoppingList = await TempShoppingList.find({dietPlanId:_id});
     var dietIdList = dietPlanDet.dietIDs;
-    var length = dietIdList.length; 
+    var length = dietIdList.length;
     var count = 0;
     const deletePlan = await DietPlan.findOneAndDelete({ _id: _id });
-     if(deletePlan){
-       while(count < length){
-         const deleteDiet = await Diet.findByIdAndDelete(dietIdList[count]);
-         console.log(dietIdList[0],"deleted");
-         count += 1;
-       }
-       const slDelete = await TempShoppingList.findOneAndDelete({dietPlanId:_id});
-     }
+    if (deletePlan) {
+      while (count < length) {
+        const deleteDiet = await Diet.findByIdAndDelete(dietIdList[count]);
+        console.log(dietIdList[0], "deleted");
+        count += 1;
+      }
+      const slDelete = await TempShoppingList.findOneAndDelete({
+        dietPlanId: _id,
+      });
+    }
     if (!deletePlan) {
       return res.status(400).json({ error: "No such diet plan" });
     }
-  
-    res.status(200).json({dietIdList:dietIdList});
-  }catch(error){
+    res.status(200).json({ dietIdList: dietIdList });
+  } catch (error) {
     res.status(400).send({ success: false });
   }
 };
@@ -340,7 +357,7 @@ const updateActiveDietPlan = async (req, res) => {
     {
       ...req.body,
     },
-    {new : true}
+    { new: true }
   );
 
   if (!dp) {
@@ -349,7 +366,6 @@ const updateActiveDietPlan = async (req, res) => {
 
   res.status(200).json(dp);
 };
-
 
 module.exports = {
   getInputs,
@@ -363,5 +379,5 @@ module.exports = {
   getAllPlanNamesAndStateByUserId,
   getWeeklyDietPlanById,
   deleteDietPlan,
-  updateActiveDietPlan
+  updateActiveDietPlan,
 };
