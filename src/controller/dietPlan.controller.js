@@ -68,7 +68,7 @@ const generateDietPlan = async (req, res) => {
   const user = await User.findById(dp.user_Id);
   //prefered foods update
   const foods = await Food.find({_id : user.preferedFoods});
-
+   console.log(foods.length);
 
 
 

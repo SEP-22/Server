@@ -95,9 +95,9 @@ def getFoods(infoods):
             Starchy_food.append(x)
         elif x["category"] == 'Proteins':
             Proteins.append(x)
-        elif x["category"] == 'Dairy and Fats':
+        elif x["category"] == 'Dairy':
             Dairy.append(x)
-        elif x["category"] == 'Sugar':
+        elif x["category"] == 'Fats and Sugar':
             Fats_Sugar.append(x)
 
     random.shuffle(Vegetables)
