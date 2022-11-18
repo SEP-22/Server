@@ -101,7 +101,7 @@ const generateDietPlan = async (req, res) => {
   }
   PythonShell.run(
     "algo.py",
-    { args: [_id, dietplan, fd.join("~")] },
+    {scriptPath: 'src/python', args: [_id, dietplan, fd.join("~")] },
     function (err, results) {
       if (err) {
         console.log(err);
