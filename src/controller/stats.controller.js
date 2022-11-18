@@ -145,7 +145,7 @@ const getMaxCountsFoods = async (req, res) => {
 
   PythonShell.run(
     "stats.py",
-    { args: ["0101", dp.join("~")] },
+    { scriptPath: 'src/python', args: ["0101", dp.join("~")] },
     function (err, results) {
       if (err) {
         console.log(err);
@@ -182,7 +182,7 @@ const getMostPrefferedFood = async (req, res) => {
       
       PythonShell.run(
         "stats.py",
-        { args: ["3344",us.join(','), fd.join("~")] },
+        { scriptPath: 'src/python',args: ["3344",us.join(','), fd.join("~")] },
         function (err, results) {
           if (err) {
             console.log(err);
