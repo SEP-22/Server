@@ -26,11 +26,12 @@ const foodSchema = new mongoose.Schema(
     category: {
       type: String,
       enum: [
-        "Fruits and Vegetables",
+        "Vegetables",
+        "Fruits",
         "Starchy food",
         "Proteins",
-        "Dairy and Fats",
-        "Sugar",
+        "Dairy",
+        "Fats and Sugar",
       ],
       required: true,
     },

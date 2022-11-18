@@ -79,32 +79,36 @@ def calculateCalory():
 def getFoods(infoods):
     # dbFood = db["foods"]
 
-    Fruits_Vegetables = []
+    Vegetables = []
+    Fruits = []
     Starchy_food = []
     Proteins = []
-    Dairy_Fats = []
-    Sugar = []
+    Dairy = []
+    Fats_Sugar = []
 
     for x in infoods:
-        if x["category"] == 'Fruits and Vegetables':
-            Fruits_Vegetables.append(x)
+        if x["category"] == 'Vegetables':
+            Vegetables.append(x)
+        elif x["category"] == 'Fruits':
+            Fruits.append(x)            
         elif x["category"] == 'Starchy food':
             Starchy_food.append(x)
         elif x["category"] == 'Proteins':
             Proteins.append(x)
         elif x["category"] == 'Dairy and Fats':
-            Dairy_Fats.append(x)
+            Dairy.append(x)
         elif x["category"] == 'Sugar':
-            Sugar.append(x)
+            Fats_Sugar.append(x)
 
-    random.shuffle(Fruits_Vegetables)
+    random.shuffle(Vegetables)
+    random.shuffle(Fruits)
     random.shuffle(Starchy_food)
     random.shuffle(Proteins)
-    random.shuffle(Dairy_Fats)
-    random.shuffle(Sugar)
+    random.shuffle(Dairy)
+    random.shuffle(Fats_Sugar)
 
-    return {'Fruits and Vegetables': Fruits_Vegetables, 'Starchy food': Starchy_food, 'Proteins': Proteins,
-            'Dairy and Fats': Dairy_Fats, 'Sugar': Sugar}
+    return {'Vegetables': Vegetables, 'Fruits': Fruits, 'Starchy food': Starchy_food, 'Proteins': Proteins,
+            'Dairy': Dairy, 'Fats and Sugar': Fats_Sugar}
 
 
 def shuffleFoods():
@@ -155,34 +159,19 @@ def getBreakfastPlan():
     br = []
     b = calories * meals["breakfast"]
     for x in foodpyramid.keys():
-        if x == "Fruits and Vegetables":
+        if x == "Vegetables" or x == "Fruits":
             if len(foods[x]) == 3:
                 tempfoods = foods[x][0].copy()
             else:
                 tempfoods = foods[x].copy()
 
-            if foodpyramid[x] > 0.40:
-                f1 = tempfoods.pop(tempfoods.index(random.choice(tempfoods)))
-                f2 = tempfoods.pop(tempfoods.index(random.choice(tempfoods)))
-                f3 = tempfoods.pop(tempfoods.index(random.choice(tempfoods)))
-                f4 = tempfoods.pop(tempfoods.index(random.choice(tempfoods)))
-                v = b * (foodpyramid[x] / 3)
-                c1 = round(v / f1['cal_per_gram'], 1)
-                c2 = round(v / f2['cal_per_gram'], 1)
-                c3 = round(v / f3['cal_per_gram'], 1)
-                c4 = round(v / f4['cal_per_gram'], 1)
-                br.append([f1['_id'], str(round(v)) + ' kcal', str(c1) + ' g', f1['image'], f1['name']])
-                br.append([f2['_id'],  str(round(v)) + ' kcal',str(c2) + ' g', f2['image'], f2['name']])
-                br.append([f3['_id'],  str(round(v)) + ' kcal',str(c3) + ' g', f3['image'], f3['name']])
-                br.append([f4['_id'],  str(round(v)) + ' kcal',str(c4) + ' g', f4['image'], f4['name']])
-            else: 
-                f1 = tempfoods.pop(tempfoods.index(random.choice(tempfoods)))
-                f2 = tempfoods.pop(tempfoods.index(random.choice(tempfoods)))
-                v = b * (foodpyramid[x] / 2)
-                c1 = round(v / f1['cal_per_gram'], 1)
-                c2 = round(v / f2['cal_per_gram'], 1)
-                br.append([f1['_id'], str(round(v)) + ' kcal', str(c1) + ' g', f1['image'], f1['name']])
-                br.append([f2['_id'],  str(round(v)) + ' kcal',str(c2) + ' g', f2['image'], f2['name']])
+            f1 = tempfoods.pop(tempfoods.index(random.choice(tempfoods)))
+            f2 = tempfoods.pop(tempfoods.index(random.choice(tempfoods)))
+            v = b * (foodpyramid[x] / 2)
+            c1 = round(v / f1['cal_per_gram'], 1)
+            c2 = round(v / f2['cal_per_gram'], 1)
+            br.append([f1['_id'], str(round(v)) + ' kcal', str(c1) + ' g', f1['image'], f1['name']])
+            br.append([f2['_id'],  str(round(v)) + ' kcal',str(c2) + ' g', f2['image'], f2['name']])
         else:
             if len(foods[x]) == 3:
                 f = random.choice(foods[x][0])
@@ -199,33 +188,19 @@ def getLunchPlan():
     ln = []
     b = calories * meals["lunch"]
     for x in foodpyramid.keys():
-        if x == "Fruits and Vegetables":
+        if x == "Vegetables" or x == "Fruits":
             if len(foods[x]) == 3:
                 tempfoods = foods[x][1].copy()
             else:
                 tempfoods = foods[x].copy()
-            if foodpyramid[x] > 0.40:
-                f1 = tempfoods.pop(tempfoods.index(random.choice(tempfoods)))
-                f2 = tempfoods.pop(tempfoods.index(random.choice(tempfoods)))
-                f3 = tempfoods.pop(tempfoods.index(random.choice(tempfoods)))
-                f4 = tempfoods.pop(tempfoods.index(random.choice(tempfoods)))
-                v = b * (foodpyramid[x] / 3)
-                c1 = round(v / f1['cal_per_gram'], 1)
-                c2 = round(v / f2['cal_per_gram'], 1)
-                c3 = round(v / f3['cal_per_gram'], 1)
-                c4 = round(v / f4['cal_per_gram'], 1)
-                ln.append([f1['_id'], str(round(v)) + ' kcal', str(c1) + ' g', f1['image'], f1['name']])
-                ln.append([f2['_id'],  str(round(v)) + ' kcal',str(c2) + ' g', f2['image'], f2['name']])
-                ln.append([f3['_id'],  str(round(v)) + ' kcal',str(c3) + ' g', f3['image'], f3['name']])
-                ln.append([f4['_id'],  str(round(v)) + ' kcal',str(c4) + ' g', f4['image'], f4['name']])
-            else: 
-                f1 = tempfoods.pop(tempfoods.index(random.choice(tempfoods)))
-                f2 = tempfoods.pop(tempfoods.index(random.choice(tempfoods)))
-                v = b * (foodpyramid[x] / 2)
-                c1 = round(v / f1['cal_per_gram'], 1)
-                c2 = round(v / f2['cal_per_gram'], 1)
-                ln.append([f1['_id'], str(round(v)) + ' kcal', str(c1) + ' g', f1['image'], f1['name']])
-                ln.append([f2['_id'],  str(round(v)) + ' kcal',str(c2) + ' g', f2['image'], f2['name']])
+
+            f1 = tempfoods.pop(tempfoods.index(random.choice(tempfoods)))
+            f2 = tempfoods.pop(tempfoods.index(random.choice(tempfoods)))
+            v = b * (foodpyramid[x] / 2)
+            c1 = round(v / f1['cal_per_gram'], 1)
+            c2 = round(v / f2['cal_per_gram'], 1)
+            ln.append([f1['_id'], str(round(v)) + ' kcal', str(c1) + ' g', f1['image'], f1['name']])
+            ln.append([f2['_id'],  str(round(v)) + ' kcal',str(c2) + ' g', f2['image'], f2['name']])
         else:
             if len(foods[x]) == 3:
                 f = random.choice(foods[x][1])
@@ -242,33 +217,19 @@ def getDinnerPlan():
     dn = []
     b = calories * meals["dinner"]
     for x in foodpyramid.keys():
-        if x == "Fruits and Vegetables":
+        if x == "Vegetables" or x == "Fruits":
             if len(foods[x]) == 3:
                 tempfoods = foods[x][2].copy()
             else:
                 tempfoods = foods[x].copy()
-            if foodpyramid[x] > 0.40:
-                f1 = tempfoods.pop(tempfoods.index(random.choice(tempfoods)))
-                f2 = tempfoods.pop(tempfoods.index(random.choice(tempfoods)))
-                f3 = tempfoods.pop(tempfoods.index(random.choice(tempfoods)))
-                f4 = tempfoods.pop(tempfoods.index(random.choice(tempfoods)))
-                v = b * (foodpyramid[x] / 3)
-                c1 = round(v / f1['cal_per_gram'], 1)
-                c2 = round(v / f2['cal_per_gram'], 1)
-                c3 = round(v / f3['cal_per_gram'], 1)
-                c4 = round(v / f4['cal_per_gram'], 1)
-                dn.append([f1['_id'], str(round(v)) + ' kcal', str(c1) + ' g', f1['image'], f1['name']])
-                dn.append([f2['_id'],  str(round(v)) + ' kcal',str(c2) + ' g', f2['image'], f2['name']])
-                dn.append([f3['_id'],  str(round(v)) + ' kcal',str(c3) + ' g', f3['image'], f3['name']])
-                dn.append([f4['_id'],  str(round(v)) + ' kcal',str(c4) + ' g', f4['image'], f4['name']])
-            else: 
-                f1 = tempfoods.pop(tempfoods.index(random.choice(tempfoods)))
-                f2 = tempfoods.pop(tempfoods.index(random.choice(tempfoods)))
-                v = b * (foodpyramid[x] / 2)
-                c1 = round(v / f1['cal_per_gram'], 1)
-                c2 = round(v / f2['cal_per_gram'], 1)
-                dn.append([f1['_id'], str(round(v)) + ' kcal', str(c1) + ' g', f1['image'], f1['name']])
-                dn.append([f2['_id'],  str(round(v)) + ' kcal',str(c2) + ' g', f2['image'], f2['name']])
+ 
+            f1 = tempfoods.pop(tempfoods.index(random.choice(tempfoods)))
+            f2 = tempfoods.pop(tempfoods.index(random.choice(tempfoods)))
+            v = b * (foodpyramid[x] / 2)
+            c1 = round(v / f1['cal_per_gram'], 1)
+            c2 = round(v / f2['cal_per_gram'], 1)
+            dn.append([f1['_id'], str(round(v)) + ' kcal', str(c1) + ' g', f1['image'], f1['name']])
+            dn.append([f2['_id'],  str(round(v)) + ' kcal',str(c2) + ' g', f2['image'], f2['name']])
         else:
             if len(foods[x]) == 3:
                 f = random.choice(foods[x][2])
@@ -332,43 +293,48 @@ def getDinnerPlan():
 global db, data, foods, infoods, foodpyramid, meals, dietPlan, Id
 
 foodpyramid_0 = {
-    "Fruits and Vegetables": 0.35,
+    "Vegetables": 0.25,
+    "Fruits": 0.20,
     "Starchy food": 0.30,
-    "Proteins": 0.20,
-    "Dairy and Fats": 0.10,
-    "Sugar": 0.05,
+    "Proteins": 0.07,
+    "Dairy": 0.08,
+    "Fats and Sugar": 0.10,
 }
 
 foodpyramid_1 = {
-    "Fruits and Vegetables": 0.40,
+    "Vegetables": 0.30,
+    "Fruits": 0.23,
     "Starchy food": 0.30,
-    "Proteins": 0.23,
-    "Dairy and Fats": 0.05,
-    "Sugar": 0.02,
+    "Proteins": 0.07,
+    "Dairy": 0.05,
+    "Fats and Sugar": 0.05,
 }
 
 foodpyramid_2 = {
-    "Fruits and Vegetables": 0.38,
+    "Vegetables": 0.28,
+    "Fruits": 0.22,
     "Starchy food": 0.30,
-    "Proteins": 0.20,
-    "Dairy and Fats": 0.10,
-    "Sugar": 0.02,
+    "Proteins": 0.07,
+    "Dairy": 0.08,
+    "Fats and Sugar": 0.05,
 }
 
 foodpyramid_3 = {
-    "Fruits and Vegetables": 0.52,
+    "Vegetables": 0.28,
+    "Fruits": 0.23,
     "Starchy food": 0.30,
-    "Proteins": 0.08,
-    "Dairy and Fats": 0.05,
-    "Sugar": 0.05,
+    "Proteins": 0.05,
+    "Dairy": 0.06,
+    "Fats and Sugar": 0.08,
 }
 
 foodpyramid_4 = {
-    "Fruits and Vegetables": 0.55,
+    "Vegetables": 0.30,
+    "Fruits": 0.24,
     "Starchy food": 0.30,
-    "Proteins": 0.08,
-    "Dairy and Fats": 0.05,
-    "Sugar": 0.02,
+    "Proteins": 0.05,
+    "Dairy": 0.06,
+    "Fats and Sugar": 0.05,
 }
 
 meals = {

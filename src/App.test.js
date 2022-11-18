@@ -76,7 +76,7 @@ describe("EatSmart Server", () => {
 //         diabetics: false,
 //         cholesterol: false,
 //         bloodpressure: true,
-//         category: "Fruits and Vegetables",
+//         category: "Vegetables",
 //         protein: 0,
 //         fat: 0,
 //         fiber: 6,

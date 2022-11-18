@@ -14,20 +14,24 @@ const getFoods = async (req, res) => {
 
 //get all food by category
 const foodsByCategory = async (req, res) => {
-  const Vegetables_Fruits = await Food.find({
-    category: "Fruits and Vegetables",
+  const Vegetables = await Food.find({
+    category: "Vegetables",
+  });
+  const Fruits = await Food.find({
+    category: "Fruits",
   });
   const StarchyFood = await Food.find({ category: "Starchy food" });
   const Proteins = await Food.find({ category: "Proteins" });
-  const Dairy_Fat = await Food.find({ category: "Dairy and Fats" });
-  const Sugar = await Food.find({ category: "Sugar" });
+  const Dairy = await Food.find({ category: "Dairy" });
+  const Fat_Sugar = await Food.find({ category: "Fats and Sugar" });
 
   data = {
-    Vegetables_Fruits: Vegetables_Fruits,
+    Vegetables: Vegetables,
+    Fruits: Fruits,
     StarchyFood: StarchyFood,
     Proteins: Proteins,
-    Dairy_Fat: Dairy_Fat,
-    Sugar: Sugar,
+    Dairy: Dairy,
+    Fat_Sugar: Fat_Sugar,
   };
 
   res.status(200).json(data);
