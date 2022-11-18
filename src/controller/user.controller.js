@@ -215,12 +215,11 @@ const editPhone = async (req, res) => {
 const editEmail = async (req, res) => {
   const _id = req.body.userId;
   const _email = req.body.email;
-  console.log(_id);
+
   if (!mongoose.Types.ObjectId.isValid(_id)) {
     return res.status(404).json({ error: "No such user" });
   }
   if (!validator.isEmail(req.body.email)) {
-    //throw new Error("Invalid email!");
     return res.status(400).json({ error: "Invalid Email" });
   } else {
     const existingUser = await User.findOne({ email: _email });
@@ -233,14 +232,13 @@ const editEmail = async (req, res) => {
         { new: true }
       );
       if (!user) {
-        //TODO notify if email address already exist
         return res
           .status(400)
           .json({ error: "Failed to update profile details" });
       }
       res.status(200).json(user);
     } else {
-      return res.send("User already exists");
+      return res.status(404).json({ error: "This email address is already in use. Please pick a different email address!" });
     }
   }
 };
