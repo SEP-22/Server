@@ -160,21 +160,37 @@ def getBreakfastPlan():
                 tempfoods = foods[x][0].copy()
             else:
                 tempfoods = foods[x].copy()
-            f1 = tempfoods.pop(tempfoods.index(random.choice(tempfoods)))
-            f2 = tempfoods.pop(tempfoods.index(random.choice(tempfoods)))
-            v = b * (foodpyramid[x] / 2)
-            c1 = round(v / f1['cal_per_gram'], -1)
-            c2 = round(v / f2['cal_per_gram'], -1)
-            br.append([f1['_id'], str(round(v)) + ' cal', str(c1) + ' g', f1['image'], f1['name']])
-            br.append([f2['_id'],  str(round(v)) + ' cal',str(c2) + ' g', f2['image'], f2['name']])
+
+            if foodpyramid[x] > 0.40:
+                f1 = tempfoods.pop(tempfoods.index(random.choice(tempfoods)))
+                f2 = tempfoods.pop(tempfoods.index(random.choice(tempfoods)))
+                f3 = tempfoods.pop(tempfoods.index(random.choice(tempfoods)))
+                f4 = tempfoods.pop(tempfoods.index(random.choice(tempfoods)))
+                v = b * (foodpyramid[x] / 3)
+                c1 = round(v / f1['cal_per_gram'], 1)
+                c2 = round(v / f2['cal_per_gram'], 1)
+                c3 = round(v / f3['cal_per_gram'], 1)
+                c4 = round(v / f4['cal_per_gram'], 1)
+                br.append([f1['_id'], str(round(v)) + ' kcal', str(c1) + ' g', f1['image'], f1['name']])
+                br.append([f2['_id'],  str(round(v)) + ' kcal',str(c2) + ' g', f2['image'], f2['name']])
+                br.append([f3['_id'],  str(round(v)) + ' kcal',str(c3) + ' g', f3['image'], f3['name']])
+                br.append([f4['_id'],  str(round(v)) + ' kcal',str(c4) + ' g', f4['image'], f4['name']])
+            else: 
+                f1 = tempfoods.pop(tempfoods.index(random.choice(tempfoods)))
+                f2 = tempfoods.pop(tempfoods.index(random.choice(tempfoods)))
+                v = b * (foodpyramid[x] / 2)
+                c1 = round(v / f1['cal_per_gram'], 1)
+                c2 = round(v / f2['cal_per_gram'], 1)
+                br.append([f1['_id'], str(round(v)) + ' kcal', str(c1) + ' g', f1['image'], f1['name']])
+                br.append([f2['_id'],  str(round(v)) + ' kcal',str(c2) + ' g', f2['image'], f2['name']])
         else:
             if len(foods[x]) == 3:
                 f = random.choice(foods[x][0])
             else:
                 f = random.choice(foods[x])
             v = b * foodpyramid[x]
-            c = round(v / f['cal_per_gram'], -1)
-            br.append([f['_id'],  str(round(v)) + ' cal', str(c) + ' g',f['image'], f['name']])
+            c = round(v / f['cal_per_gram'], 1)
+            br.append([f['_id'],  str(round(v)) + ' kcal', str(c) + ' g',f['image'], f['name']])
 
     dietPlan['breakfast'] = br
 
@@ -188,21 +204,36 @@ def getLunchPlan():
                 tempfoods = foods[x][1].copy()
             else:
                 tempfoods = foods[x].copy()
-            f1 = tempfoods.pop(tempfoods.index(random.choice(tempfoods)))
-            f2 = tempfoods.pop(tempfoods.index(random.choice(tempfoods)))
-            v = b * (foodpyramid[x] / 2)
-            c1 = round(v / f1['cal_per_gram'], -1)
-            c2 = round(v / f2['cal_per_gram'], -1)
-            ln.append([f1['_id'],  str(round(v)) + ' cal',str(c1) + ' g', f1['image'], f1['name']])
-            ln.append([f2['_id'],  str(round(v)) + ' cal',str(c2) + ' g', f2['image'], f2['name']])
+            if foodpyramid[x] > 0.40:
+                f1 = tempfoods.pop(tempfoods.index(random.choice(tempfoods)))
+                f2 = tempfoods.pop(tempfoods.index(random.choice(tempfoods)))
+                f3 = tempfoods.pop(tempfoods.index(random.choice(tempfoods)))
+                f4 = tempfoods.pop(tempfoods.index(random.choice(tempfoods)))
+                v = b * (foodpyramid[x] / 3)
+                c1 = round(v / f1['cal_per_gram'], 1)
+                c2 = round(v / f2['cal_per_gram'], 1)
+                c3 = round(v / f3['cal_per_gram'], 1)
+                c4 = round(v / f4['cal_per_gram'], 1)
+                ln.append([f1['_id'], str(round(v)) + ' kcal', str(c1) + ' g', f1['image'], f1['name']])
+                ln.append([f2['_id'],  str(round(v)) + ' kcal',str(c2) + ' g', f2['image'], f2['name']])
+                ln.append([f3['_id'],  str(round(v)) + ' kcal',str(c3) + ' g', f3['image'], f3['name']])
+                ln.append([f4['_id'],  str(round(v)) + ' kcal',str(c4) + ' g', f4['image'], f4['name']])
+            else: 
+                f1 = tempfoods.pop(tempfoods.index(random.choice(tempfoods)))
+                f2 = tempfoods.pop(tempfoods.index(random.choice(tempfoods)))
+                v = b * (foodpyramid[x] / 2)
+                c1 = round(v / f1['cal_per_gram'], 1)
+                c2 = round(v / f2['cal_per_gram'], 1)
+                ln.append([f1['_id'], str(round(v)) + ' kcal', str(c1) + ' g', f1['image'], f1['name']])
+                ln.append([f2['_id'],  str(round(v)) + ' kcal',str(c2) + ' g', f2['image'], f2['name']])
         else:
             if len(foods[x]) == 3:
                 f = random.choice(foods[x][1])
             else:
                 f = random.choice(foods[x])
             v = b * foodpyramid[x]
-            c = round(v / f['cal_per_gram'], -1)
-            ln.append([f['_id'], str(round(v)) + ' cal',  str(c) + ' g',f['image'], f['name']])
+            c = round(v / f['cal_per_gram'], 1)
+            ln.append([f['_id'], str(round(v)) + ' kcal',  str(c) + ' g',f['image'], f['name']])
 
     dietPlan['lunch'] = ln
 
@@ -216,21 +247,36 @@ def getDinnerPlan():
                 tempfoods = foods[x][2].copy()
             else:
                 tempfoods = foods[x].copy()
-            f1 = tempfoods.pop(tempfoods.index(random.choice(tempfoods)))
-            f2 = tempfoods.pop(tempfoods.index(random.choice(tempfoods)))
-            v = b * (foodpyramid[x] / 2)
-            c1 = round(v / f1['cal_per_gram'], -1)
-            c2 = round(v / f2['cal_per_gram'], -1)
-            dn.append([f1['_id'], str(round(v)) + ' cal', str(c1) + ' g', f1['image'], f1['name']])
-            dn.append([f2['_id'], str(round(v)) + ' cal',  str(c2) + ' g',f2['image'], f2['name']])
+            if foodpyramid[x] > 0.40:
+                f1 = tempfoods.pop(tempfoods.index(random.choice(tempfoods)))
+                f2 = tempfoods.pop(tempfoods.index(random.choice(tempfoods)))
+                f3 = tempfoods.pop(tempfoods.index(random.choice(tempfoods)))
+                f4 = tempfoods.pop(tempfoods.index(random.choice(tempfoods)))
+                v = b * (foodpyramid[x] / 3)
+                c1 = round(v / f1['cal_per_gram'], 1)
+                c2 = round(v / f2['cal_per_gram'], 1)
+                c3 = round(v / f3['cal_per_gram'], 1)
+                c4 = round(v / f4['cal_per_gram'], 1)
+                dn.append([f1['_id'], str(round(v)) + ' kcal', str(c1) + ' g', f1['image'], f1['name']])
+                dn.append([f2['_id'],  str(round(v)) + ' kcal',str(c2) + ' g', f2['image'], f2['name']])
+                dn.append([f3['_id'],  str(round(v)) + ' kcal',str(c3) + ' g', f3['image'], f3['name']])
+                dn.append([f4['_id'],  str(round(v)) + ' kcal',str(c4) + ' g', f4['image'], f4['name']])
+            else: 
+                f1 = tempfoods.pop(tempfoods.index(random.choice(tempfoods)))
+                f2 = tempfoods.pop(tempfoods.index(random.choice(tempfoods)))
+                v = b * (foodpyramid[x] / 2)
+                c1 = round(v / f1['cal_per_gram'], 1)
+                c2 = round(v / f2['cal_per_gram'], 1)
+                dn.append([f1['_id'], str(round(v)) + ' kcal', str(c1) + ' g', f1['image'], f1['name']])
+                dn.append([f2['_id'],  str(round(v)) + ' kcal',str(c2) + ' g', f2['image'], f2['name']])
         else:
             if len(foods[x]) == 3:
                 f = random.choice(foods[x][2])
             else:
                 f = random.choice(foods[x])
             v = b * foodpyramid[x]
-            c = round(v / f['cal_per_gram'], -1)
-            dn.append([f['_id'],  str(round(v)) + ' cal',str(c) + ' g', f['image'], f['name']])
+            c = round(v / f['cal_per_gram'], 1)
+            dn.append([f['_id'],  str(round(v)) + ' kcal',str(c) + ' g', f['image'], f['name']])
 
     dietPlan['dinner'] = dn
 
@@ -243,7 +289,7 @@ def getDinnerPlan():
 #         if len(medfoods) > 0:
 #             f = random.choice(medfoods)
 #             v = b * (foodpyramid['Dairy and Fats'] + foodpyramid['Sugar'])
-#             c = round(v / f['cal_per_gram'], -1)
+#             c = round(v / f['cal_per_gram'], 1)
 #             return [[f['_id'], str(c) + ' cal', str(round(v)) + ' g', f['image'], f['name']]]
 
 #     if Id == 2:
@@ -253,7 +299,7 @@ def getDinnerPlan():
 #         if len(medfoods) > 0:
 #             f = random.choice(medfoods)
 #             v = b * foodpyramid['Sugar']
-#             c = round(v / f['cal_per_gram'], -1)
+#             c = round(v / f['cal_per_gram'], 1)
 #             return [[f['_id'], str(c) + ' cal', str(round(v)) + ' g', f['image'], f['name']]]
 
 #     if Id == 3:
@@ -264,9 +310,9 @@ def getDinnerPlan():
 #             f1 = medfoods.pop(medfoods.index(random.choice(medfoods)))
 #             f2 = medfoods.pop(medfoods.index(random.choice(medfoods)))
 #             v1 = b * foodpyramid['Dairy and Fats']
-#             c1 = round(v1 / f1['cal_per_gram'], -1)
+#             c1 = round(v1 / f1['cal_per_gram'], 1)
 #             v2 = b * foodpyramid['Proteins']
-#             c2 = round(v2 / f2['cal_per_gram'], -1)
+#             c2 = round(v2 / f2['cal_per_gram'], 1)
 #             return [[f1['_id'], str(c1) + ' cal', str(round(v1)) + ' g', f1['image'], f1['name']], [f2['_id'], str(c2) + ' cal', str(round(v2)) + ' g', f2['image'], f2['name']]]
 #     if Id == 4:
 #         medfoods = list(filter(
@@ -276,9 +322,9 @@ def getDinnerPlan():
 #             f1 = medfoods.pop(medfoods.index(random.choice(medfoods)))
 #             f2 = medfoods.pop(medfoods.index(random.choice(medfoods)))
 #             v1 = b * (foodpyramid['Dairy and Fats'] + foodpyramid['Sugar'])
-#             c1 = round(v1 / f1['cal_per_gram'], -1)
+#             c1 = round(v1 / f1['cal_per_gram'], 1)
 #             v2 = b * foodpyramid['Proteins']
-#             c2 = round(v2 / f2['cal_per_gram'], -1)
+#             c2 = round(v2 / f2['cal_per_gram'], 1)
 #             return [[f1['_id'], str(c1) + ' cal', str(round(v1)) + ' g', f1['image'], f1['name']], [f2['_id'], str(c2) + ' cal', str(round(v2)) + ' g', f2['image'], f2['name']]]
 #     return []
 
