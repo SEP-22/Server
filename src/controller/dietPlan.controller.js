@@ -61,14 +61,10 @@ const generateDietPlan = async (req, res) => {
   const _id = req.body.dietPlan_Id;
   // const _id = "636e0e799667497b2a0f4426"
 
-  console.log(_id);
-
   const dp = await DietPlan.findById(_id);
-  console.log(dp);
   const user = await User.findById(dp.user_Id);
   //prefered foods update
   const foods = await Food.find({_id : user.preferedFoods});
-   console.log(foods.length);
 
 
 
@@ -130,6 +126,7 @@ const getDietPlanByUserId = async (req, res) => {
     res.status(400).send({ success: false });
   }
 };
+
 const getNonActivePlans = async (req, res) => {
   const _id = req.params.id;
   //const activePlanId = req.body.activePlanId;

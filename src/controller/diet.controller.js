@@ -18,7 +18,7 @@ const saveDietPlans = async (req, res) => {
   });
 
   const _id = arr[0].dietPlan_Id;
-  console.log(_id);
+
 
   try {
     const diet = await Diet.insertMany(arr);
@@ -27,7 +27,6 @@ const saveDietPlans = async (req, res) => {
       for (let index = 0; index < diet.length; index++) {
         let ele = diet[index];
         let diet_id = ele._id.toString();
-        console.log(diet_id)
         dietIDs.push(diet_id);
       }
 
@@ -36,7 +35,6 @@ const saveDietPlans = async (req, res) => {
         { dietIDs: dietIDs },
         { new: true }
       );
-      console.log(dietPlan);
       res.status(200).json(dietPlan);
     }
   } catch (error) {
@@ -81,14 +79,14 @@ const saveShoppingList = async(req,res) => {
   const quotient = Math.floor(7/arr.length);
   const remainder = 7 % arr.length;
 
-  console.log(quotient,remainder)
+
   //creating newarray with 7 dietplans
   let newArr = [];
   for (let i = 0; i < quotient; i++) {
     newArr = newArr.concat(arr);
   }
   newArr = newArr.concat(arr.slice(0,remainder))
-  console.log(newArr.length)
+
 
   newArr.forEach((e) => {
     breakfastArr = e.breakfast;
