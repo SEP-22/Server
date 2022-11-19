@@ -44,67 +44,21 @@ const getCaloryPercentagebyCategory = async (req, res) => {
     let temp = [];
     switch (id) {
       case 0:
-        temp = [
-          ["Category", "Calory percentage"],
-          ["Vegetables", 25],
-          ["Fruits", 20],
-          ["Starchy food", 30],
-          ["Proteins", 7],
-          ["Dairy", 8],
-          ["Fats and Sugar", 10],
-        ];
-        break;
+        temp = [["Category", "Calory percentage"],["Vegetables", 25],["Fruits", 20],["Starchy food", 30],["Proteins", 7],["Dairy", 8],["Fats and Sugar", 10],];break;
 
       case 1:
-        temp = [
-          ["Category", "Calory percentage"],
-          ["Vegetables", 30],
-          ["Fruits", 23],
-          ["Starchy food", 30],
-          ["Proteins", 7],
-          ["Dairy", 5],
-          ["Fats and Sugar", 5],
-        ];
-        break;
+        temp = [["Category", "Calory percentage"],["Vegetables", 30],["Fruits", 23],["Starchy food", 30],["Proteins", 7],["Dairy", 5],["Fats and Sugar", 5],];break;
 
       case 2:
-        temp = [
-          ["Category", "Calory percentage"],
-          ["Vegetables", 28],
-          ["Fruits", 22],
-          ["Starchy food", 30],
-          ["Proteins", 7],
-          ["Dairy", 8],
-          ["Fats and Sugar", 5],
-        ];
-        break;
+        temp = [["Category", "Calory percentage"],["Vegetables", 28],["Fruits", 22],["Starchy food", 30],["Proteins", 7],["Dairy", 8],["Fats and Sugar", 5],];break;
 
       case 3:
-        temp = [
-          ["Category", "Calory percentage"],
-          ["Vegetables", 28],
-          ["Fruits", 23],
-          ["Starchy food", 30],
-          ["Proteins", 5],
-          ["Dairy", 6],
-          ["Fats and Sugar", 8],
-        ];
-        break;
+        temp = [["Category", "Calory percentage"],["Vegetables", 28],["Fruits", 23],["Starchy food", 30],["Proteins", 5],["Dairy", 6],["Fats and Sugar", 8],];break;
 
       case 4:
-        temp = [
-          ["Category", "Calory percentage"],
-          ["Vegetables", 30],
-          ["Fruits", 24],
-          ["Starchy food", 30],
-          ["Proteins", 5],
-          ["Dairy", 6],
-          ["Fats and Sugar", 5],
-        ];
-        break;
+        temp = [["Category", "Calory percentage"],["Vegetables", 30],["Fruits", 24],["Starchy food", 30],["Proteins", 5],["Dairy", 6],["Fats and Sugar", 5],];break;
 
-      default:
-        break;
+      default:break;
     }
 
 

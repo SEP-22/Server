@@ -11,7 +11,6 @@ const router = Router();
 
 router.use("/user", userRouter);
 router.use("/food", foodRouter);
-// router.use("/image", imageRouter);
 router.use("/dietPlan", dietPlanRouter)
 router.use("/shoppingList" , shoppingListRouter)
 router.use("/stats" , statsRouter)

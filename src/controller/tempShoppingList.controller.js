@@ -1,6 +1,7 @@
 const TempShoppingList = require("../models/tempShoppingList");
 const DietPlan = require("../models/dietPlan");
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+const { findOneAndUpdate } = require("../models/user");
 
 const createTempShoppingList = async(req,res) => {
     const{dietPlanId,foodList} = req.body
@@ -13,9 +14,6 @@ const createTempShoppingList = async(req,res) => {
 };
 const createAndSaveShoppingList = async(req,res) => {
     const  {plans}  = req.body;
-    //console.log(plans);
-    // const plans  = [{dietPlan_Id:1,breakfast:[["bf",1,2],["bf1",1,2]],lunch:[["ln",1,2],["ln1",1,2]],dinner:[["dn",1,2],["dn1",1,2]]},
-    //                 {dietPlan_Id:2,breakfast:[["bf2",1,2],["bf21",1,2]],lunch:[["ln2",1,2],["ln21",1,2]],dinner:[["dn2",1,2],["dn21",1,2]]}];
   
     arr = [];
     const dietPlanId = plans[0].dietPlan_Id;
@@ -34,7 +32,6 @@ const createAndSaveShoppingList = async(req,res) => {
     const remainder = 7 % arr.length;
   
     console.log(quotient,remainder)
-    //creating newarray with 7 dietplans
     let newArr = [];
     for (let i = 0; i < quotient; i++) {
       newArr = newArr.concat(arr);
@@ -46,20 +43,7 @@ const createAndSaveShoppingList = async(req,res) => {
       breakfastArr = e.breakfast;
       lunchArr = e.lunch;
       dinnerArr = e.dinner;
-      //breakfast loop
       breakfastArr.forEach((br) => {
-        //shoppingListArr.push(br[2]);
-  
-        //corr start
-        // let len = br[2].length
-        // if(compDet[br[4]]){
-        //   let temp = compDet[br[4]];
-        //   compDet[br[4]] = temp*1 + (br[2].substring(0, len-2))*1;
-        //   //document.getElementById("demo2").innerHTML = compDet[br[4]];
-        // }else{
-        //   compDet[br[4]]=(br[2].substring(0, len-2))*1;
-        // }
-        //corr end
         let amountLen = br[2].length
         let calorieLen = br[1].length
         let amount = br[2].substring(0,amountLen-2)
@@ -67,7 +51,6 @@ const createAndSaveShoppingList = async(req,res) => {
         let img = br[3]
   
         if(compDet[br[4]]){
-          //console.log("magulaaa",compDet[br[4]])
           let oldAmount = compDet[br[4]][0];
           let oldCalorie = compDet[br[4]][1];
           let newAmount = oldAmount + amount*1;
@@ -78,18 +61,6 @@ const createAndSaveShoppingList = async(req,res) => {
         }
       });
       lunchArr.forEach((br) => {
-        //shoppingListArr.push(br[2]);
-  
-        //corr start
-        // let len = br[2].length
-        // if(compDet[br[4]]){
-        //   let temp = compDet[br[4]];
-        //   compDet[br[4]] = temp*1 + (br[2].substring(0, len-2))*1;
-        //   //document.getElementById("demo2").innerHTML = compDet[br[4]];
-        // }else{
-        //   compDet[br[4]]=(br[2].substring(0, len-2))*1;
-        // }
-        //corr end
         let amountLen = br[2].length
         let calorieLen = br[1].length
         let amount = br[2].substring(0,amountLen-2)
@@ -97,7 +68,6 @@ const createAndSaveShoppingList = async(req,res) => {
         let img = br[3]
   
         if(compDet[br[4]]){
-          //console.log("magulaaa",compDet[br[4]])
           let oldAmount = compDet[br[4]][0];
           let oldCalorie = compDet[br[4]][1];
           let newAmount = oldAmount + amount*1;
@@ -108,18 +78,6 @@ const createAndSaveShoppingList = async(req,res) => {
         }
       });
       dinnerArr.forEach((br) => {
-        //shoppingListArr.push(br[2]);
-  
-        //corr start
-        // let len = br[2].length
-        // if(compDet[br[4]]){
-        //   let temp = compDet[br[4]];
-        //   compDet[br[4]] = temp*1 + (br[2].substring(0, len-2))*1;
-        //   //document.getElementById("demo2").innerHTML = compDet[br[4]];
-        // }else{
-        //   compDet[br[4]]=(br[2].substring(0, len-2))*1;
-        // }
-        //corr end
         let amountLen = br[2].length
         let calorieLen = br[1].length
         let amount = br[2].substring(0,amountLen-2)
@@ -127,7 +85,6 @@ const createAndSaveShoppingList = async(req,res) => {
         let img = br[3]
   
         if(compDet[br[4]]){
-          //console.log("magulaaa",compDet[br[4]])
           let oldAmount = compDet[br[4]][0];
           let oldCalorie = compDet[br[4]][1];
           let newAmount = oldAmount + amount*1;
@@ -139,30 +96,24 @@ const createAndSaveShoppingList = async(req,res) => {
       });
   
     });
-  
-    // if(compDet[br[4]]){
-    //   let temp = compDet[br[4][0]]; //gram
-    //   let temp2 = compDet[br[4][1]]; //cal
-    //   compDet[br[4]] = [temp*1 + (br[2].substring(0, len-2))*1,temp2*1 + (br[1].substring(0, len2-4))*1];
-    //   //document.getElementById("demo2").innerHTML = compDet[br[4]];
-    // }else{
-    //   compDet[br[4]]=[(br[2].substring(0, len-2))*1,(br[1].substring(0, len2-4))*1];
-    // }
-  
-  
-    //res.status(200).json(shoppingListArr);
     resultArr = []
     for (property in compDet) {
-      //console.log(`key= ${property} value = ${compDet[property]}`)
       resultArr.push([property].concat(compDet[property]));
-      //console.log(resultArr);
-      //console.log(dietPlanId);
    }
-    //res.status(200).json(compDet);
-    //res.status(200).json({dietPlanId:dietPlanId,foodList:resultArr});
     try{
-        const tempShoppingList = await TempShoppingList.create({dietPlanId:dietPlanId,foodList:resultArr});
-        res.status(200).json(tempShoppingList)
+        const isShoppingList = await TempShoppingList.find({dietPlanId:dietPlanId});
+        if(isShoppingList.length){
+          console.log(isShoppingList);
+          console.log("exists");
+          const updatetempShoppingList = await TempShoppingList.findOneAndUpdate({dietPlanId:dietPlanId},{foodList:resultArr},{new:true});
+          res.status(200).json(updatetempShoppingList);
+        }
+        else{
+          console.log("Doesn't exist");
+          const tempShoppingList = await TempShoppingList.create({dietPlanId:dietPlanId,foodList:resultArr});
+          res.status(200).json(tempShoppingList)
+        }
+        
     }catch(error){
         res.status(400).json({error:error.message})
     }
@@ -176,7 +127,6 @@ const getShoppingListsFromUserId = async(req,res) =>{
     dietPlanIds.forEach((plan) => {
       result.push(plan._id);
     })
-    //res.status(200).json(result);
     const shoppingLists = await TempShoppingList.find({dietPlanId:{$in:result}}).populate("dietPlanId")
     
     shoppingLists.forEach((eachList) => {

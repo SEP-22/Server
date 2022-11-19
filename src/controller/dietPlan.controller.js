@@ -61,14 +61,10 @@ const generateDietPlan = async (req, res) => {
   const _id = req.body.dietPlan_Id;
   // const _id = "636e0e799667497b2a0f4426"
 
-  console.log(_id);
-
   const dp = await DietPlan.findById(_id);
-  console.log(dp);
   const user = await User.findById(dp.user_Id);
   //prefered foods update
   const foods = await Food.find({_id : user.preferedFoods});
-   console.log(foods.length);
 
 
 
@@ -130,19 +126,19 @@ const getDietPlanByUserId = async (req, res) => {
     res.status(400).send({ success: false });
   }
 };
+
 const getNonActivePlans = async (req, res) => {
   const _id = req.params.id;
-  //const activePlanId = req.body.activePlanId;
   try {
     const user = await User.findById(_id);
     const activePlanId = user.activeDietPlan;
     const dietPlan = await DietPlan.find({
-      user_Id: _id,
-      _id: { $ne: activePlanId },
+      user_Id: _id,"dietIDs.0": { "$exists": true },
+      _id: { $ne: activePlanId }
     }).populate("dietIDs");
     if (!dietPlan) {
       res.status(404).send({ success: false });
-    } else {
+    }else {
       res.status(200).send(dietPlan);
     }
   } catch (error) {
@@ -152,12 +148,11 @@ const getNonActivePlans = async (req, res) => {
 
 const getActivePlans = async (req, res) => {
   const _id = req.params.id;
-  //const activePlanId = req.body.activePlanId;
   try {
     const user = await User.findById(_id);
     const activePlanId = user.activeDietPlan;
     const dietPlan = await DietPlan.find({
-      user_Id: _id,
+      user_Id: _id,"dietIDs.0": { "$exists": true },
       _id: activePlanId,
     }).populate("dietIDs");
     if (!dietPlan) {
@@ -172,13 +167,13 @@ const getActivePlans = async (req, res) => {
 
 const getWeeklyDietPlanActive = async (req, res) => {
   const _id = req.params.id;
-  //const activePlanId = req.body.activePlanId;
   try {
     const user = await User.findById(_id);
     const activePlanId = user.activeDietPlan;
     const dietPlan = await DietPlan.find({
       user_Id: _id,
       _id: activePlanId,
+      "dietIDs.0": { "$exists": true },
     }).populate("dietIDs");
     if (!dietPlan) {
       res.status(404).send({ success: false });
@@ -215,13 +210,13 @@ const getWeeklyDietPlanActive = async (req, res) => {
 
 const getWeeklyDietPlansNonActive = async (req, res) => {
   const _id = req.params.id;
-  //const activePlanId = req.body.activePlanId;
   try {
     const user = await User.findById(_id);
     const activePlanId = user.activeDietPlan;
     const dietPlan = await DietPlan.find({
       user_Id: _id,
       _id: { $ne: activePlanId },
+      "dietIDs.0": { "$exists": true },
     }).populate("dietIDs");
     if (!dietPlan) {
       res.status(404).send({ success: false });
@@ -260,14 +255,16 @@ const getAllPlanNamesAndStateByUserId = async (req, res) => {
   try {
     const user = await User.findById(_id);
     const activePlanId = user.activeDietPlan;
-    const activePlanDetails = await DietPlan.findById(activePlanId);
-    //console.log(activePlanDetails)
+    const activePlanDetails = await DietPlan.find({ _id: activePlanId ,"dietIDs.0": { "$exists": true }});
     if (activePlanDetails) {
-      map[activePlanId] = [activePlanDetails.name, true];
+      activePlanDetails.forEach((plan) => {
+        map[plan._id] = [plan.name, true];
+      })
     }
     const dietPlan = await DietPlan.find({
       user_Id: _id,
       _id: { $ne: activePlanId },
+      "dietIDs.0": { "$exists": true }
     });
     if (dietPlan) {
       dietPlan.forEach((plan) => {
@@ -281,11 +278,8 @@ const getAllPlanNamesAndStateByUserId = async (req, res) => {
 };
 const getWeeklyDietPlanById = async (req, res) => {
   const _id = req.params.id;
-  //const activePlanId = req.body.activePlanId;
   try {
-    //const user = await User.findById(_id);
-    //const activePlanId = user.activeDietPlan;
-    const dietPlan = await DietPlan.find({ _id: _id }).populate("dietIDs");
+    const dietPlan = await DietPlan.find({ _id: _id ,"dietIDs.0": { "$exists": true },}).populate("dietIDs");
     if (!dietPlan) {
       res.status(404).send({ success: false });
     } else {
@@ -326,7 +320,6 @@ const deleteDietPlan = async (req, res) => {
     }
 
     const dietPlanDet = await DietPlan.findById(_id, { dietIDs: true });
-    //const shoppingList = await TempShoppingList.find({dietPlanId:_id});
     var dietIdList = dietPlanDet.dietIDs;
     var length = dietIdList.length;
     var count = 0;

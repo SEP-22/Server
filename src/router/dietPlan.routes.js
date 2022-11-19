@@ -26,7 +26,7 @@ router.post("/savedietplan", saveDietPlans);
 router.get("/getUserDietPlans/:id",getDietPlanByUserId);
 router.get("/getuserplans/nonactive/:id",getNonActivePlans);
 router.get("/getuserplans/active/:id",getActivePlans);
-router.post("/generateShoppingList",saveShoppingList);
+router.post("/generateShoppingList",saveShoppingList); ///leftt
 router.get("/getWeeklyDietPlan/active/:id",getWeeklyDietPlanActive);
 router.get("/getWeeklyDietPlan/nonactive/:id",getWeeklyDietPlansNonActive);
 router.get("/getAllPlanNamesAndStateByUserId/:id",getAllPlanNamesAndStateByUserId);
