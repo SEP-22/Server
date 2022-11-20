@@ -289,6 +289,20 @@ const getUserByID = async (req, res) => {
   }
 };
 
+const getUserByEmail = async (req, res) => {
+  try {
+    const email = req.params.email;
+    const user = await User.findOne({email});
+    if (user) {
+      res.send(user);
+    }else{
+      res.send({});
+    }
+  } catch (error) {
+    res.send("error");
+  }
+};
+
 const getASingleUser = async (req, res) => {
   try {
     const _id = req.params.id;
@@ -321,4 +335,5 @@ module.exports = {
   editPhone,
   editEmail,
   editPassword,
+  getUserByEmail,
 };
