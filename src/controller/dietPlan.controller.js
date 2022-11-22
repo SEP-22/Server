@@ -49,11 +49,11 @@ const getDietPlanById = async (req, res) => {
     const dietPlan = await DietPlan.findById(_id);
 
     if (!dietPlan) {
-      res.status(404).send({ success: false });
+      res.status(404).json({ success: false });
     }
     res.status(200).send({ dietPlan, success: true });
   } catch (error) {
-    res.status(400).send({ success: false });
+    res.status(400).json({ success: false });
   }
 };
 
@@ -64,9 +64,7 @@ const generateDietPlan = async (req, res) => {
   const dp = await DietPlan.findById(_id);
   const user = await User.findById(dp.user_Id);
   //prefered foods update
-  const foods = await Food.find({_id : user.preferedFoods});
-
-
+  const foods = await Food.find({ _id: user.preferedFoods });
 
   let dietplan = [
     dp.dob.toISOString(),
@@ -97,7 +95,7 @@ const generateDietPlan = async (req, res) => {
   }
   PythonShell.run(
     "algo.py",
-    {scriptPath: 'src/python', args: [_id, dietplan, fd.join("~")] },
+    { scriptPath: "src/python", args: [_id, dietplan, fd.join("~")] },
     function (err, results) {
       if (err) {
         console.log(err);
@@ -133,12 +131,13 @@ const getNonActivePlans = async (req, res) => {
     const user = await User.findById(_id);
     const activePlanId = user.activeDietPlan;
     const dietPlan = await DietPlan.find({
-      user_Id: _id,"dietIDs.0": { "$exists": true },
-      _id: { $ne: activePlanId }
+      user_Id: _id,
+      "dietIDs.0": { $exists: true },
+      _id: { $ne: activePlanId },
     }).populate("dietIDs");
     if (!dietPlan) {
       res.status(404).send({ success: false });
-    }else {
+    } else {
       res.status(200).send(dietPlan);
     }
   } catch (error) {
@@ -152,7 +151,8 @@ const getActivePlans = async (req, res) => {
     const user = await User.findById(_id);
     const activePlanId = user.activeDietPlan;
     const dietPlan = await DietPlan.find({
-      user_Id: _id,"dietIDs.0": { "$exists": true },
+      user_Id: _id,
+      "dietIDs.0": { $exists: true },
       _id: activePlanId,
     }).populate("dietIDs");
     if (!dietPlan) {
@@ -173,7 +173,7 @@ const getWeeklyDietPlanActive = async (req, res) => {
     const dietPlan = await DietPlan.find({
       user_Id: _id,
       _id: activePlanId,
-      "dietIDs.0": { "$exists": true },
+      "dietIDs.0": { $exists: true },
     }).populate("dietIDs");
     if (!dietPlan) {
       res.status(404).send({ success: false });
@@ -216,7 +216,7 @@ const getWeeklyDietPlansNonActive = async (req, res) => {
     const dietPlan = await DietPlan.find({
       user_Id: _id,
       _id: { $ne: activePlanId },
-      "dietIDs.0": { "$exists": true },
+      "dietIDs.0": { $exists: true },
     }).populate("dietIDs");
     if (!dietPlan) {
       res.status(404).send({ success: false });
@@ -255,16 +255,19 @@ const getAllPlanNamesAndStateByUserId = async (req, res) => {
   try {
     const user = await User.findById(_id);
     const activePlanId = user.activeDietPlan;
-    const activePlanDetails = await DietPlan.find({ _id: activePlanId ,"dietIDs.0": { "$exists": true }});
+    const activePlanDetails = await DietPlan.find({
+      _id: activePlanId,
+      "dietIDs.0": { $exists: true },
+    });
     if (activePlanDetails) {
       activePlanDetails.forEach((plan) => {
         map[plan._id] = [plan.name, true];
-      })
+      });
     }
     const dietPlan = await DietPlan.find({
       user_Id: _id,
       _id: { $ne: activePlanId },
-      "dietIDs.0": { "$exists": true }
+      "dietIDs.0": { $exists: true },
     });
     if (dietPlan) {
       dietPlan.forEach((plan) => {
@@ -279,7 +282,10 @@ const getAllPlanNamesAndStateByUserId = async (req, res) => {
 const getWeeklyDietPlanById = async (req, res) => {
   const _id = req.params.id;
   try {
-    const dietPlan = await DietPlan.find({ _id: _id ,"dietIDs.0": { "$exists": true },}).populate("dietIDs");
+    const dietPlan = await DietPlan.find({
+      _id: _id,
+      "dietIDs.0": { $exists: true },
+    }).populate("dietIDs");
     if (!dietPlan) {
       res.status(404).send({ success: false });
     } else {

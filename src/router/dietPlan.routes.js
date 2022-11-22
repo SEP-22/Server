@@ -13,7 +13,7 @@ const {
   deleteDietPlan,
   updateActiveDietPlan
 } = require("../controller/dietPlan.controller");
-const {saveDietPlans, getDietPlans, saveShoppingList} = require("../controller/diet.controller")
+const {saveDietPlans, getDietPlans} = require("../controller/diet.controller")
 const auth = require("../middleware/auth");
 
 const router = Router();
@@ -26,7 +26,7 @@ router.post("/savedietplan", saveDietPlans);
 router.get("/getUserDietPlans/:id",getDietPlanByUserId);
 router.get("/getuserplans/nonactive/:id",getNonActivePlans);
 router.get("/getuserplans/active/:id",getActivePlans);
-router.post("/generateShoppingList",saveShoppingList); ///leftt
+///leftt
 router.get("/getWeeklyDietPlan/active/:id",getWeeklyDietPlanActive);
 router.get("/getWeeklyDietPlan/nonactive/:id",getWeeklyDietPlansNonActive);
 router.get("/getAllPlanNamesAndStateByUserId/:id",getAllPlanNamesAndStateByUserId);

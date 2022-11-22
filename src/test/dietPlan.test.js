@@ -8,14 +8,6 @@ describe("EatSmart Server", () => {
 });
 
 describe("EatSmart Server", () => {
-  it("Try to get a diet plan giving an invalid ID", () => {
-    return request(app).get("/dietPlan/6335946ab5a5faef42bbc33e").expect(404);
-  });
-});
-
-
-
-describe("EatSmart Server", () => {
   it("SaveDietPlanInputs", () => {
     return request(app)
       .post("/dietPlan/quiz")
@@ -41,10 +33,10 @@ describe("EatSmart Server", () => {
     return request(app)
       .post("/dietPlan/generatedietplan")
       .send({
-        dietPlan_Id: "63713faff5bc4e00c2e0cc94",
+        dietPlan_Id: "637a1a8f532cbd7a4917858a",
       })
       .expect(200);
-  }, 20000);
+  }, 50000);
 });
 
 describe("EatSmart Server", () => {
@@ -160,18 +152,18 @@ describe("EatSmart Server", () => {
   });
 });
 
-describe("EatSmart Server", () => {
-  it("Get diet plans by user giving an INVALID ID", () => {
-    return request(app)
-      .get("/dietPlan/getUserDietPlans/6335946ab5a5faef42bbc33e")
-      .expect(404);
-  });
-});
+// describe("EatSmart Server", () => {
+//   it("Get diet plans by user giving an INVALID ID", () => {
+//     return request(app)
+//       .get("/dietPlan/getUserDietPlans/606fb04af9f9dcff54216784")
+//       .expect(404);
+//   });
+// });
 
 describe("EatSmart Server", () => {
   it("Get non active diet plans by user ID", () => {
     return request(app)
-      .get("/dietPlan/getuserplans/nonactive/6360cf9f0ebc552ba5863f87")
+      .get("/dietPlan/getuserplans/nonactive/63368984ba7e4ea7b42b792b")
       .expect(200);
   });
 });
@@ -179,7 +171,7 @@ describe("EatSmart Server", () => {
 describe("EatSmart Server", () => {
   it("Get active diet plans by user ID", () => {
     return request(app)
-      .get("/dietPlan/getuserplans/active/6360cf9f0ebc552ba5863f87")
+      .get("/dietPlan/getuserplans/active/63368984ba7e4ea7b42b792b")
       .expect(200);
   });
 });
@@ -187,7 +179,7 @@ describe("EatSmart Server", () => {
 describe("EatSmart Server", () => {
   it("Get weekly active diet plan by user ID", () => {
     return request(app)
-      .get("/dietPlan/getWeeklyDietPlan/active/6360cf9f0ebc552ba5863f87")
+      .get("/dietPlan/getWeeklyDietPlan/active/63368984ba7e4ea7b42b792b")
       .expect(200);
   });
 });
@@ -195,7 +187,7 @@ describe("EatSmart Server", () => {
 describe("EatSmart Server", () => {
   it("Get weekly non active diet plan by user ID", () => {
     return request(app)
-      .get("/dietPlan/getWeeklyDietPlan/nonactive/63713faff5bc4e00c2e0cc94")
+      .get("/dietPlan/getWeeklyDietPlan/nonactive/63368984ba7e4ea7b42b792b")
       .expect(200);
   });
 });
@@ -203,7 +195,7 @@ describe("EatSmart Server", () => {
 describe("EatSmart Server", () => {
   it("Get all names of all diet plans and their status of active or non active by Diet Plan ID", () => {
     return request(app)
-      .get("/dietPlan/getAllPlanNamesAndStateByUserId/63713faff5bc4e00c2e0cc94")
+      .get("/dietPlan/getAllPlanNamesAndStateByUserId/63368984ba7e4ea7b42b792b")
       .expect(200);
   });
 });
@@ -216,18 +208,18 @@ describe("EatSmart Server", () => {
   });
 });
 
-describe("EatSmart Server", () => {
-  it("Delete a diet Plan", () => {
-    return request(app)
-      .delete("/dietPlan/deleteDietPlan/6370842b68d1fc41027cbd07")
-      .expect(200);
-  });
-});
+// describe("EatSmart Server", () => {
+//   it("Delete a diet Plan", () => {
+//     return request(app)
+//       .delete("/dietPlan/deleteDietPlan/6370842b68d1fc41027cbd07")
+//       .expect(200);
+//   });
+// });
 
 describe("EatSmart Server", () => {
   it("Update details of the active diet plan", () => {
     return request(app)
-      .post("/dietPlan/updateactiveplan/636e0e799667497b2a0f4426")
+      .post("/dietPlan/updateactiveplan/637084d668d1fc41027cbd09")
       .send(
         {
           dob: "2000-4-13",
@@ -245,240 +237,3 @@ describe("EatSmart Server", () => {
       .expect(200);
   });
 });
-
-//ERRORRRRRR
-
-// describe("EatSmart Server", () => {
-//   it("Generate shopping list from diet plan", () => {
-//     return request(app)
-//       .post("/dietPlan/generateShoppingList")
-//       .send(
-//         {
-//           plans : [
-//             {
-//                 "_id": "636cdea3b9d10f522e4d62dc",
-//                 "dietPlan_Id": "636cde9ab9d10f522e4d62d6",
-//                 "breakfast": [
-//                     [
-//                         "635fd2ad9d05c7f5b1e6690a",
-//                         "780.0 cal",
-//                         "275 g",
-//                         "https://nix-tag-images.s3.amazonaws.com/452_highres.jpg",
-//                         "Carrot"
-//                     ],
-//                     [
-//                         "63358976b5a5faef42bbc330",
-//                         "180.0 cal",
-//                         "235 g",
-//                         "https://nix-tag-images.s3.amazonaws.com/784_highres.jpg",
-//                         "Rice"
-//                     ],
-//                     [
-//                         "633595c8b5a5faef42bbc35a",
-//                         "120.0 cal",
-//                         "157 g",
-//                         "https://nix-tag-images.s3.amazonaws.com/10_highres.jpg",
-//                         "Fish"
-//                     ],
-//                     [
-//                         "633596fcb5a5faef42bbc376",
-//                         "10.0 cal",
-//                         "78 g",
-//                         "https://cdn.shopify.com/s/files/1/0364/8831/5011/products/butter_1000x1000.jpg?v=1591197119",
-//                         "Butter"
-//                     ],
-//                     [
-//                         "633583a2b5a5faef42bbc1c1",
-//                         "10.0 cal",
-//                         "39 g",
-//                         "https://nix-tag-images.s3.amazonaws.com/268_highres.jpg",
-//                         "Chocolate"
-//                     ]
-//                 ],
-//                 "lunch": [
-//                     [
-//                         "6367df1277fc7561fa9845a8",
-//                         "104.0 cal",
-//                         "366 g",
-//                         "/src/assets/images/foods/apple.jpg",
-//                         "Carrot"
-//                     ],
-//                     [
-//                         "6335946ab5a5faef42bbc33e",
-//                         "120.0 cal",
-//                         "314 g",
-//                         "https://www.hi5mart.com/image/cache/catalog/bakery%20and%20snacks/Others/sliced%20white%20bread-750x750.jpg",
-//                         "Bread"
-//                     ],
-//                     [
-//                         "633594ebb5a5faef42bbc34c",
-//                         "100.0 cal",
-//                         "209 g",
-//                         "https://nix-tag-images.s3.amazonaws.com/9_highres.jpg",
-//                         "Chicken"
-//                     ],
-//                     [
-//                         "633596fcb5a5faef42bbc376",
-//                         "10.0 cal",
-//                         "105 g",
-//                         "https://cdn.shopify.com/s/files/1/0364/8831/5011/products/butter_1000x1000.jpg?v=1591197119",
-//                         "Butter"
-//                     ],
-//                     [
-//                         "63673cd00e801c1015f8e759",
-//                         "20.0 cal",
-//                         "52 g",
-//                         "https://img.freepik.com/premium-photo/strawberry-jam-glass-jar-berry-strawberry-isolated-white-background_423299-1202.jpg?w=2000",
-//                         "Jam"
-//                     ]
-//                 ],
-//                 "dinner": [
-//                     [
-//                         "6367dee1a8ea64053e719ea8",
-//                         "785.0 cal",
-//                         "275 g",
-//                         "/src/assets/images/foods/apple.jpg",
-//                         "Carrot"
-//                     ],
-//                     [
-//                         "63358976b5a5faef42bbc330",
-//                         "180.0 cal",
-//                         "235 g",
-//                         "https://nix-tag-images.s3.amazonaws.com/784_highres.jpg",
-//                         "Rice"
-//                     ],
-//                     [
-//                         "633594ebb5a5faef42bbc34c",
-//                         "70.0 cal",
-//                         "157 g",
-//                         "https://nix-tag-images.s3.amazonaws.com/9_highres.jpg",
-//                         "Chicken"
-//                     ],
-//                     [
-//                         "633596fcb5a5faef42bbc376",
-//                         "10.0 cal",
-//                         "78 g",
-//                         "https://cdn.shopify.com/s/files/1/0364/8831/5011/products/butter_1000x1000.jpg?v=1591197119",
-//                         "Butter"
-//                     ]
-//                 ],
-//                 "__v": 0,
-//                 "createdAt": "2022-11-10T11:21:07.791Z",
-//                 "updatedAt": "2022-11-10T11:21:07.791Z"
-//             },
-//             {
-//                 "_id": "636cdea3b9d10f522e4d62dc",
-//                 "dietPlan_Id": "636cde9ab9d10f522e4d62d6",
-//                 "breakfast": [
-//                     [
-//                         "635fd2ad9d05c7f5b1e6690a",
-//                         "781.0 cal",
-//                         "275 g",
-//                         "https://nix-tag-images.s3.amazonaws.com/452_highres.jpg",
-//                         "Carrot"
-//                     ],
-//                     [
-//                         "63358976b5a5faef42bbc330",
-//                         "180.0 cal",
-//                         "235 g",
-//                         "https://nix-tag-images.s3.amazonaws.com/784_highres.jpg",
-//                         "Rice"
-//                     ],
-//                     [
-//                         "633595c8b5a5faef42bbc35a",
-//                         "120.0 cal",
-//                         "157 g",
-//                         "https://nix-tag-images.s3.amazonaws.com/10_highres.jpg",
-//                         "Fish"
-//                     ],
-//                     [
-//                         "633596fcb5a5faef42bbc376",
-//                         "10.0 cal",
-//                         "78 g",
-//                         "https://cdn.shopify.com/s/files/1/0364/8831/5011/products/butter_1000x1000.jpg?v=1591197119",
-//                         "Butter"
-//                     ],
-//                     [
-//                         "633583a2b5a5faef42bbc1c1",
-//                         "10.0 cal",
-//                         "39 g",
-//                         "https://nix-tag-images.s3.amazonaws.com/268_highres.jpg",
-//                         "Chocolate"
-//                     ]
-//                 ],
-//                 "lunch": [
-//                     [
-//                         "6367df1277fc7561fa9845a8",
-//                         "104.0 cal",
-//                         "366 g",
-//                         "/src/assets/images/foods/apple.jpg",
-//                         "Carrot"
-//                     ],
-//                     [
-//                         "6335946ab5a5faef42bbc33e",
-//                         "120.0 cal",
-//                         "314 g",
-//                         "https://www.hi5mart.com/image/cache/catalog/bakery%20and%20snacks/Others/sliced%20white%20bread-750x750.jpg",
-//                         "Bread"
-//                     ],
-//                     [
-//                         "633594ebb5a5faef42bbc34c",
-//                         "100.0 cal",
-//                         "209 g",
-//                         "https://nix-tag-images.s3.amazonaws.com/9_highres.jpg",
-//                         "Chicken"
-//                     ],
-//                     [
-//                         "633596fcb5a5faef42bbc376",
-//                         "10.0 cal",
-//                         "105 g",
-//                         "https://cdn.shopify.com/s/files/1/0364/8831/5011/products/butter_1000x1000.jpg?v=1591197119",
-//                         "Butter"
-//                     ],
-//                     [
-//                         "63673cd00e801c1015f8e759",
-//                         "20.0 cal",
-//                         "52 g",
-//                         "https://img.freepik.com/premium-photo/strawberry-jam-glass-jar-berry-strawberry-isolated-white-background_423299-1202.jpg?w=2000",
-//                         "Jam"
-//                     ]
-//                 ],
-//                 "dinner": [
-//                     [
-//                         "6367dee1a8ea64053e719ea8",
-//                         "785.0 cal",
-//                         "275 g",
-//                         "/src/assets/images/foods/apple.jpg",
-//                         "Carrot"
-//                     ],
-//                     [
-//                         "63358976b5a5faef42bbc330",
-//                         "180.0 cal",
-//                         "235 g",
-//                         "https://nix-tag-images.s3.amazonaws.com/784_highres.jpg",
-//                         "Rice"
-//                     ],
-//                     [
-//                         "633594ebb5a5faef42bbc34c",
-//                         "70.0 cal",
-//                         "157 g",
-//                         "https://nix-tag-images.s3.amazonaws.com/9_highres.jpg",
-//                         "Chicken"
-//                     ],
-//                     [
-//                         "633596fcb5a5faef42bbc376",
-//                         "10.0 cal",
-//                         "78 g",
-//                         "https://cdn.shopify.com/s/files/1/0364/8831/5011/products/butter_1000x1000.jpg?v=1591197119",
-//                         "Butter"
-//                     ]
-//                 ],
-//                 "__v": 0,
-//                 "createdAt": "2022-11-10T11:21:07.791Z",
-//                 "updatedAt": "2022-11-10T11:21:07.791Z"}
-//         ]
-//         }
-//       )
-//       .expect(200);
-//   });
-// });

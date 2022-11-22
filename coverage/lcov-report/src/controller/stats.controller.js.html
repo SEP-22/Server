@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">78.04% </span>
+                <span class="strong">77.23% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>96/123</span>
+                <span class='fraction'>95/123</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">39.13% </span>
+                <span class="strong">36.95% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>18/46</span>
+                <span class='fraction'>17/46</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">79.82% </span>
+                <span class="strong">78.94% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>91/114</span>
+                <span class='fraction'>90/114</span>
             </div>
         
             
@@ -374,22 +374,19 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -398,6 +395,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -428,15 +428,15 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -467,15 +467,15 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">18x</span>
-<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">36x</span>
+<span class="cline-any cline-yes">17x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">59x</span>
-<span class="cline-any cline-yes">59x</span>
+<span class="cline-any cline-yes">81x</span>
+<span class="cline-any cline-yes">81x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -652,11 +652,11 @@ const getCaloryPercentagebyCategory = async (req, res) =&gt; {
     let id = 0;
     <span class="missing-if-branch" title="if path not taken" >I</span>if (dietPlan.bloodpressure || (dietPlan.bloodpressure &amp;&amp; <span class="branch-2 cbranch-no" title="branch not covered" >dietPlan.diabetics)</span>) {
 <span class="cstat-no" title="statement not covered" >      id = 1;</span>
-    } else <span class="missing-if-branch" title="if path not taken" >I</span>if (dietPlan.diabetics) {
-<span class="cstat-no" title="statement not covered" >      id = 2;</span>
-    } else if (dietPlan.cholesterol) {
-      id = 3;
-    } else <span class="cstat-no" title="statement not covered" ><span class="missing-if-branch" title="else path not taken" >E</span>if (</span>
+    } else if (dietPlan.diabetics) {
+      id = 2;
+    } else <span class="cstat-no" title="statement not covered" ><span class="missing-if-branch" title="else path not taken" >E</span>if (dietPlan.cholesterol) {</span>
+<span class="cstat-no" title="statement not covered" >      id = 3;</span>
+    } else <span class="cstat-no" title="statement not covered" >if (</span>
       (dietPlan.bloodpressure &amp;&amp; dietPlan.cholesterol) ||
       (dietPlan.diabetics &amp;&amp; dietPlan.cholesterol) ||
       (dietPlan.bloodpressure &amp;&amp; dietPlan.diabetics &amp;&amp; dietPlan.cholesterol)
@@ -672,11 +672,11 @@ const getCaloryPercentagebyCategory = async (req, res) =&gt; {
 <span class="branch-1 cbranch-no" title="branch not covered" >      case 1:</span>
 <span class="cstat-no" title="statement not covered" >        temp = [["Category", "Calory percentage"],["Vegetables", 30],["Fruits", 23],["Starchy food", 30],["Proteins", 7],["Dairy", 5],["Fats and Sugar", 5],];<span class="cstat-no" title="statement not covered" >b</span>reak;</span>
 &nbsp;
-<span class="branch-2 cbranch-no" title="branch not covered" >      case 2:</span>
-<span class="cstat-no" title="statement not covered" >        temp = [["Category", "Calory percentage"],["Vegetables", 28],["Fruits", 22],["Starchy food", 30],["Proteins", 7],["Dairy", 8],["Fats and Sugar", 5],];<span class="cstat-no" title="statement not covered" >b</span>reak;</span>
+      case 2:
+        temp = [["Category", "Calory percentage"],["Vegetables", 28],["Fruits", 22],["Starchy food", 30],["Proteins", 7],["Dairy", 8],["Fats and Sugar", 5],];break;
 &nbsp;
-      case 3:
-        temp = [["Category", "Calory percentage"],["Vegetables", 28],["Fruits", 23],["Starchy food", 30],["Proteins", 5],["Dairy", 6],["Fats and Sugar", 8],];break;
+<span class="branch-3 cbranch-no" title="branch not covered" >      case 3:</span>
+<span class="cstat-no" title="statement not covered" >        temp = [["Category", "Calory percentage"],["Vegetables", 28],["Fruits", 23],["Starchy food", 30],["Proteins", 5],["Dairy", 6],["Fats and Sugar", 8],];<span class="cstat-no" title="statement not covered" >b</span>reak;</span>
 &nbsp;
 <span class="branch-4 cbranch-no" title="branch not covered" >      case 4:</span>
 <span class="cstat-no" title="statement not covered" >        temp = [["Category", "Calory percentage"],["Vegetables", 30],["Fruits", 24],["Starchy food", 30],["Proteins", 5],["Dairy", 6],["Fats and Sugar", 5],];<span class="cstat-no" title="statement not covered" >b</span>reak;</span>
@@ -907,7 +907,7 @@ module.exports = {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-11-18T21:08:41.079Z
+                at 2022-11-22T07:54:40.497Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

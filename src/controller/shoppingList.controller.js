@@ -44,25 +44,14 @@ const getShoppingList = async (req,res) => {
   }
   const shoppingList = await ShoppingList.findById(id).populate("foodList.foodId");
   const foodList = shoppingList.foodList;
-  console.log(shoppingList)
   
   if(!shoppingList){
     return res.status(404).json({error:'No such shopping list'}) 
   }
   res.status(200).json(foodList)
 }
-  //////////////////////// TESTING ////////////////////////
-// get all food
-const getListById = async (req, res) => {
-    const foodId = req.query.id;
-    const foods = await Food.findById({});
-  
-    res.status(200).json(foods);
-  };
     
-
 module.exports = {
-    //getShoppingList,
     createShoppingList,
     getShoppingList
 };

@@ -31,13 +31,11 @@ const createAndSaveShoppingList = async(req,res) => {
     const quotient = Math.floor(7/arr.length);
     const remainder = 7 % arr.length;
   
-    console.log(quotient,remainder)
     let newArr = [];
     for (let i = 0; i < quotient; i++) {
       newArr = newArr.concat(arr);
     }
     newArr = newArr.concat(arr.slice(0,remainder))
-    console.log(newArr.length)
   
     newArr.forEach((e) => {
       breakfastArr = e.breakfast;
@@ -103,13 +101,10 @@ const createAndSaveShoppingList = async(req,res) => {
     try{
         const isShoppingList = await TempShoppingList.find({dietPlanId:dietPlanId});
         if(isShoppingList.length){
-          console.log(isShoppingList);
-          console.log("exists");
           const updatetempShoppingList = await TempShoppingList.findOneAndUpdate({dietPlanId:dietPlanId},{foodList:resultArr},{new:true});
           res.status(200).json(updatetempShoppingList);
         }
         else{
-          console.log("Doesn't exist");
           const tempShoppingList = await TempShoppingList.create({dietPlanId:dietPlanId,foodList:resultArr});
           res.status(200).json(tempShoppingList)
         }

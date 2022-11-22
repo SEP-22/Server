@@ -14,7 +14,6 @@ const JWT_RT_ET = process.env.JWT_RT_ET || "24h";
 
 const signUp = async (req, res) => {
   const user = new User(req.body);
-  console.log("sing up method");
   try {
     const newUser = await user.save();
     const reminder = await Reminder.create({user_Id: newUser._id});
@@ -46,11 +45,11 @@ const signIn = async (req, res) => {
         const accessToken = jwt.sign(currentUser, ACCESS_TOKEN_SECRET_KEY, {
           expiresIn: JWT_AT_ET,
         });
-        console.log(accessToken);
+        // console.log(accessToken);
         const refreshToken = jwt.sign(currentUser, REFRESH_TOKEN_SECRET_KEY, {
           expiresIn: JWT_RT_ET,
         });
-        console.log(refreshToken);
+        // console.log(refreshToken);
         const newU = await User.findByIdAndUpdate(
           user._id,
           { refreshToken },
@@ -65,7 +64,6 @@ const signIn = async (req, res) => {
           token:accessToken,
         };
 
-        console.log(newCurrentUser);
         res.header("x-access-token", accessToken);
         res.header("x-refresh-token", refreshToken);
         res.send({ message: "success", user: newCurrentUser });
@@ -141,9 +139,7 @@ const haveActiveDietPlan = async (req, res) => {
       if (!user.activeDietPlan || user === null) {
         data = { active: false };
       } else {
-        console.log(user.activeDietPlan)
         const dp = await DietPlan.findById(user.activeDietPlan);
-        console.log(dp);
         if (!dp || !dp.dietIDs || dp.dietIDs.length === 0) {
           data = { active: false };
         } else {
@@ -180,7 +176,6 @@ const updateActiveDietPlan = async (req, res) => {
 //update userprofile details
 const editName = async (req, res) => {
   const _id = req.body.userId;
-  console.log(_id);
   if (!mongoose.Types.ObjectId.isValid(_id)) {
     return res.status(404).json({ error: "No such user" });
   }
@@ -197,7 +192,6 @@ const editName = async (req, res) => {
 
 const editPhone = async (req, res) => {
   const _id = req.body.userId;
-  console.log(_id);
   if (!mongoose.Types.ObjectId.isValid(_id)) {
     return res.status(404).json({ error: "No such user" });
   }
@@ -223,7 +217,6 @@ const editEmail = async (req, res) => {
     return res.status(400).json({ error: "Invalid Email" });
   } else {
     const existingUser = await User.findOne({ email: _email });
-    console.log(existingUser);
 
     if (!existingUser) {
       const user = await User.findByIdAndUpdate(
@@ -246,7 +239,6 @@ const editPassword = async (req, res) => {
   const _id = req.body.userId;
   const _password = await bcrypt.hash(req.body.password, 8);
   // _password = await bcrypt.hash(_password, 8);
-  console.log(_id);
   if (!mongoose.Types.ObjectId.isValid(_id)) {
     return res.status(404).json({ error: "No such user" });
   }
